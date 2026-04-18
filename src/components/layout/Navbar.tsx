@@ -72,7 +72,6 @@ export default function Navbar(): ReactElement {
                   to={item.path}
                   className={`navbar-nav-link ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
                 >
-                  <i className={`fa-solid ${item.icon}`} />
                   {isKo ? item.ko : item.en}
                 </Link>
               </li>
@@ -159,7 +158,6 @@ export default function Navbar(): ReactElement {
             to={item.path}
             className={`mobile-menu-link ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
           >
-            <i className={`fa-solid ${item.icon}`} />
             {isKo ? item.ko : item.en}
           </Link>
         ))}
