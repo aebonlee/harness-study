@@ -18,14 +18,15 @@
   }
 }
 
-/* ---- Mid Desktop (1200px) — 9 nav items ---- */
+/* ---- Mid Desktop (1200px) — 7 nav items w/ dropdowns ---- */
 @media (max-width: 1200px) {
   .navbar-nav {
     gap: 0;
   }
 
-  .navbar-nav-link {
-    padding: 0.5rem 0.45rem;
+  .navbar-nav-link,
+  .nav-dropdown-btn {
+    padding: 0.5rem 0.5rem;
     font-size: 0.78rem;
   }
 }
@@ -309,6 +310,31 @@
   /* ---- Color Picker ---- */
   .color-picker-dropdown {
     right: -60px;
+  }
+}
+
+/* ---- Community / About Responsive ---- */
+@media (max-width: 768px) {
+  .community-page {
+    padding: calc(var(--nav-height) + 1.5rem) 1rem 3rem;
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-path-card {
+    padding: 1rem;
+    gap: 0.875rem;
+  }
+
+  .about-hero {
+    padding: calc(var(--nav-height) + 2rem) 0 2.5rem;
+  }
+
+  .about-actions {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 

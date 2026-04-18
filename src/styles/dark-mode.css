@@ -382,3 +382,83 @@
   background: rgba(124, 58, 237, 0.15);
 }
 
+/* ---- Navbar Dropdown Dark ---- */
+[data-theme="dark"] .navbar-transparent {
+  background: rgba(15, 23, 42, 0.88);
+}
+[data-theme="dark"] .navbar-scrolled {
+  background: rgba(15, 23, 42, 0.97);
+}
+[data-theme="dark"] .nav-dropdown-btn {
+  color: #94A3B8;
+}
+[data-theme="dark"] .nav-dropdown-btn:hover,
+[data-theme="dark"] .nav-dropdown-btn.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+[data-theme="dark"] .nav-dropdown-menu {
+  background: #1E293B;
+  border-color: #334155;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+[data-theme="dark"] .nav-dropdown-item {
+  color: #94A3B8;
+}
+[data-theme="dark"] .nav-dropdown-item:hover,
+[data-theme="dark"] .nav-dropdown-item.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+[data-theme="dark"] .nav-dropdown-item-icon {
+  background: rgba(var(--color-primary-rgb), 0.15);
+}
+[data-theme="dark"] .mobile-dropdown-btn {
+  color: #94A3B8;
+}
+[data-theme="dark"] .mobile-dropdown-btn:hover,
+[data-theme="dark"] .mobile-dropdown-btn.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+[data-theme="dark"] .mobile-dropdown-child {
+  color: #94A3B8;
+}
+[data-theme="dark"] .mobile-dropdown-child:hover,
+[data-theme="dark"] .mobile-dropdown-child.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+
+/* ---- Community Dark ---- */
+[data-theme="dark"] .about-path-card {
+  background: #1E293B;
+  border-color: #334155;
+}
+[data-theme="dark"] .resource-card,
+[data-theme="dark"] .faq-item,
+[data-theme="dark"] .post-card,
+[data-theme="dark"] .community-form {
+  background: #1E293B;
+  border-color: #334155;
+}
+[data-theme="dark"] .community-filter-btn {
+  background: #1E293B;
+  border-color: #334155;
+  color: #94A3B8;
+}
+[data-theme="dark"] .community-input,
+[data-theme="dark"] .community-textarea {
+  background: #0F172A;
+  border-color: #334155;
+  color: #E2E8F0;
+}
+[data-theme="dark"] .post-card-header:hover,
+[data-theme="dark"] .faq-question:hover {
+  background: #283548;
+}
+[data-theme="dark"] .post-answer {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
