@@ -2,44 +2,35 @@
 -- Harness Master - Supabase Setup SQL
 -- Table Prefix: hs_ (harness-study)
 -- Project: hcmgdztsgjvzcyxyayaj.supabase.co
--- Created: 2026-04-19
+-- Updated: 2026-04-19 (idempotent - safe to re-run)
 -- ============================================
 
--- ---- Extensions ----
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";
 
 -- ============================================
--- 1. USER PROFILES
+-- 1. hs_profiles
 -- ============================================
 CREATE TABLE IF NOT EXISTS hs_profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email TEXT UNIQUE NOT NULL,
   display_name TEXT,
   avatar_url TEXT,
-  provider TEXT DEFAULT 'email',           -- 'google' | 'kakao' | 'email'
-  role TEXT DEFAULT 'user',                -- 'user' | 'admin'
-
-  -- Progress
-  current_path TEXT DEFAULT 'intro',       -- current learning path
-  completed_paths TEXT[] DEFAULT '{}',     -- array of completed paths
-  completed_sections TEXT[] DEFAULT '{}',  -- format: 'path:section'
+  provider TEXT DEFAULT 'email',
+  role TEXT DEFAULT 'user',
+  current_path TEXT DEFAULT 'intro',
+  completed_paths TEXT[] DEFAULT '{}',
+  completed_sections TEXT[] DEFAULT '{}',
   total_study_minutes INTEGER DEFAULT 0,
   streak_days INTEGER DEFAULT 0,
   last_study_date DATE,
-
-  -- Preferences
-  preferred_theme TEXT DEFAULT 'dark',     -- 'light' | 'dark'
-  preferred_color TEXT DEFAULT 'harness',  -- color theme
-  preferred_lang TEXT DEFAULT 'ko',        -- 'ko' | 'en'
+  preferred_theme TEXT DEFAULT 'dark',
+  preferred_color TEXT DEFAULT 'harness',
+  preferred_lang TEXT DEFAULT 'ko',
   notifications_enabled BOOLEAN DEFAULT TRUE,
-
-  -- Metadata
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ---- Trigger: Auto-update updated_at ----
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -48,11 +39,11 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
+DROP TRIGGER IF EXISTS hs_profiles_updated_at ON hs_profiles;
 CREATE TRIGGER hs_profiles_updated_at
   BEFORE UPDATE ON hs_profiles
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
--- ---- Trigger: Auto-create profile on signup ----
 CREATE OR REPLACE FUNCTION hs_handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -74,77 +65,71 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION hs_handle_new_user();
 
 -- ============================================
--- 2. LEARNING PROGRESS
+-- 2. hs_progress
 -- ============================================
 CREATE TABLE IF NOT EXISTS hs_progress (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES hs_profiles(id) ON DELETE CASCADE,
-
-  path_id TEXT NOT NULL,                   -- 'intro' | 'agents' | 'patterns' | 'skills' | 'teams' | 'memory' | 'practice'
-  section_id TEXT NOT NULL,               -- section slug (e.g., 'overview', 'concept')
+  path_id TEXT NOT NULL,
+  section_id TEXT NOT NULL,
   is_completed BOOLEAN DEFAULT FALSE,
-  completion_rate INTEGER DEFAULT 0,       -- 0-100
+  completion_rate INTEGER DEFAULT 0,
   study_minutes INTEGER DEFAULT 0,
   last_viewed_at TIMESTAMPTZ DEFAULT NOW(),
   completed_at TIMESTAMPTZ,
-
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-
   UNIQUE(user_id, path_id, section_id)
 );
 
+DROP TRIGGER IF EXISTS hs_progress_updated_at ON hs_progress;
 CREATE TRIGGER hs_progress_updated_at
   BEFORE UPDATE ON hs_progress
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================
--- 3. BOOKMARKS / NOTES
+-- 3. hs_bookmarks
 -- ============================================
 CREATE TABLE IF NOT EXISTS hs_bookmarks (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES hs_profiles(id) ON DELETE CASCADE,
-
   path_id TEXT NOT NULL,
   section_id TEXT NOT NULL,
   title TEXT NOT NULL,
-  note TEXT,                               -- user's personal note
+  note TEXT,
   tags TEXT[] DEFAULT '{}',
   is_pinned BOOLEAN DEFAULT FALSE,
-
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+DROP TRIGGER IF EXISTS hs_bookmarks_updated_at ON hs_bookmarks;
 CREATE TRIGGER hs_bookmarks_updated_at
   BEFORE UPDATE ON hs_bookmarks
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================
--- 4. QUIZ / PRACTICE RESULTS
+-- 4. hs_quiz_results
 -- ============================================
 CREATE TABLE IF NOT EXISTS hs_quiz_results (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES hs_profiles(id) ON DELETE CASCADE,
-
   path_id TEXT NOT NULL,
   quiz_id TEXT NOT NULL,
-  score INTEGER NOT NULL DEFAULT 0,        -- 0-100
+  score INTEGER NOT NULL DEFAULT 0,
   total_questions INTEGER NOT NULL DEFAULT 0,
   correct_answers INTEGER NOT NULL DEFAULT 0,
   time_taken_seconds INTEGER DEFAULT 0,
-  answers JSONB DEFAULT '{}',              -- { question_id: answer }
-
+  answers JSONB DEFAULT '{}',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- ============================================
--- 5. COMMENTS / DISCUSSIONS
+-- 5. hs_comments
 -- ============================================
 CREATE TABLE IF NOT EXISTS hs_comments (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES hs_profiles(id) ON DELETE CASCADE,
-
   path_id TEXT NOT NULL,
   section_id TEXT NOT NULL,
   content TEXT NOT NULL,
@@ -152,23 +137,23 @@ CREATE TABLE IF NOT EXISTS hs_comments (
   likes INTEGER DEFAULT 0,
   is_pinned BOOLEAN DEFAULT FALSE,
   is_hidden BOOLEAN DEFAULT FALSE,
-
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+DROP TRIGGER IF EXISTS hs_comments_updated_at ON hs_comments;
 CREATE TRIGGER hs_comments_updated_at
   BEFORE UPDATE ON hs_comments
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================
--- 6. ANNOUNCEMENTS
+-- 6. hs_announcements
 -- ============================================
 CREATE TABLE IF NOT EXISTS hs_announcements (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   title TEXT NOT NULL,
   content TEXT NOT NULL,
-  type TEXT DEFAULT 'info',                -- 'info' | 'warning' | 'update' | 'event'
+  type TEXT DEFAULT 'info',
   is_active BOOLEAN DEFAULT TRUE,
   starts_at TIMESTAMPTZ DEFAULT NOW(),
   ends_at TIMESTAMPTZ,
@@ -179,95 +164,63 @@ CREATE TABLE IF NOT EXISTS hs_announcements (
 -- INDEXES
 -- ============================================
 CREATE INDEX IF NOT EXISTS idx_hs_progress_user ON hs_progress(user_id);
-CREATE INDEX IF NOT EXISTS idx_hs_progress_path ON hs_progress(path_id);
 CREATE INDEX IF NOT EXISTS idx_hs_progress_user_path ON hs_progress(user_id, path_id);
 CREATE INDEX IF NOT EXISTS idx_hs_bookmarks_user ON hs_bookmarks(user_id);
 CREATE INDEX IF NOT EXISTS idx_hs_quiz_user ON hs_quiz_results(user_id);
 CREATE INDEX IF NOT EXISTS idx_hs_comments_path ON hs_comments(path_id, section_id);
-CREATE INDEX IF NOT EXISTS idx_hs_comments_user ON hs_comments(user_id);
 CREATE INDEX IF NOT EXISTS idx_hs_announcements_active ON hs_announcements(is_active, starts_at);
 
 -- ============================================
 -- ROW LEVEL SECURITY (RLS)
 -- ============================================
-
--- Profiles
 ALTER TABLE hs_profiles ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "profiles_select" ON hs_profiles;
+DROP POLICY IF EXISTS "profiles_update" ON hs_profiles;
+CREATE POLICY "profiles_select" ON hs_profiles FOR SELECT USING (TRUE);
+CREATE POLICY "profiles_update" ON hs_profiles FOR UPDATE USING (auth.uid() = id);
 
-CREATE POLICY "Public profiles are viewable by everyone"
-  ON hs_profiles FOR SELECT USING (TRUE);
-
-CREATE POLICY "Users can update their own profile"
-  ON hs_profiles FOR UPDATE USING (auth.uid() = id);
-
--- Progress
 ALTER TABLE hs_progress ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "progress_select" ON hs_progress;
+DROP POLICY IF EXISTS "progress_insert" ON hs_progress;
+DROP POLICY IF EXISTS "progress_update" ON hs_progress;
+CREATE POLICY "progress_select" ON hs_progress FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "progress_insert" ON hs_progress FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "progress_update" ON hs_progress FOR UPDATE USING (auth.uid() = user_id);
 
-CREATE POLICY "Users can view their own progress"
-  ON hs_progress FOR SELECT USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert their own progress"
-  ON hs_progress FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can update their own progress"
-  ON hs_progress FOR UPDATE USING (auth.uid() = user_id);
-
--- Bookmarks
 ALTER TABLE hs_bookmarks ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "bookmarks_select" ON hs_bookmarks;
+DROP POLICY IF EXISTS "bookmarks_insert" ON hs_bookmarks;
+DROP POLICY IF EXISTS "bookmarks_update" ON hs_bookmarks;
+DROP POLICY IF EXISTS "bookmarks_delete" ON hs_bookmarks;
+CREATE POLICY "bookmarks_select" ON hs_bookmarks FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "bookmarks_insert" ON hs_bookmarks FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "bookmarks_update" ON hs_bookmarks FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "bookmarks_delete" ON hs_bookmarks FOR DELETE USING (auth.uid() = user_id);
 
-CREATE POLICY "Users can view their own bookmarks"
-  ON hs_bookmarks FOR SELECT USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert their own bookmarks"
-  ON hs_bookmarks FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can update their own bookmarks"
-  ON hs_bookmarks FOR UPDATE USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can delete their own bookmarks"
-  ON hs_bookmarks FOR DELETE USING (auth.uid() = user_id);
-
--- Quiz Results
 ALTER TABLE hs_quiz_results ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "quiz_select" ON hs_quiz_results;
+DROP POLICY IF EXISTS "quiz_insert" ON hs_quiz_results;
+CREATE POLICY "quiz_select" ON hs_quiz_results FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "quiz_insert" ON hs_quiz_results FOR INSERT WITH CHECK (auth.uid() = user_id);
 
-CREATE POLICY "Users can view their own quiz results"
-  ON hs_quiz_results FOR SELECT USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert their own quiz results"
-  ON hs_quiz_results FOR INSERT WITH CHECK (auth.uid() = user_id);
-
--- Comments
 ALTER TABLE hs_comments ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "comments_select" ON hs_comments;
+DROP POLICY IF EXISTS "comments_insert" ON hs_comments;
+DROP POLICY IF EXISTS "comments_update" ON hs_comments;
+DROP POLICY IF EXISTS "comments_delete" ON hs_comments;
+CREATE POLICY "comments_select" ON hs_comments FOR SELECT USING (is_hidden = FALSE);
+CREATE POLICY "comments_insert" ON hs_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "comments_update" ON hs_comments FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "comments_delete" ON hs_comments FOR DELETE USING (auth.uid() = user_id);
 
-CREATE POLICY "Comments are viewable by everyone"
-  ON hs_comments FOR SELECT USING (is_hidden = FALSE);
-
-CREATE POLICY "Authenticated users can insert comments"
-  ON hs_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can update their own comments"
-  ON hs_comments FOR UPDATE USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can delete their own comments"
-  ON hs_comments FOR DELETE USING (auth.uid() = user_id);
-
--- Announcements (Read-only for users)
 ALTER TABLE hs_announcements ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Active announcements are viewable by everyone"
-  ON hs_announcements FOR SELECT USING (is_active = TRUE);
+DROP POLICY IF EXISTS "announcements_select" ON hs_announcements;
+CREATE POLICY "announcements_select" ON hs_announcements FOR SELECT USING (is_active = TRUE);
 
 -- ============================================
 -- SAMPLE DATA
 -- ============================================
 INSERT INTO hs_announcements (title, content, type) VALUES
-  ('Harness Master 베타 오픈!', 'Claude Code 하네스 학습 사이트가 오픈했습니다. 6가지 아키텍처 패턴을 마스터해보세요.', 'update'),
-  ('학습 경로 7개 완성', '소개부터 실전 프로젝트까지 7개 완전한 학습 경로가 준비되어 있습니다.', 'info')
+  ('Harness Master 베타 오픈!', 'Claude Code 하네스 학습 사이트가 오픈했습니다.', 'update'),
+  ('학습 경로 7개 완성', '소개부터 실전 프로젝트까지 완전한 학습 경로가 준비되어 있습니다.', 'info')
 ON CONFLICT DO NOTHING;
-
--- ============================================
--- END OF SETUP
--- ============================================
--- Run in Supabase SQL Editor:
--- https://supabase.com/dashboard/project/hcmgdztsgjvzcyxyayaj/sql
--- ============================================
