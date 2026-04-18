@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
   { id: 'overview',   icon: 'fa-rocket',        ko: '하네스란?',       en: 'What is Harness?' },
@@ -11,6 +13,40 @@ const SECTIONS = [
   { id: 'ecosystem',  icon: 'fa-globe',          ko: '하네스 생태계',   en: 'Ecosystem' },
   { id: 'install',    icon: 'fa-download',       ko: '설치 및 설정',    en: 'Installation' },
   { id: 'first',      icon: 'fa-play',           ko: '첫 번째 하네스',  en: 'First Harness' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '기초 이해',
+    labelEn: 'Basics',
+    items: [
+      { id: 'overview',   icon: 'fa-rocket',         ko: '하네스란?',     en: 'What is Harness?' },
+      { id: 'why',        icon: 'fa-circle-question', ko: '왜 필요한가?',  en: 'Why Harness?' },
+    ],
+  },
+  {
+    label: '핵심 구성요소',
+    labelEn: 'Core Components',
+    items: [
+      {
+        id: 'components', icon: 'fa-puzzle-piece', ko: '구성요소', en: 'Components',
+        subs: [
+          { id: 'sub-agents',    ko: '에이전트',      en: 'Agents' },
+          { id: 'sub-skills',    ko: '스킬',          en: 'Skills' },
+          { id: 'sub-memory',    ko: '메모리',        en: 'Memory' },
+        ],
+      },
+      { id: 'ecosystem', icon: 'fa-globe', ko: '생태계', en: 'Ecosystem' },
+    ],
+  },
+  {
+    label: '시작하기',
+    labelEn: 'Getting Started',
+    items: [
+      { id: 'install', icon: 'fa-download', ko: '설치 및 설정',    en: 'Installation' },
+      { id: 'first',   icon: 'fa-play',     ko: '첫 번째 하네스',  en: 'First Harness' },
+    ],
+  },
 ];
 
 export default function Intro(): ReactElement {
@@ -30,19 +66,12 @@ export default function Intro(): ReactElement {
       />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '목차' : 'Contents'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} />
-                    <span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'overview'   && <OverviewSection isKo={isKo} />}
             {activeSection === 'why'        && <WhySection isKo={isKo} />}
@@ -272,10 +301,7 @@ function FirstSection({ isKo }: { isKo: boolean }): ReactElement {
       <h3>{isKo ? '예제: 웹 개발 팀 생성' : 'Example: Creating a Web Dev Team'}</h3>
       <p>{isKo ? 'Claude Code에서 다음과 같이 입력합니다:' : 'Enter the following in Claude Code:'}</p>
       <div className="code-example">
-        <pre><code>{`/harness
-
-도메인: React + TypeScript 웹 애플리케이션 개발
-요구사항: 컴포넌트 설계, 코드 리뷰, 테스트 작성`}</code></pre>
+        <pre><code>{`/harness\n\n도메인: React + TypeScript 웹 애플리케이션 개발\n요구사항: 컴포넌트 설계, 코드 리뷰, 테스트 작성`}</code></pre>
       </div>
       <p>{isKo ? 'Harness는 도메인을 분석하여 적합한 에이전트 팀(아키텍트, 개발자, 리뷰어, 테스터)과 각 에이전트의 스킬 파일을 자동 생성합니다.' : 'Harness analyzes the domain and automatically generates an appropriate agent team (architect, developer, reviewer, tester) and skill files for each agent.'}</p>
 

@@ -1,0 +1,425 @@
+/* ============================================
+   TUTORIALS CSS - Harness Master
+   Interactive Tutorial Page Styles
+   ============================================ */
+
+/* ---- Tutorial Layout ---- */
+.tutorial-layout {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - var(--nav-height));
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* ---- Tutorial Cards Grid (selection view) ---- */
+.tutorial-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.tutorial-card {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.tutorial-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.tutorial-card:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.3);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.tutorial-card:hover::before {
+  opacity: 1;
+}
+
+.tutorial-card.active {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.03);
+}
+
+.tutorial-card.active::before {
+  opacity: 1;
+}
+
+.tutorial-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin-bottom: 0.875rem;
+}
+
+.tutorial-card-num {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.tutorial-card-meta {
+  flex: 1;
+}
+
+.tutorial-card-title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+}
+
+.tutorial-card-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.tutorial-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---- Level Badge ---- */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.level-badge.beginner {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.level-badge.basic {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563EB;
+}
+
+.level-badge.intermediate {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+}
+
+.level-badge.advanced {
+  background: rgba(239, 68, 68, 0.12);
+  color: #DC2626;
+}
+
+/* ---- Tutorial Progress Bar (card) ---- */
+.tutorial-card-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.tutorial-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 60px;
+}
+
+.tutorial-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  border-radius: 2px;
+  transition: width var(--transition-slow);
+}
+
+/* ---- Step Header ---- */
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-primary);
+}
+
+.step-number.completed {
+  background: linear-gradient(135deg, #10B981, #34D399);
+}
+
+.step-meta {
+  flex: 1;
+}
+
+.step-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.125rem;
+}
+
+.step-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+/* ---- Checklist ---- */
+.checklist-label {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 1.5rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+  transition: opacity var(--transition-fast);
+}
+
+.checklist-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all var(--transition-fast);
+}
+
+.checklist-item label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  line-height: 1.5;
+  transition: all var(--transition-fast);
+}
+
+.checklist-item.done label {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+/* ---- Step Navigation ---- */
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.step-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: all var(--transition-fast);
+}
+
+.step-nav-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.04);
+}
+
+.step-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.step-nav-btn.prev { justify-content: flex-start; }
+.step-nav-btn.next { justify-content: flex-end; margin-left: auto; }
+
+/* ---- Tutorial Overview (welcome / not selected) ---- */
+.tutorial-overview {
+  padding: 1rem 0;
+}
+
+.tutorial-overview h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.tutorial-overview p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Step content ---- */
+.step-content {
+  padding: 0;
+}
+
+.step-content h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 1.5rem 0 0.75rem;
+}
+
+.step-content p {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.step-content ul, .step-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.step-content li {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: 0.25rem;
+}
+
+/* ---- Task Box (what to do in this step) ---- */
+.task-box {
+  background: rgba(var(--color-primary-rgb), 0.04);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.15);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.task-box-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.task-box pre {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  margin: 0.75rem 0 0;
+}
+
+/* ---- Overall Tutorial Progress (sidebar) ---- */
+.tutorial-overall-progress {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0.25rem;
+}
+
+.tutorial-overall-progress-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.tutorial-overall-progress-bar {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tutorial-overall-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  border-radius: 2px;
+  transition: width var(--transition-slow);
+}

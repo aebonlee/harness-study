@@ -2,15 +2,44 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
-  { id: 'webdev',   icon: 'fa-globe',         ko: '웹 개발 팀',      en: 'Web Dev Team' },
-  { id: 'content',  icon: 'fa-pen-nib',       ko: '콘텐츠 제작',     en: 'Content Creation' },
-  { id: 'review',   icon: 'fa-code-compare',  ko: '코드 리뷰',       en: 'Code Review' },
-  { id: 'abtest',   icon: 'fa-chart-bar',     ko: 'A/B 테스트',      en: 'A/B Testing' },
-  { id: 'strategy', icon: 'fa-chess-king',    ko: '도입 전략',       en: 'Adoption Strategy' },
-  { id: 'measure',  icon: 'fa-chart-line',    ko: '성과 측정',       en: 'Performance Measurement' },
+  { id: 'webdev',   ko: '웹 개발 팀',      en: 'Web Dev Team' },
+  { id: 'content',  ko: '콘텐츠 제작',     en: 'Content Creation' },
+  { id: 'review',   ko: '코드 리뷰',       en: 'Code Review' },
+  { id: 'abtest',   ko: 'A/B 테스트',      en: 'A/B Testing' },
+  { id: 'strategy', ko: '도입 전략',       en: 'Adoption Strategy' },
+  { id: 'measure',  ko: '성과 측정',       en: 'Performance Measurement' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '팀 구성 사례',
+    labelEn: 'Team Examples',
+    items: [
+      { id: 'webdev',  icon: 'fa-globe',    ko: '웹 개발 팀',  en: 'Web Dev Team' },
+      { id: 'content', icon: 'fa-pen-nib',  ko: '콘텐츠 제작', en: 'Content Creation' },
+    ],
+  },
+  {
+    label: '품질 & 측정',
+    labelEn: 'Quality & Metrics',
+    items: [
+      { id: 'review', icon: 'fa-code-compare', ko: '코드 리뷰',  en: 'Code Review' },
+      { id: 'abtest', icon: 'fa-chart-bar',    ko: 'A/B 테스트', en: 'A/B Testing' },
+    ],
+  },
+  {
+    label: '도입 전략',
+    labelEn: 'Adoption',
+    items: [
+      { id: 'strategy', icon: 'fa-chess-king', ko: '도입 전략', en: 'Adoption Strategy' },
+      { id: 'measure',  icon: 'fa-chart-line', ko: '성과 측정', en: 'Performance Measurement' },
+    ],
+  },
 ];
 
 export default function Practice(): ReactElement {
@@ -25,18 +54,12 @@ export default function Practice(): ReactElement {
       <SEOHead title={isKo ? '실전 활용 | Harness Master' : 'Real-world Practice | Harness Master'} path="/practice" />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '목차' : 'Contents'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} /><span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'webdev'   && <WebdevSection isKo={isKo} />}
             {activeSection === 'content'  && <ContentSection isKo={isKo} />}

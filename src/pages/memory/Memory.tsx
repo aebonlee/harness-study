@@ -2,15 +2,44 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
-  { id: 'context',   icon: 'fa-window-maximize', ko: '컨텍스트 창 이해',   en: 'Context Window' },
-  { id: 'strategy',  icon: 'fa-chess',           ko: '메모리 관리 전략',   en: 'Memory Strategies' },
-  { id: 'agent',     icon: 'fa-robot',           ko: '에이전트 메모리',    en: 'Agent Memory' },
-  { id: 'optimize',  icon: 'fa-compress',        ko: '컨텍스트 최적화',    en: 'Context Optimization' },
-  { id: 'tools',     icon: 'fa-toolbox',         ko: '메모리 도구',        en: 'Memory Tools' },
-  { id: 'longterm',  icon: 'fa-infinity',        ko: '장기 메모리',        en: 'Long-term Memory' },
+  { id: 'context',  ko: '컨텍스트 창 이해',   en: 'Context Window' },
+  { id: 'strategy', ko: '메모리 관리 전략',   en: 'Memory Strategies' },
+  { id: 'agent',    ko: '에이전트 메모리',    en: 'Agent Memory' },
+  { id: 'optimize', ko: '컨텍스트 최적화',    en: 'Context Optimization' },
+  { id: 'tools',    ko: '메모리 도구',        en: 'Memory Tools' },
+  { id: 'longterm', ko: '장기 메모리',        en: 'Long-term Memory' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '컨텍스트 이해',
+    labelEn: 'Context',
+    items: [
+      { id: 'context',  icon: 'fa-window-maximize', ko: '컨텍스트 창 이해',  en: 'Context Window' },
+      { id: 'strategy', icon: 'fa-chess',           ko: '메모리 관리 전략',  en: 'Memory Strategies' },
+    ],
+  },
+  {
+    label: '에이전트 메모리',
+    labelEn: 'Agent Memory',
+    items: [
+      { id: 'agent',    icon: 'fa-robot',    ko: '에이전트 메모리',  en: 'Agent Memory' },
+      { id: 'optimize', icon: 'fa-compress', ko: '컨텍스트 최적화',  en: 'Context Optimization' },
+    ],
+  },
+  {
+    label: '도구 & 장기',
+    labelEn: 'Tools & Long-term',
+    items: [
+      { id: 'tools',    icon: 'fa-toolbox', ko: '메모리 도구', en: 'Memory Tools' },
+      { id: 'longterm', icon: 'fa-infinity', ko: '장기 메모리', en: 'Long-term Memory' },
+    ],
+  },
 ];
 
 export default function Memory(): ReactElement {
@@ -25,18 +54,12 @@ export default function Memory(): ReactElement {
       <SEOHead title={isKo ? '메모리와 컨텍스트 | Harness Master' : 'Memory & Context | Harness Master'} path="/memory" />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '목차' : 'Contents'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} /><span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'context'  && <ContextSection isKo={isKo} />}
             {activeSection === 'strategy' && <StrategySection isKo={isKo} />}

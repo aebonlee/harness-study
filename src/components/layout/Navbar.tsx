@@ -12,7 +12,9 @@ const NAV_ITEMS = [
   { path: '/skills',   icon: 'fa-code',            ko: '스킬 설계', en: 'Skills' },
   { path: '/teams',    icon: 'fa-users-gear',      ko: '팀 구성',   en: 'Teams' },
   { path: '/memory',   icon: 'fa-brain',           ko: '메모리',    en: 'Memory' },
-  { path: '/practice', icon: 'fa-flask',           ko: '실전 활용', en: 'Practice' },
+  { path: '/practice',  icon: 'fa-flask',           ko: '실전 활용',  en: 'Practice' },
+  { path: '/tutorials', icon: 'fa-graduation-cap',  ko: '튜토리얼',   en: 'Tutorials' },
+  { path: '/build',     icon: 'fa-hammer',           ko: '구축하기',   en: 'Build' },
 ];
 
 export default function Navbar(): ReactElement {

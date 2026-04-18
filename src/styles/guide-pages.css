@@ -606,6 +606,50 @@
   margin-bottom: 0.25rem;
 }
 
+/* ---- Level 1: Group Header ---- */
+.guide-nav-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-group-label {
+  padding: 0.875rem 1.25rem 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+/* ---- Level 3: Sub Items ---- */
+.guide-nav-subs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.125rem 0.5rem 0.25rem 2.25rem;
+}
+
+.guide-nav-sub-btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.guide-nav-sub-btn:hover,
+.guide-nav-sub-btn.active {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.06);
+}
+
 /* ---- Mobile Sidebar Toggle ---- */
 .guide-sidebar-toggle {
   display: none;

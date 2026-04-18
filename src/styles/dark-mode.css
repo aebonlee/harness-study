@@ -308,3 +308,77 @@
 [data-theme="dark"] .stats-section {
   border-color: #334155;
 }
+
+/* ---- Sidebar Level 3 Dark ---- */
+[data-theme="dark"] .guide-group-label {
+  color: #64748B;
+}
+
+[data-theme="dark"] .guide-nav-sub-btn {
+  color: #64748B;
+}
+
+[data-theme="dark"] .guide-nav-sub-btn:hover,
+[data-theme="dark"] .guide-nav-sub-btn.active {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.1);
+}
+
+/* ---- Tutorial Dark ---- */
+[data-theme="dark"] .tutorial-card {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .tutorial-card:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.4);
+}
+
+[data-theme="dark"] .tutorial-card.active {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.06);
+}
+
+[data-theme="dark"] .tutorial-progress-bar,
+[data-theme="dark"] .tutorial-overall-progress-bar {
+  background: #334155;
+}
+
+[data-theme="dark"] .checklist {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .checklist-item input[type="checkbox"] {
+  border-color: #475569;
+  background: #0F172A;
+}
+
+[data-theme="dark"] .task-box {
+  background: rgba(var(--color-primary-rgb), 0.06);
+  border-color: rgba(var(--color-primary-rgb), 0.2);
+}
+
+[data-theme="dark"] .task-box pre {
+  background: #0F172A;
+  border-color: #334155;
+  color: #E2E8F0;
+}
+
+[data-theme="dark"] .step-nav-btn {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .level-badge.beginner {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="dark"] .level-badge.basic {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+[data-theme="dark"] .level-badge.intermediate {
+  background: rgba(124, 58, 237, 0.15);
+}
+

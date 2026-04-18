@@ -12,8 +12,10 @@ const Patterns = lazy(() => import('../pages/patterns/Patterns'));
 const Skills   = lazy(() => import('../pages/skills/Skills'));
 const Teams    = lazy(() => import('../pages/teams/Teams'));
 const Memory   = lazy(() => import('../pages/memory/Memory'));
-const Practice = lazy(() => import('../pages/practice/Practice'));
-const NotFound = lazy(() => import('../pages/NotFound'));
+const Practice  = lazy(() => import('../pages/practice/Practice'));
+const Tutorials = lazy(() => import('../pages/tutorials/Tutorials'));
+const Build      = lazy(() => import('../pages/build/Build'));
+const NotFound  = lazy(() => import('../pages/NotFound'));
 
 function LoadingFallback(): ReactElement {
   return (
@@ -38,8 +40,10 @@ export default function PublicLayout(): ReactElement {
             <Route path="/skills"   element={<Skills />} />
             <Route path="/teams"    element={<Teams />} />
             <Route path="/memory"   element={<Memory />} />
-            <Route path="/practice" element={<Practice />} />
-            <Route path="*"         element={<NotFound />} />
+            <Route path="/practice"  element={<Practice />} />
+            <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/build"     element={<Build />} />
+            <Route path="*"          element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>

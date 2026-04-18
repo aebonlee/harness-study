@@ -2,15 +2,44 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
-  { id: 'design',    icon: 'fa-pencil-ruler',   ko: '팀 설계 원칙',      en: 'Team Design Principles' },
-  { id: 'protocol',  icon: 'fa-handshake',      ko: '조정 프로토콜',     en: 'Coordination Protocol' },
-  { id: 'error',     icon: 'fa-bug',            ko: '오류 처리',         en: 'Error Handling' },
-  { id: 'testing',   icon: 'fa-flask-vial',     ko: '팀 테스트',         en: 'Team Testing' },
-  { id: 'examples',  icon: 'fa-lightbulb',      ko: '팀 예시',           en: 'Team Examples' },
-  { id: 'perf',      icon: 'fa-gauge-high',     ko: '성능 최적화',       en: 'Performance Optimization' },
+  { id: 'design',    ko: '팀 설계 원칙',      en: 'Team Design Principles' },
+  { id: 'protocol',  ko: '조정 프로토콜',     en: 'Coordination Protocol' },
+  { id: 'error',     ko: '오류 처리',         en: 'Error Handling' },
+  { id: 'testing',   ko: '팀 테스트',         en: 'Team Testing' },
+  { id: 'examples',  ko: '팀 예시',           en: 'Team Examples' },
+  { id: 'perf',      ko: '성능 최적화',       en: 'Performance Optimization' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '팀 설계',
+    labelEn: 'Team Design',
+    items: [
+      { id: 'design',   icon: 'fa-pencil-ruler', ko: '팀 설계 원칙',  en: 'Team Design Principles' },
+      { id: 'protocol', icon: 'fa-handshake',    ko: '조정 프로토콜', en: 'Coordination Protocol' },
+    ],
+  },
+  {
+    label: '안정성',
+    labelEn: 'Reliability',
+    items: [
+      { id: 'error',   icon: 'fa-bug',        ko: '오류 처리', en: 'Error Handling' },
+      { id: 'testing', icon: 'fa-flask-vial', ko: '팀 테스트', en: 'Team Testing' },
+    ],
+  },
+  {
+    label: '실전',
+    labelEn: 'Practice',
+    items: [
+      { id: 'examples', icon: 'fa-lightbulb',  ko: '팀 예시',    en: 'Team Examples' },
+      { id: 'perf',     icon: 'fa-gauge-high', ko: '성능 최적화', en: 'Performance Optimization' },
+    ],
+  },
 ];
 
 export default function Teams(): ReactElement {
@@ -25,18 +54,12 @@ export default function Teams(): ReactElement {
       <SEOHead title={isKo ? '팀 구성 | Harness Master' : 'Team Building | Harness Master'} path="/teams" />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '목차' : 'Contents'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} /><span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'design'   && <DesignSection isKo={isKo} />}
             {activeSection === 'protocol' && <ProtocolSection isKo={isKo} />}

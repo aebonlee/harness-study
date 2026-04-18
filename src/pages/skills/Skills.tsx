@@ -2,15 +2,56 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
-  { id: 'concept',     icon: 'fa-code',              ko: '스킬이란?',              en: 'What are Skills?' },
-  { id: 'disclosure',  icon: 'fa-layer-group',       ko: '프로그레시브 디스클로저', en: 'Progressive Disclosure' },
-  { id: 'structure',   icon: 'fa-folder-tree',       ko: '스킬 파일 구조',          en: 'Skill File Structure' },
-  { id: 'triggers',    icon: 'fa-bolt',              ko: '트리거 설계',             en: 'Trigger Design' },
-  { id: 'optimize',    icon: 'fa-gauge-high',        ko: '스킬 최적화',             en: 'Skill Optimization' },
-  { id: 'test',        icon: 'fa-vial',              ko: '스킬 테스트',             en: 'Skill Testing' },
+  { id: 'concept',    ko: '스킬이란?',              en: 'What are Skills?' },
+  { id: 'disclosure', ko: '프로그레시브 디스클로저', en: 'Progressive Disclosure' },
+  { id: 'structure',  ko: '스킬 파일 구조',          en: 'Skill File Structure' },
+  { id: 'triggers',   ko: '트리거 설계',             en: 'Trigger Design' },
+  { id: 'optimize',   ko: '스킬 최적화',             en: 'Skill Optimization' },
+  { id: 'test',       ko: '스킬 테스트',             en: 'Skill Testing' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '스킬 기초',
+    labelEn: 'Skill Basics',
+    items: [
+      { id: 'concept',    icon: 'fa-code',        ko: '스킬이란?',              en: 'What are Skills?' },
+      { id: 'disclosure', icon: 'fa-layer-group', ko: '프로그레시브 디스클로저', en: 'Progressive Disclosure' },
+    ],
+  },
+  {
+    label: '스킬 설계',
+    labelEn: 'Skill Design',
+    items: [
+      {
+        id: 'structure', icon: 'fa-folder-tree', ko: '스킬 파일 구조', en: 'Skill File Structure',
+        subs: [
+          { id: 'sub-struct-method', ko: '설계 방법', en: 'Design Method' },
+          { id: 'sub-struct-ex',     ko: '실습 작성', en: 'Practice Writing' },
+        ],
+      },
+      {
+        id: 'triggers', icon: 'fa-bolt', ko: '트리거 설계', en: 'Trigger Design',
+        subs: [
+          { id: 'sub-trigger-method', ko: '설계 방법', en: 'Design Method' },
+          { id: 'sub-trigger-ex',     ko: '실습 작성', en: 'Practice Writing' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '최적화 & 테스트',
+    labelEn: 'Optimize & Test',
+    items: [
+      { id: 'optimize', icon: 'fa-gauge-high', ko: '스킬 최적화', en: 'Skill Optimization' },
+      { id: 'test',     icon: 'fa-vial',       ko: '스킬 테스트', en: 'Skill Testing' },
+    ],
+  },
 ];
 
 export default function Skills(): ReactElement {
@@ -25,18 +66,12 @@ export default function Skills(): ReactElement {
       <SEOHead title={isKo ? '스킬 설계 | Harness Master' : 'Skill Design | Harness Master'} path="/skills" />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '목차' : 'Contents'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} /><span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'concept'    && <ConceptSection isKo={isKo} />}
             {activeSection === 'disclosure' && <DisclosureSection isKo={isKo} />}

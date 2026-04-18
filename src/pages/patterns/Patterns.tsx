@@ -2,15 +2,58 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
-  { id: 'pipeline',     icon: 'fa-arrow-right-long', ko: '파이프라인 패턴',    en: 'Pipeline' },
-  { id: 'fanout',       icon: 'fa-code-fork',        ko: '팬아웃/팬인',        en: 'Fan-out/Fan-in' },
-  { id: 'expert',       icon: 'fa-user-tie',         ko: '전문가 풀',          en: 'Expert Pool' },
-  { id: 'producer',     icon: 'fa-pen-to-square',    ko: '생산자-검토자',      en: 'Producer-Reviewer' },
-  { id: 'supervisor',   icon: 'fa-eye',              ko: '감독자 패턴',        en: 'Supervisor' },
-  { id: 'hierarchical', icon: 'fa-sitemap',          ko: '계층적 위임',        en: 'Hierarchical Delegation' },
+  { id: 'pipeline',     ko: '파이프라인 패턴',    en: 'Pipeline' },
+  { id: 'fanout',       ko: '팬아웃/팬인',        en: 'Fan-out/Fan-in' },
+  { id: 'expert',       ko: '전문가 풀',          en: 'Expert Pool' },
+  { id: 'producer',     ko: '생산자-검토자',      en: 'Producer-Reviewer' },
+  { id: 'supervisor',   ko: '감독자 패턴',        en: 'Supervisor' },
+  { id: 'hierarchical', ko: '계층적 위임',        en: 'Hierarchical Delegation' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '기본 패턴',
+    labelEn: 'Basic Patterns',
+    items: [
+      {
+        id: 'pipeline', icon: 'fa-arrow-right-long', ko: '파이프라인 패턴', en: 'Pipeline',
+        subs: [
+          { id: 'sub-pipeline-struct', ko: '패턴 구조', en: 'Structure' },
+          { id: 'sub-pipeline-cases',  ko: '적용 시나리오', en: 'Scenarios' },
+          { id: 'sub-pipeline-ex',     ko: '실습 예제', en: 'Practice' },
+        ],
+      },
+      {
+        id: 'fanout', icon: 'fa-code-fork', ko: '팬아웃/팬인', en: 'Fan-out/Fan-in',
+        subs: [
+          { id: 'sub-fanout-struct', ko: '패턴 구조', en: 'Structure' },
+          { id: 'sub-fanout-cases',  ko: '적용 시나리오', en: 'Scenarios' },
+          { id: 'sub-fanout-ex',     ko: '실습 예제', en: 'Practice' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '전문가 패턴',
+    labelEn: 'Advanced Patterns',
+    items: [
+      { id: 'expert',   icon: 'fa-user-tie',      ko: '전문가 풀',      en: 'Expert Pool' },
+      { id: 'producer', icon: 'fa-pen-to-square',  ko: '생산자-검토자',  en: 'Producer-Reviewer' },
+    ],
+  },
+  {
+    label: '계층 패턴',
+    labelEn: 'Hierarchical',
+    items: [
+      { id: 'supervisor',   icon: 'fa-eye',     ko: '감독자 패턴', en: 'Supervisor' },
+      { id: 'hierarchical', icon: 'fa-sitemap', ko: '계층적 위임', en: 'Hierarchical Delegation' },
+    ],
+  },
 ];
 
 export default function Patterns(): ReactElement {
@@ -25,18 +68,12 @@ export default function Patterns(): ReactElement {
       <SEOHead title={isKo ? '6가지 아키텍처 패턴 | Harness Master' : '6 Architectural Patterns | Harness Master'} path="/patterns" />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '6가지 패턴' : '6 Patterns'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} /><span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'pipeline'     && <PipelineSection isKo={isKo} />}
             {activeSection === 'fanout'       && <FanoutSection isKo={isKo} />}

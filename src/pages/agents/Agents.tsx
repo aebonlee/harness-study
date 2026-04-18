@@ -2,15 +2,44 @@ import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
+import GuideSidebar3 from '../../components/GuideSidebar3';
 import type { ReactElement } from 'react';
+import type { NavGroup } from '../../components/GuideSidebar3';
 
 const SECTIONS = [
-  { id: 'concept',        icon: 'fa-robot',          ko: '에이전트 개념',   en: 'Agent Concepts' },
-  { id: 'orchestrator',   icon: 'fa-crown',          ko: '오케스트레이터',  en: 'Orchestrator' },
-  { id: 'subagents',      icon: 'fa-people-group',   ko: '서브에이전트',    en: 'Subagents' },
-  { id: 'roles',          icon: 'fa-id-card',        ko: '역할 설계',       en: 'Role Design' },
-  { id: 'communication',  icon: 'fa-comments',       ko: '에이전트 통신',   en: 'Communication' },
-  { id: 'tools',          icon: 'fa-wrench',         ko: '도구 활용',       en: 'Tool Use' },
+  { id: 'concept',        ko: '에이전트 개념',   en: 'Agent Concepts' },
+  { id: 'orchestrator',   ko: '오케스트레이터',  en: 'Orchestrator' },
+  { id: 'subagents',      ko: '서브에이전트',    en: 'Subagents' },
+  { id: 'roles',          ko: '역할 설계',       en: 'Role Design' },
+  { id: 'communication',  ko: '에이전트 통신',   en: 'Communication' },
+  { id: 'tools',          ko: '도구 활용',       en: 'Tool Use' },
+];
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: '에이전트 기초',
+    labelEn: 'Agent Basics',
+    items: [
+      { id: 'concept',      icon: 'fa-robot',   ko: '에이전트 개념',  en: 'Agent Concepts' },
+      { id: 'orchestrator', icon: 'fa-crown',   ko: '오케스트레이터', en: 'Orchestrator' },
+    ],
+  },
+  {
+    label: '팀 구성',
+    labelEn: 'Team Building',
+    items: [
+      { id: 'subagents', icon: 'fa-people-group', ko: '서브에이전트', en: 'Subagents' },
+      { id: 'roles',     icon: 'fa-id-card',      ko: '역할 설계',    en: 'Role Design' },
+    ],
+  },
+  {
+    label: '고급 주제',
+    labelEn: 'Advanced Topics',
+    items: [
+      { id: 'communication', icon: 'fa-comments', ko: '에이전트 통신', en: 'Communication' },
+      { id: 'tools',         icon: 'fa-wrench',   ko: '도구 활용',    en: 'Tool Use' },
+    ],
+  },
 ];
 
 export default function Agents(): ReactElement {
@@ -25,18 +54,12 @@ export default function Agents(): ReactElement {
       <SEOHead title={isKo ? '에이전트 이해 | Harness Master' : 'Understanding Agents | Harness Master'} path="/agents" />
       <div className="guide-page">
         <div className="guide-layout">
-          <aside className="guide-sidebar">
-            <div className="guide-sidebar-title">{isKo ? '목차' : 'Contents'}</div>
-            <ul className="guide-nav">
-              {SECTIONS.map(s => (
-                <li key={s.id} className="guide-nav-item">
-                  <button className={`guide-nav-link ${activeSection === s.id ? 'active' : ''}`} onClick={() => handleNav(s.id)}>
-                    <i className={`fa-solid ${s.icon}`} /><span>{isKo ? s.ko : s.en}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <GuideSidebar3
+            groups={NAV_GROUPS}
+            activeSection={activeSection}
+            onNavigate={handleNav}
+            isKo={isKo}
+          />
           <main className="guide-content">
             {activeSection === 'concept'       && <ConceptSection isKo={isKo} />}
             {activeSection === 'orchestrator'  && <OrchestratorSection isKo={isKo} />}
@@ -88,14 +111,14 @@ function OrchestratorSection({ isKo }: { isKo: boolean }): ReactElement {
         <h1>{isKo ? '오케스트레이터' : 'Orchestrator'}</h1>
         <p>{isKo ? '에이전트 팀의 조율자인 오케스트레이터의 역할과 동작 방식을 배웁니다.' : 'Learn about the role and operation of the orchestrator, the coordinator of the agent team.'}</p>
       </div>
-      <h2>{isKo ? '오케스트레이터의 역할' : 'Orchestrator\'s Role'}</h2>
-      <p>{isKo ? '오케스트레이터는 전체 워크플로우를 관리하는 중앙 조율자입니다. 주방의 수석 셰프에 비유할 수 있습니다 — 각 요리사(에이전트)에게 레시피(스킬)와 재료를 배분하고, 모든 요리가 제시간에 완성되도록 조율합니다. 오케스트레이터 자체도 AI 에이전트이며, 보통 가장 높은 수준의 추론 능력을 가진 모델을 사용합니다.' : 'The orchestrator is the central coordinator managing the entire workflow. Think of the head chef in a kitchen — distributing recipes (skills) and ingredients to each cook (agent), coordinating so everything is ready on time. The orchestrator itself is an AI agent, typically using the highest reasoning capability model.'}</p>
-      <h3>{isKo ? '오케스트레이터의 핵심 책임' : 'Orchestrator\'s Core Responsibilities'}</h3>
+      <h2>{isKo ? '오케스트레이터의 역할' : "Orchestrator's Role"}</h2>
+      <p>{isKo ? '오케스트레이터는 전체 워크플로우를 관리하는 중앙 조율자입니다. 주방의 수석 셰프에 비유할 수 있습니다 — 각 요리사(에이전트)에게 레시피(스킬)와 재료를 배분하고, 모든 요리가 제시간에 완성되도록 조율합니다. 오케스트레이터 자체도 AI 에이전트이며, 보통 가장 높은 수준의 추론 능력을 가진 모델을 사용합니다.' : "The orchestrator is the central coordinator managing the entire workflow. Think of the head chef in a kitchen — distributing recipes (skills) and ingredients to each cook (agent), coordinating so everything is ready on time. The orchestrator itself is an AI agent, typically using the highest reasoning capability model."}</p>
+      <h3>{isKo ? '오케스트레이터의 핵심 책임' : "Orchestrator's Core Responsibilities"}</h3>
       <ol>
         <li><strong>{isKo ? '작업 분해(Task Decomposition)' : 'Task Decomposition'}</strong> — {isKo ? '복잡한 작업을 에이전트가 처리할 수 있는 단위로 분해합니다.' : 'Breaks complex tasks into units agents can handle.'}</li>
         <li><strong>{isKo ? '에이전트 선택(Agent Selection)' : 'Agent Selection'}</strong> — {isKo ? '각 서브태스크에 가장 적합한 에이전트를 선택합니다.' : 'Selects the most appropriate agent for each subtask.'}</li>
         <li><strong>{isKo ? '실행 순서 관리(Execution Order)' : 'Execution Order Management'}</strong> — {isKo ? '의존성을 고려한 최적의 실행 순서를 결정합니다.' : 'Determines the optimal execution order considering dependencies.'}</li>
-        <li><strong>{isKo ? '결과 통합(Result Integration)' : 'Result Integration'}</strong> — {isKo ? '각 에이전트의 결과를 수집하고 통합하여 최종 산출물을 생성합니다.' : 'Collects and integrates each agent\'s results to produce the final output.'}</li>
+        <li><strong>{isKo ? '결과 통합(Result Integration)' : 'Result Integration'}</strong> — {isKo ? '각 에이전트의 결과를 수집하고 통합하여 최종 산출물을 생성합니다.' : "Collects and integrates each agent's results to produce the final output."}</li>
       </ol>
       <TipBox type="tip">
         {isKo ? '오케스트레이터는 "독재자"가 아닌 "조율자"입니다. 각 에이전트의 전문성을 존중하고, 불필요하게 개입하지 않습니다. 이 원칙이 팀의 효율성을 높입니다.' : 'The orchestrator is a "coordinator," not a "dictator." It respects each agent\'s expertise and avoids unnecessary intervention. This principle enhances team efficiency.'}
@@ -117,7 +140,7 @@ function SubagentsSection({ isKo }: { isKo: boolean }): ReactElement {
       <ul>
         <li><strong>{isKo ? '연구 에이전트(Research Agent)' : 'Research Agent'}</strong> — {isKo ? '정보 수집, 웹 검색, 문서 분석을 담당합니다.' : 'Handles information gathering, web search, and document analysis.'}</li>
         <li><strong>{isKo ? '작성 에이전트(Writing Agent)' : 'Writing Agent'}</strong> — {isKo ? '코드, 문서, 콘텐츠 작성을 담당합니다.' : 'Handles writing code, documentation, and content.'}</li>
-        <li><strong>{isKo ? '검토 에이전트(Review Agent)' : 'Review Agent'}</strong> — {isKo ? '다른 에이전트의 산출물을 검토하고 피드백을 제공합니다.' : 'Reviews other agents\' outputs and provides feedback.'}</li>
+        <li><strong>{isKo ? '검토 에이전트(Review Agent)' : 'Review Agent'}</strong> — {isKo ? '다른 에이전트의 산출물을 검토하고 피드백을 제공합니다.' : "Reviews other agents' outputs and provides feedback."}</li>
         <li><strong>{isKo ? '테스트 에이전트(Test Agent)' : 'Test Agent'}</strong> — {isKo ? '코드 테스트 작성 및 실행을 담당합니다.' : 'Handles test writing and execution.'}</li>
         <li><strong>{isKo ? '배포 에이전트(Deploy Agent)' : 'Deploy Agent'}</strong> — {isKo ? 'CI/CD 파이프라인 관리와 배포를 담당합니다.' : 'Manages CI/CD pipelines and deployments.'}</li>
       </ul>
@@ -158,11 +181,11 @@ function CommunicationSection({ isKo }: { isKo: boolean }): ReactElement {
       </div>
       <h2>{isKo ? '통신 방식' : 'Communication Methods'}</h2>
       <h3>{isKo ? '1. 오케스트레이터를 통한 통신' : '1. Communication via Orchestrator'}</h3>
-      <p>{isKo ? '가장 일반적인 패턴입니다. 에이전트 A의 결과가 오케스트레이터로 전달되고, 오케스트레이터가 이를 처리하여 에이전트 B에게 전달합니다. 명확한 책임 분리와 감독이 가능합니다.' : 'The most common pattern. Agent A\'s result is passed to the orchestrator, which processes it and delivers it to Agent B. Enables clear separation of responsibilities and oversight.'}</p>
+      <p>{isKo ? '가장 일반적인 패턴입니다. 에이전트 A의 결과가 오케스트레이터로 전달되고, 오케스트레이터가 이를 처리하여 에이전트 B에게 전달합니다. 명확한 책임 분리와 감독이 가능합니다.' : "The most common pattern. Agent A's result is passed to the orchestrator, which processes it and delivers it to Agent B. Enables clear separation of responsibilities and oversight."}</p>
       <h3>{isKo ? '2. 공유 파일을 통한 통신' : '2. Communication via Shared Files'}</h3>
       <p>{isKo ? '에이전트들이 공유 파일(예: output.md, review.json)을 통해 결과를 교환합니다. 비동기 통신에 적합하며 감사 추적이 용이합니다.' : 'Agents exchange results through shared files (e.g., output.md, review.json). Suitable for asynchronous communication with easy audit trails.'}</p>
       <TipBox type="warning">
-        {isKo ? '에이전트 간 직접 통신은 가능하지만 권장되지 않습니다. 직접 통신은 디버깅을 어렵게 만들고 오케스트레이터의 전체 상황 파악 능력을 저하시킵니다.' : 'Direct agent-to-agent communication is possible but not recommended. It makes debugging difficult and reduces the orchestrator\'s ability to understand the full situation.'}
+        {isKo ? '에이전트 간 직접 통신은 가능하지만 권장되지 않습니다. 직접 통신은 디버깅을 어렵게 만들고 오케스트레이터의 전체 상황 파악 능력을 저하시킵니다.' : "Direct agent-to-agent communication is possible but not recommended. It makes debugging difficult and reduces the orchestrator's ability to understand the full situation."}
       </TipBox>
     </div>
   );
