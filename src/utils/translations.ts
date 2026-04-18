@@ -1,0 +1,98 @@
+const translations: Record<string, Record<string, unknown>> = {
+  ko: {
+    hero: {
+      badge: 'Harness 에이전트 오케스트레이션 가이드 2026',
+      title: 'AI 에이전트 팀을\n',
+      titleHighlight: '하네스로 완전 정복',
+      description: '에이전트 팀 설계, 6가지 아키텍처 패턴, 스킬 설계, 메모리 관리까지 — Harness의 모든 것을 체계적으로 배워보세요.',
+      cta: '학습 시작하기',
+      ctaSecondary: '더 알아보기',
+    },
+    features: {
+      title: '왜 Harness Master인가?',
+      subtitle: '하네스 공식 리포지토리와 실전 경험을 바탕으로 체계적으로 정리했습니다.',
+      patterns: { title: '6가지 패턴', desc: '파이프라인부터 계층적 위임까지 6가지 핵심 아키텍처 패턴을 완전히 이해합니다.' },
+      skills: { title: '스킬 설계', desc: '프로그레시브 디스클로저로 효율적인 스킬 파일을 설계하는 방법을 배웁니다.' },
+      teams: { title: '팀 구성', desc: '에이전트 팀을 설계하고 조정 프로토콜로 협업 워크플로우를 구축합니다.' },
+      practice: { title: '실전 활용', desc: 'A/B 테스트, 웹 개발, 콘텐츠 제작 등 다양한 실전 사례를 학습합니다.' },
+    },
+    home: {
+      pathsTitle: '학습 경로',
+      pathsSubtitle: '단계별로 하네스를 마스터하세요.',
+      workflowTitle: '학습 플로우',
+      workflowSubtitle: '4단계로 하네스 전문가가 되세요.',
+      step1: '기초 개념 이해',
+      step1desc: '하네스의 핵심 개념과 에이전트 구조를 이해합니다.',
+      step2: '패턴 학습',
+      step2desc: '6가지 아키텍처 패턴과 스킬 설계를 마스터합니다.',
+      step3: '팀 구성 실습',
+      step3desc: '에이전트 팀을 설계하고 메모리 관리 전략을 적용합니다.',
+      step4: '실전 프로젝트',
+      step4desc: '실제 프로젝트에 하네스를 도입하고 성과를 측정합니다.',
+    },
+    stats: {
+      guides: '학습 가이드',
+      topics: '학습 주제',
+      patterns: '아키텍처 패턴',
+    },
+    cta: {
+      title: '지금 바로 Harness를 마스터하세요',
+      description: '에이전트 팀 설계부터 실전 활용까지, 체계적인 학습으로 AI 자동화 전문가가 되세요.',
+      button: '학습 시작하기',
+    },
+    footer: {
+      description: 'Harness 에이전트 오케스트레이션 완전 가이드 플랫폼입니다.',
+      descriptionDetail: '에이전트 팀 설계, 패턴, 스킬 설계, 메모리 관리, 실전 활용법을 체계적으로 제공합니다.',
+      quickLinks: '빠른 링크',
+    },
+  },
+  en: {
+    hero: {
+      badge: 'Harness Agent Orchestration Guide 2026',
+      title: 'Master AI Agent Teams\n',
+      titleHighlight: 'with Harness',
+      description: 'Agent team design, 6 architectural patterns, skill design, memory management — learn everything about Harness systematically.',
+      cta: 'Start Learning',
+      ctaSecondary: 'Learn More',
+    },
+    features: {
+      title: 'Why Harness Master?',
+      subtitle: 'Systematically organized based on official Harness repositories and real-world experience.',
+      patterns: { title: '6 Patterns', desc: 'Fully understand 6 core architectural patterns from Pipeline to Hierarchical Delegation.' },
+      skills: { title: 'Skill Design', desc: 'Learn how to design efficient skill files with progressive disclosure.' },
+      teams: { title: 'Team Building', desc: 'Design agent teams and build collaborative workflows with coordination protocols.' },
+      practice: { title: 'Real-world Use', desc: 'Learn from diverse real-world cases: A/B testing, web dev, content creation.' },
+    },
+    home: {
+      pathsTitle: 'Learning Paths',
+      pathsSubtitle: 'Master Harness step by step.',
+      workflowTitle: 'Learning Flow',
+      workflowSubtitle: 'Become a Harness expert in 4 steps.',
+      step1: 'Core Concepts',
+      step1desc: 'Understand the core concepts and agent structure of Harness.',
+      step2: 'Pattern Learning',
+      step2desc: 'Master 6 architectural patterns and skill design.',
+      step3: 'Team Building Practice',
+      step3desc: 'Design agent teams and apply memory management strategies.',
+      step4: 'Real-world Projects',
+      step4desc: 'Introduce Harness into real projects and measure outcomes.',
+    },
+    stats: {
+      guides: 'Study Guides',
+      topics: 'Topics Covered',
+      patterns: 'Architecture Patterns',
+    },
+    cta: {
+      title: 'Master Harness Today',
+      description: 'From agent team design to real-world use — become an AI automation expert with systematic learning.',
+      button: 'Start Learning',
+    },
+    footer: {
+      description: 'A comprehensive guide platform for Harness agent orchestration.',
+      descriptionDetail: 'Systematically provides agent team design, patterns, skill design, memory management, and real-world usage.',
+      quickLinks: 'Quick Links',
+    },
+  },
+};
+
+export default translations;

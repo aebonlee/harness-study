@@ -1,0 +1,255 @@
+/* ============================================
+   DARK MODE CSS - Harness Master
+   Activated by [data-theme="dark"]
+   ============================================ */
+
+[data-theme="dark"] {
+  /* Background */
+  --color-bg: #0F172A;
+  --color-bg-secondary: #1E293B;
+  --color-bg-tertiary: #162032;
+
+  /* Surface */
+  --color-surface: #1E293B;
+  --color-surface-hover: #283548;
+
+  /* Border */
+  --color-border: #334155;
+  --color-border-light: #1E293B;
+
+  /* Text */
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* ---- Navbar Dark ---- */
+[data-theme="dark"] .navbar-scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom-color: #1E293B;
+}
+
+[data-theme="dark"] .navbar-logo-main {
+  color: #F1F5F9;
+}
+
+[data-theme="dark"] .navbar-nav-link {
+  color: #94A3B8;
+}
+
+[data-theme="dark"] .navbar-nav-link:hover,
+[data-theme="dark"] .navbar-nav-link.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .color-picker-dropdown {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .color-option:hover {
+  background: #283548;
+}
+
+[data-theme="dark"] .lang-toggle {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .icon-btn:hover {
+  background: #283548;
+}
+
+[data-theme="dark"] .mobile-menu {
+  background: #0F172A;
+  border-bottom-color: #1E293B;
+}
+
+[data-theme="dark"] .navbar-user {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .navbar-user:hover {
+  background: rgba(var(--color-primary-rgb), 0.1);
+}
+
+/* ---- Cards Dark ---- */
+[data-theme="dark"] .card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .path-card,
+[data-theme="dark"] .pattern-card,
+[data-theme="dark"] .info-card {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .feature-card:hover,
+[data-theme="dark"] .path-card:hover,
+[data-theme="dark"] .pattern-card:hover,
+[data-theme="dark"] .info-card:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.4);
+}
+
+/* ---- Guide Pages Dark ---- */
+[data-theme="dark"] .guide-sidebar {
+  background: #1E293B;
+  border-right-color: #334155;
+}
+
+[data-theme="dark"] .guide-sidebar-link {
+  color: #94A3B8;
+}
+
+[data-theme="dark"] .guide-sidebar-link:hover,
+[data-theme="dark"] .guide-sidebar-link.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .guide-sidebar-header {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .guide-hero {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary-rgb), 0.12) 0%,
+    rgba(var(--color-primary-rgb), 0.04) 100%
+  );
+  border-color: rgba(var(--color-primary-rgb), 0.2);
+}
+
+[data-theme="dark"] .guide-section-header {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .guide-nav-btn {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .guide-nav-btn:hover {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.08);
+}
+
+/* ---- Code Blocks Dark ---- */
+[data-theme="dark"] .code-yaml {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] code:not(pre code) {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  border-color: rgba(var(--color-primary-rgb), 0.25);
+}
+
+/* ---- Auth Dark ---- */
+[data-theme="dark"] .auth-page {
+  background: #0F172A;
+}
+
+[data-theme="dark"] .auth-card {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .auth-social-btn.google {
+  background: #283548;
+  color: #E2E8F0;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .auth-social-btn.google:hover {
+  background: #334155;
+}
+
+[data-theme="dark"] .auth-info {
+  background: #283548;
+}
+
+/* ---- Footer Dark (Already Dark by Default) ---- */
+[data-theme="dark"] .footer {
+  background: #030712;
+  border-top: 1px solid #0F172A;
+}
+
+[data-theme="dark"] .footer-top {
+  border-bottom-color: #0F172A;
+}
+
+[data-theme="dark"] .footer-family-btn {
+  background: #0F172A;
+  border-color: #1E293B;
+}
+
+[data-theme="dark"] .footer-family-dropdown {
+  background: #0F172A;
+  border-color: #1E293B;
+}
+
+[data-theme="dark"] .footer-family-link:hover {
+  background: #1E293B;
+}
+
+/* ---- Table Dark ---- */
+[data-theme="dark"] .comparison-table th {
+  background: rgba(var(--color-primary-rgb), 0.12);
+}
+
+[data-theme="dark"] .comparison-table td {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .comparison-table tr:hover td {
+  background: #283548;
+}
+
+/* ---- Tip Box Dark ---- */
+[data-theme="dark"] .tip-box.tip {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+[data-theme="dark"] .tip-box.warning {
+  background: rgba(245, 158, 11, 0.08);
+}
+
+[data-theme="dark"] .tip-box.important {
+  background: rgba(var(--color-primary-rgb), 0.08);
+}
+
+[data-theme="dark"] .tip-box.danger {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ---- Scrollbar Dark ---- */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #1E293B;
+}
+
+[data-theme="dark"] ::selection {
+  background: rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* ---- Skeleton Dark ---- */
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(90deg,
+    #1E293B 25%,
+    #283548 50%,
+    #1E293B 75%
+  );
+}
+
+/* ---- Stats Dark ---- */
+[data-theme="dark"] .stats-section {
+  border-color: #334155;
+}

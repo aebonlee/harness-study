@@ -1,0 +1,369 @@
+/* ============================================
+   RESPONSIVE CSS - Harness Master
+   Mobile-first responsive design
+   ============================================ */
+
+/* ---- Large Desktop (1400px+) ---- */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+
+  .footer-inner {
+    max-width: 1320px;
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+/* ---- Tablet Landscape (1024px) ---- */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    max-width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .workflow-steps::before {
+    display: none;
+  }
+
+  .navbar-nav {
+    gap: 0;
+  }
+
+  .navbar-nav-link {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ---- Tablet Portrait (768px) ---- */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 60px;
+  }
+
+  /* ---- Navbar ---- */
+  .navbar-nav {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navbar-inner {
+    padding: 0 1rem;
+  }
+
+  /* ---- Guide Pages ---- */
+  .guide-page {
+    flex-direction: column;
+  }
+
+  .guide-sidebar {
+    display: none;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    height: calc(100vh - var(--nav-height));
+    z-index: 898;
+    width: 280px;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .guide-sidebar.mobile-open {
+    display: flex;
+  }
+
+  .guide-sidebar-toggle {
+    display: flex;
+  }
+
+  .guide-sidebar-overlay.mobile-open {
+    display: block;
+  }
+
+  .guide-content {
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+  }
+
+  /* ---- Hero ---- */
+  .hero-stats {
+    gap: 1.5rem;
+  }
+
+  .hero-stat-divider {
+    display: none;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-outline {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* ---- Home ---- */
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paths-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .workflow-steps {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* ---- Sections ---- */
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .section-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .guide-hero {
+    padding: 1.75rem;
+  }
+
+  .guide-hero-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .guide-section-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pattern-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Footer ---- */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  /* ---- Guide Nav ---- */
+  .guide-nav {
+    flex-direction: column;
+  }
+
+  .guide-nav-btn {
+    max-width: 100%;
+  }
+
+  /* ---- Auth ---- */
+  .auth-card {
+    padding: 2rem;
+  }
+
+  /* ---- CTA ---- */
+  .cta-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---- Mobile (480px) ---- */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* ---- Navbar ---- */
+  .navbar-logo-sub {
+    display: none;
+  }
+
+  .navbar-actions .lang-toggle {
+    display: none;
+  }
+
+  /* ---- Hero ---- */
+  .hero-badge {
+    font-size: 0.7rem;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* ---- Feature Cards ---- */
+  .feature-card {
+    padding: 1.25rem;
+  }
+
+  .path-card {
+    padding: 1rem;
+  }
+
+  /* ---- Stats ---- */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-3xl);
+  }
+
+  /* ---- Guide ---- */
+  .guide-section-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .guide-section-icon {
+    align-self: flex-start;
+  }
+
+  /* ---- Auth ---- */
+  .auth-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-xl);
+  }
+
+  .auth-social-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  /* ---- Code Blocks ---- */
+  .code-block-body pre {
+    font-size: 0.75rem;
+    padding: 1rem;
+  }
+
+  /* ---- Comparison Table ---- */
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* ---- Footer ---- */
+  .footer-top {
+    padding: 2.5rem 0;
+  }
+
+  .footer-social {
+    flex-wrap: wrap;
+  }
+
+  /* ---- Color Picker ---- */
+  .color-picker-dropdown {
+    right: -60px;
+  }
+}
+
+/* ---- Print ---- */
+@media print {
+  .navbar,
+  .footer,
+  .guide-sidebar,
+  .guide-sidebar-toggle,
+  .guide-nav,
+  .hero-scroll,
+  .mobile-menu-btn {
+    display: none !important;
+  }
+
+  .guide-page {
+    display: block;
+  }
+
+  .guide-content {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .guide-hero {
+    background: none;
+    border: 1px solid #ccc;
+  }
+
+  .code-block-header {
+    background: #333;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+}
+
+/* ---- Accessibility ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-orb {
+    animation: none;
+  }
+
+  .animate-float {
+    animation: none;
+  }
+}
+
+/* ---- High Contrast ---- */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #666;
+    --color-text-muted: #555;
+  }
+
+  .navbar-nav-link:hover,
+  .navbar-nav-link.active {
+    outline: 2px solid var(--color-primary);
+  }
+}

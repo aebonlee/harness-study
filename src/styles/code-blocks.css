@@ -1,0 +1,261 @@
+/* ============================================
+   CODE BLOCKS CSS - Harness Master
+   ============================================ */
+
+/* ---- Inline Code ---- */
+code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(var(--color-primary-rgb), 0.08);
+  color: var(--color-primary);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.15);
+}
+
+/* ---- Pre Code Block ---- */
+.code-block {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 1rem;
+  background: #1E293B;
+  border-bottom: 1px solid #334155;
+}
+
+.code-block-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.code-block-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.code-block-dot.red { background: #FF5F57; }
+.code-block-dot.yellow { background: #FFBD2E; }
+.code-block-dot.green { background: #28C840; }
+
+.code-block-lang {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.code-block-copy {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: transparent;
+  border: 1px solid #334155;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.code-block-copy:hover {
+  background: #334155;
+  color: white;
+  border-color: #475569;
+}
+
+.code-block-copy.copied {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.code-block-body {
+  background: #0F172A;
+  overflow-x: auto;
+  padding: 0;
+}
+
+.code-block-body pre {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: #E2E8F0;
+  font-family: var(--font-mono);
+  white-space: pre;
+}
+
+.code-block-body pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+}
+
+/* ---- Syntax Highlight (manual) ---- */
+.token-keyword { color: #93C5FD; font-weight: 600; }
+.token-string { color: #86EFAC; }
+.token-comment { color: #64748B; font-style: italic; }
+.token-function { color: #FDE68A; }
+.token-number { color: #FCA5A5; }
+.token-operator { color: #C4B5FD; }
+.token-class { color: #67E8F9; }
+.token-variable { color: #E2E8F0; }
+.token-tag { color: #F9A8D4; }
+.token-attr { color: #FDE68A; }
+.token-value { color: #86EFAC; }
+
+/* ---- Simple Pre (no header) ---- */
+pre.simple {
+  background: #0F172A;
+  color: #E2E8F0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  border: 1px solid #1E293B;
+  margin: 1rem 0;
+}
+
+/* ---- Bash/Terminal Style ---- */
+.terminal {
+  background: #0A0A0A;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: 1.5rem 0;
+  border: 1px solid #222;
+}
+
+.terminal-header {
+  background: #1A1A1A;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid #222;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-title {
+  font-size: var(--font-size-xs);
+  color: #666;
+  font-family: var(--font-mono);
+}
+
+.terminal-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.terminal-body pre {
+  margin: 0;
+  color: #E2E8F0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+}
+
+.terminal-prompt {
+  color: #10B981;
+  user-select: none;
+}
+
+.terminal-output {
+  color: #94A3B8;
+}
+
+/* ---- YAML/Config Style ---- */
+.code-yaml {
+  background: #F8FAFC;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  overflow-x: auto;
+}
+
+.yaml-key { color: var(--color-primary); font-weight: 600; }
+.yaml-value { color: var(--color-text-secondary); }
+.yaml-comment { color: var(--color-text-muted); font-style: italic; }
+
+/* ---- TipBox Override ---- */
+.tip-box {
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+  border: 1px solid;
+}
+
+.tip-box.tip {
+  background: rgba(59, 130, 246, 0.06);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #1D4ED8;
+}
+
+.tip-box.warning {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #92400E;
+}
+
+.tip-box.important {
+  background: rgba(var(--color-primary-rgb), 0.06);
+  border-color: rgba(var(--color-primary-rgb), 0.2);
+  color: var(--color-primary-dark);
+}
+
+.tip-box.danger {
+  background: rgba(239, 68, 68, 0.06);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #991B1B;
+}
+
+.tip-box-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.tip-box-content {
+  flex: 1;
+}
+
+.tip-box-title {
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  margin-bottom: 0.25rem;
+}
+
+.tip-box-body {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  opacity: 0.9;
+}
