@@ -270,6 +270,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  position: relative;
   padding: 0.25rem 0.75rem 0.25rem 0.375rem;
   border-radius: var(--radius-full);
   background: var(--color-bg-secondary);
@@ -281,6 +282,29 @@
 .navbar-user:hover {
   border-color: var(--color-primary);
   background: var(--color-primary-50);
+}
+
+.navbar-user::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #1E293B;
+  color: #F1F5F9;
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 1010;
+}
+
+.navbar-user:hover::after {
+  opacity: 1;
 }
 
 .navbar-user-avatar {

@@ -196,7 +196,7 @@ export default function Navbar(): ReactElement {
             {/* Auth */}
             <div className="navbar-auth">
               {isLoggedIn ? (
-                <button className="navbar-user" onClick={signOut} title={isKo ? '로그아웃' : 'Sign Out'}>
+                <button className="navbar-user" onClick={signOut} data-tooltip={isKo ? '클릭하면 로그아웃' : 'Click to sign out'}>
                   <div className="navbar-user-avatar">{avatarLetter}</div>
                   <span className="navbar-user-name">{user?.email?.split('@')[0]}</span>
                   <i className="fa-solid fa-chevron-down" style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }} />
