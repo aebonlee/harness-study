@@ -7,6 +7,7 @@ import type { ReactElement } from 'react';
 const Home      = lazy(() => import('../pages/Home'));
 const Login     = lazy(() => import('../pages/Login'));
 const About     = lazy(() => import('../pages/about/About'));
+const Prereqs   = lazy(() => import('../pages/prereqs/Prereqs'));
 const Intro     = lazy(() => import('../pages/intro/Intro'));
 const Agents    = lazy(() => import('../pages/agents/Agents'));
 const Patterns  = lazy(() => import('../pages/patterns/Patterns'));
@@ -40,6 +41,7 @@ export default function PublicLayout(): ReactElement {
             <Route path="/"                      element={<Home />}      />
             <Route path="/login"                 element={<Login />}     />
             <Route path="/about"                 element={<About />}     />
+            <Route path="/prereqs"               element={<Prereqs />}   />
             <Route path="/intro"                 element={<Intro />}     />
             <Route path="/agents"                element={<Agents />}    />
             <Route path="/patterns"              element={<Patterns />}  />

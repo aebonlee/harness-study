@@ -16,9 +16,10 @@ const NAV_ITEMS: NavItem[] = [
   {
     type: 'dropdown', ko: '기본학습', en: 'Basics',
     children: [
-      { path: '/intro',  icon: 'fa-rocket', ko: '기초 개념', en: 'Concepts' },
-      { path: '/agents', icon: 'fa-robot',  ko: '에이전트',  en: 'Agents'   },
-      { path: '/memory', icon: 'fa-brain',  ko: '메모리',    en: 'Memory'   },
+      { path: '/prereqs', icon: 'fa-book-open',       ko: '사전지식 & 도구', en: 'Prerequisites'  },
+      { path: '/intro',   icon: 'fa-rocket',          ko: '기초 개념',       en: 'Concepts'       },
+      { path: '/agents',  icon: 'fa-robot',           ko: '에이전트',        en: 'Agents'         },
+      { path: '/memory',  icon: 'fa-brain',           ko: '메모리',          en: 'Memory'         },
     ],
   },
   {
