@@ -118,6 +118,42 @@ function ProtocolSection({ isKo }: { isKo: boolean }): ReactElement {
       <p>{isKo ? '중요한 단계 완료 시 오케스트레이터에게 보고합니다. 체크포인트는 팀 전체의 진행 상황을 추적하고 병목을 식별하는 데 도움됩니다.' : 'Report to the orchestrator upon completing important stages. Checkpoints help track overall team progress and identify bottlenecks.'}</p>
       <h3>{isKo ? '3. 핸드오프(Handoff)' : '3. Handoff'}</h3>
       <p>{isKo ? '한 에이전트에서 다른 에이전트로 작업을 전달하는 표준화된 절차입니다. 핸드오프 문서에는 완료된 작업, 남은 작업, 특이사항이 포함됩니다.' : 'A standardized procedure for passing tasks from one agent to another. Handoff documents include completed work, remaining tasks, and notable items.'}</p>
+      <h3>{isKo ? '작업 큐 파일 예시' : 'Task Queue File Example'}</h3>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">tmp/tasks.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "project": "my-web-app",
+  "updated": "2026-04-19T10:30:00Z",
+  "tasks": [
+    {
+      "id": "t001",
+      "title": "인증 API 구현",
+      "assignee": "backend-agent",
+      "status": "completed",
+      "output": "src/api/auth.ts"
+    },
+    {
+      "id": "t002",
+      "title": "로그인 컴포넌트 구현",
+      "assignee": "frontend-agent",
+      "status": "in_progress",
+      "depends_on": []
+    },
+    {
+      "id": "t003",
+      "title": "인증 코드 리뷰",
+      "assignee": "reviewer-agent",
+      "status": "pending",
+      "depends_on": ["t001", "t002"]
+    }
+  ]
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '조정 프로토콜은 팀 설정 초기에 문서화하세요. 런타임에 프로토콜을 변경하면 에이전트 간 혼란이 발생합니다.' : 'Document coordination protocols at the beginning of team setup. Changing protocols at runtime causes confusion among agents.'}</TipBox>
     </div>
   );
@@ -188,6 +224,44 @@ function ExamplesSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '편집 에이전트' : 'Editing Agent'}</strong> — {isKo ? '문체 교정, 가독성 개선' : 'Style correction, readability improvement'}</li>
         <li><strong>{isKo ? 'SEO 에이전트' : 'SEO Agent'}</strong> — {isKo ? '키워드 최적화, 메타데이터 작성' : 'Keyword optimization, metadata writing'}</li>
       </ul>
+      <h2>{isKo ? 'CLAUDE.md — 풀스택 개발 오케스트레이터 예시' : 'CLAUDE.md — Full-stack Orchestrator Example'}</h2>
+      <p>{isKo ? '아래는 실제로 사용할 수 있는 풀스택 개발팀 오케스트레이터 CLAUDE.md입니다. 이 파일 하나로 5개 에이전트 팀의 동작이 정의됩니다.' : 'Below is a real-world full-stack dev team orchestrator CLAUDE.md. This single file defines the behavior of a 5-agent team.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (풀스택 개발팀 오케스트레이터)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 풀스택 개발팀 오케스트레이터
+
+## Role
+5개 에이전트로 구성된 풀스택 개발팀을 조율하는 오케스트레이터.
+작업을 분해하고 적절한 에이전트에게 위임하며 품질을 보장한다.
+
+## Team Members
+- architect-agent  : 시스템 설계, 기술 결정 (Opus)
+- frontend-agent   : React/TypeScript UI 구현 (Sonnet)
+- backend-agent    : API, DB, 비즈니스 로직 구현 (Sonnet)
+- reviewer-agent   : 코드 품질·보안·성능 검토 (Sonnet)
+- tester-agent     : 단위·통합 테스트 작성 및 실행 (Haiku)
+
+## Workflow
+1. 요구사항을 받으면 architect-agent에게 설계 위임
+2. 설계 완료 후 frontend-agent와 backend-agent를 동시에 실행 (팬아웃)
+3. 구현 완료 후 reviewer-agent에게 코드 리뷰 위임
+4. 리뷰 통과 후 tester-agent에게 테스트 작성 위임
+5. 모든 단계 결과를 tmp/progress.json에 기록
+
+## Rules
+- 각 에이전트에게 작업 위임 시 반드시 이전 단계 결과 파일을 전달
+- reviewer-agent가 score < 70이면 해당 에이전트에게 재작업 요청
+- 오류 발생 시 3회까지 재시도, 그 이후에는 사용자에게 보고
+
+## Tools
+- Task (에이전트 실행)
+- Read / Write (파일 관리)`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '이 예시들은 참고용입니다. 실제 팀 구성은 도메인의 특성, 작업 규모, 품질 요구사항에 따라 조정하세요.' : 'These examples are for reference. Actual team composition should be adjusted based on domain characteristics, task scale, and quality requirements.'}</TipBox>
     </div>
   );

@@ -100,11 +100,48 @@ function WebdevSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '배포 에이전트 (Haiku)' : 'Deploy Agent (Haiku)'}</strong> — {isKo ? 'CI/CD 파이프라인 관리, 배포 스크립트 실행.' : 'CI/CD pipeline management, deployment script execution.'}</li>
       </ul>
       <h2>{isKo ? '워크플로우' : 'Workflow'}</h2>
-      <p className="flow-diagram">
-        {isKo
-          ? '요구사항 → [아키텍트] 설계 → [개발 x2] 병렬 구현 → [리뷰어] 검토 → [테스터] 테스트 → [배포] 배포'
-          : 'Requirements → [Architect] Design → [Dev x2] Parallel Implementation → [Reviewer] Review → [Tester] Test → [Deploy] Deploy'}
-      </p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '웹 개발팀 워크플로우' : 'Web Dev Team Workflow'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`요구사항(Input)
+       │
+       ▼
+┌──────────────────┐
+│  아키텍트 에이전트 │  시스템 설계, 기술 스택 결정
+│  (Opus)          │  → architecture.md 출력
+└────────┬─────────┘
+         │ 설계 완료 → 팬아웃(Fan-out)
+    ┌────┴─────┐
+    ▼           ▼
+┌────────┐  ┌─────────┐
+│프론트   │  │백엔드    │  병렬 구현 (Sonnet x2)
+│에이전트 │  │에이전트  │
+└───┬────┘  └────┬────┘
+    │             │
+    └──────┬──────┘
+           │ 팬인(Fan-in)
+           ▼
+┌──────────────────┐
+│  리뷰어 에이전트  │  코드 품질·보안·성능 검토 (Sonnet)
+└────────┬─────────┘
+         │ score ≥ 70 → 통과
+         ▼
+┌──────────────────┐
+│  테스터 에이전트  │  단위·통합 테스트 (Haiku)
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  배포 에이전트   │  CI/CD 파이프라인 실행 (Haiku)
+└────────┬─────────┘
+         │
+         ▼
+    최종 배포(Output)`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '비용 최적화: 아키텍트에는 Opus, 개발/리뷰에는 Sonnet, 테스트/배포에는 Haiku를 사용하면 성능과 비용의 균형을 맞출 수 있습니다.' : 'Cost optimization: Use Opus for architect, Sonnet for dev/review, Haiku for test/deploy to balance performance and cost.'}</TipBox>
     </div>
   );

@@ -150,8 +150,13 @@ function AgentSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '데이터베이스 메모리(DB Memory)' : 'Database Memory'}</strong> — {isKo ? 'Supabase, Redis 등 외부 DB 활용. 팀 전체가 공유 가능합니다.' : 'Uses external DBs like Supabase, Redis. Shareable across the entire team.'}</li>
       </ul>
       <h3>{isKo ? 'MEMORY.md 구조' : 'MEMORY.md Structure'}</h3>
-      <div className="code-example">
-        <pre><code>{`# Agent Memory File
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">MEMORY.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# Agent Memory File
 
 ## 프로젝트 상태 (Project Status)
 - 현재 단계: [단계명]
@@ -164,6 +169,7 @@ function AgentSection({ isKo }: { isKo: boolean }): ReactElement {
 
 ## 다음 실행 시 참고 (Notes for Next Run)
 - [중요 사항]`}</code></pre>
+        </div>
       </div>
       <TipBox type="important">{isKo ? 'MEMORY.md는 간결하게 유지하세요. 너무 많은 내용을 저장하면 메모리 파일 자체가 컨텍스트 부담이 됩니다. 핵심 상태와 결정사항만 기록합니다.' : 'Keep MEMORY.md concise. Storing too much makes the memory file itself a context burden. Only record key state and decisions.'}</TipBox>
     </div>

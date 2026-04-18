@@ -60,6 +60,12 @@ export default function Skills(): ReactElement {
   const isKo = language === 'ko';
   const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
   const handleNav = (id: string) => { setActiveSection(id); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubNav = (subId: string) => {
+    setTimeout(() => {
+      const el = document.getElementById(subId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
 
   return (
     <>
@@ -70,6 +76,7 @@ export default function Skills(): ReactElement {
             groups={NAV_GROUPS}
             activeSection={activeSection}
             onNavigate={handleNav}
+            onSubNavigate={handleSubNav}
             isKo={isKo}
           />
           <main className="guide-content">
@@ -153,9 +160,15 @@ function StructureSection({ isKo }: { isKo: boolean }): ReactElement {
         <h1>{isKo ? '스킬 파일 구조' : 'Skill File Structure'}</h1>
         <p>{isKo ? '효과적인 스킬 파일을 작성하기 위한 표준 구조와 모범 사례를 알아봅니다.' : 'Learn the standard structure and best practices for writing effective skill files.'}</p>
       </div>
-      <h2>{isKo ? '표준 스킬 파일 구조' : 'Standard Skill File Structure'}</h2>
-      <div className="code-example">
-        <pre><code>{`# [스킬 이름]
+      <h2 id="sub-struct-method">{isKo ? '표준 스킬 파일 구조' : 'Standard Skill File Structure'}</h2>
+      <p>{isKo ? '스킬 파일은 6개 섹션으로 구성됩니다. 각 섹션의 역할을 이해하고 일관된 구조로 작성하세요.' : 'Skill files consist of 6 sections. Understand each section\'s role and write with a consistent structure.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/commands/[skill-name].md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# [스킬 이름]
 ## 트리거 (Trigger)
 [언제 이 스킬을 사용하는지 - 1줄]
 
@@ -177,6 +190,51 @@ function StructureSection({ isKo }: { isKo: boolean }): ReactElement {
 
 ## 상세 참고 (Details - 필요시만 로드)
 [엣지 케이스, 예외 처리, 예시]`}</code></pre>
+        </div>
+      </div>
+      <h3 id="sub-struct-ex">{isKo ? '실습 예제 — 코드 리뷰 스킬 파일' : 'Practice Example — Code Review Skill File'}</h3>
+      <p>{isKo ? '아래는 실제 사용 가능한 코드 리뷰 스킬 파일 전체입니다. 위의 템플릿에 실제 내용을 채운 예시로 참고하세요.' : 'Below is a complete, usable code review skill file. Use it as a reference for filling in the template above with actual content.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/commands/code-review.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# code-review
+
+## 트리거 (Trigger)
+코드 리뷰, PR 검토, 품질 점검 요청 시 사용
+
+## 목적 (Purpose)
+변경된 코드의 보안·성능·가독성을 체계적으로 검토하여
+구체적인 개선 제안을 JSON 형식으로 반환합니다.
+
+## 핵심 지침 (Core Guidelines)
+1. OWASP Top 10 기준으로 보안 취약점을 반드시 확인할 것
+2. 피드백은 "문제 + 근거 + 개선 방법" 3요소를 포함할 것
+3. 칭찬과 개선점을 균형 있게 제시할 것
+
+## 단계 (Steps)
+1. 변경된 파일 목록을 파악하고 중요도 순으로 정렬
+2. 각 파일에서 보안 취약점 스캔 (SQL Injection, XSS, 인증 등)
+3. 성능 이슈 검토 (N+1 쿼리, 불필요한 렌더링, 메모리 누수)
+4. 코드 컨벤션 및 가독성 평가
+5. 종합 점수 및 개선 제안 목록 작성
+
+## 산출물 (Output)
+{
+  "score": 0-100,
+  "summary": "한 줄 요약",
+  "issues": [{"severity": "high|medium|low", "file": "", "line": 0, "message": ""}],
+  "suggestions": ["개선 제안 1", "개선 제안 2"]
+}
+
+## 상세 참고 (Details - 필요시만 로드)
+### 심각도 기준
+- high: 즉시 수정 필요 (보안, 크래시 유발)
+- medium: 다음 PR에서 수정 권장
+- low: 선택적 개선`}</code></pre>
+        </div>
       </div>
       <TipBox type="important">{isKo ? '스킬 파일은 마크다운 형식을 사용합니다. 명확한 헤딩 구조가 에이전트의 파싱을 돕고, 필요한 섹션만 선택적으로 로드할 수 있게 합니다.' : 'Skill files use markdown format. Clear heading structure helps agent parsing and allows selective loading of only needed sections.'}</TipBox>
     </div>
@@ -190,7 +248,7 @@ function TriggersSection({ isKo }: { isKo: boolean }): ReactElement {
         <h1>{isKo ? '트리거 설계' : 'Trigger Design'}</h1>
         <p>{isKo ? '에이전트가 올바른 스킬을 올바른 시점에 사용하도록 트리거를 설계하는 방법을 배웁니다.' : 'Learn how to design triggers so agents use the right skill at the right time.'}</p>
       </div>
-      <h2>{isKo ? '트리거의 역할' : 'Role of Triggers'}</h2>
+      <h2 id="sub-trigger-method">{isKo ? '트리거의 역할' : 'Role of Triggers'}</h2>
       <p>{isKo ? '트리거는 스킬이 언제 활성화되어야 하는지를 정의합니다. 잘 설계된 트리거는 에이전트가 상황에 맞는 스킬을 자동으로 선택하게 합니다.' : 'Triggers define when a skill should be activated. Well-designed triggers allow agents to automatically select the right skill for the situation.'}</p>
       <h3>{isKo ? '트리거 유형' : 'Trigger Types'}</h3>
       <ul>
@@ -199,6 +257,35 @@ function TriggersSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '명시적 트리거' : 'Explicit Trigger'}</strong> — {isKo ? '사용자나 오케스트레이터가 명시적으로 스킬을 호출. 예: /skill-name 명령어' : 'User or orchestrator explicitly calls the skill. E.g., /skill-name command'}</li>
       </ul>
       <TipBox type="warning">{isKo ? '트리거가 너무 광범위하면 불필요한 스킬 로드가 발생합니다. 반대로 너무 좁으면 스킬이 필요한 상황에서도 활성화되지 않습니다. 정확한 트리거 문구를 테스트를 통해 검증하세요.' : 'Too broad triggers cause unnecessary skill loading. Too narrow triggers may not activate even when the skill is needed. Validate accurate trigger phrases through testing.'}</TipBox>
+      <h3 id="sub-trigger-ex">{isKo ? '실습 예제 — 트리거 비교' : 'Practice Example — Trigger Comparison'}</h3>
+      <p>{isKo ? '같은 스킬에 대해 나쁜 트리거와 좋은 트리거를 비교합니다. 트리거 문구의 구체성이 스킬 발동 정확도를 결정합니다.' : 'Compare bad vs. good triggers for the same skill. The specificity of trigger phrases determines skill activation accuracy.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? '트리거 비교 예시' : 'Trigger Comparison'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# ❌ 나쁜 트리거 (너무 광범위)
+## 트리거
+코드 관련 작업
+
+# ✅ 좋은 트리거 (구체적)
+## 트리거
+PR 코드 리뷰, /review 명령어 호출,
+"코드 리뷰해줘" / "review this code" 요청 시
+
+---
+
+# ❌ 나쁜 트리거 (너무 좁음)
+## 트리거
+React useState 관련 버그가 있는 TypeScript 파일
+
+# ✅ 좋은 트리거 (적절한 범위)
+## 트리거
+TypeScript/JavaScript 버그 수정, 에러 디버깅,
+"고쳐줘" / "fix this" / "버그가 있어" 요청 시`}</code></pre>
+        </div>
+      </div>
     </div>
   );
 }

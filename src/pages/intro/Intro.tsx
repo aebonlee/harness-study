@@ -56,6 +56,12 @@ export default function Intro(): ReactElement {
   const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
 
   const handleNav = (id: string) => { setActiveSection(id); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubNav = (subId: string) => {
+    setTimeout(() => {
+      const el = document.getElementById(subId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
 
   return (
     <>
@@ -70,6 +76,7 @@ export default function Intro(): ReactElement {
             groups={NAV_GROUPS}
             activeSection={activeSection}
             onNavigate={handleNav}
+            onSubNavigate={handleSubNav}
             isKo={isKo}
           />
           <main className="guide-content">
@@ -175,19 +182,19 @@ function ComponentsSection({ isKo }: { isKo: boolean }): ReactElement {
 
       <h2>{isKo ? '5가지 핵심 구성요소' : '5 Core Components'}</h2>
 
-      <h3>1. {isKo ? '에이전트 (Agents)' : 'Agents'}</h3>
+      <h3 id="sub-agents">1. {isKo ? '에이전트 (Agents)' : 'Agents'}</h3>
       <p>{isKo ? '특정 역할을 수행하도록 정의된 AI 인스턴스입니다. 각 에이전트는 명확한 목적, 책임 범위, 사용 가능한 도구가 지정됩니다. 에이전트는 오케스트레이터의 지시를 받아 작업을 수행하고 결과를 반환합니다.' : 'AI instances defined to perform specific roles. Each agent has a clear purpose, scope of responsibility, and available tools. Agents receive instructions from the orchestrator, perform tasks, and return results.'}</p>
 
       <h3>2. {isKo ? '오케스트레이터 (Orchestrator)' : 'Orchestrator'}</h3>
       <p>{isKo ? '에이전트 팀의 조율자입니다. 독재자가 아닌 조율자(coordinator)로서 각 에이전트에게 작업을 할당하고, 결과를 수집하며, 전체 워크플로우를 관리합니다. 오케스트레이터 자체도 AI 에이전트입니다.' : 'The coordinator of the agent team. As a coordinator (not a dictator), it assigns tasks to agents, collects results, and manages the overall workflow. The orchestrator itself is also an AI agent.'}</p>
 
-      <h3>3. {isKo ? '스킬 (Skills)' : 'Skills'}</h3>
+      <h3 id="sub-skills">3. {isKo ? '스킬 (Skills)' : 'Skills'}</h3>
       <p>{isKo ? '에이전트가 수행할 작업의 상세 지침을 담은 파일입니다. 레시피 카드에 비유할 수 있습니다. 스킬은 프로그레시브 디스클로저 방식으로 설계되어 필요할 때만 상세 정보가 로드됩니다.' : 'Files containing detailed instructions for tasks agents perform. Think of them as recipe cards. Skills are designed with progressive disclosure so detailed information is only loaded when needed.'}</p>
 
       <h3>4. {isKo ? '컨텍스트 창 (Context Window)' : 'Context Window'}</h3>
       <p>{isKo ? '에이전트가 한 번에 처리할 수 있는 정보의 양입니다. 주방 작업대에 비유됩니다. Harness는 스킬 파일의 지능적 관리로 컨텍스트 창을 효율적으로 사용합니다.' : 'The amount of information an agent can process at once. Analogous to a kitchen counter. Harness efficiently uses the context window through intelligent skill file management.'}</p>
 
-      <h3>5. {isKo ? '메모리 (Memory)' : 'Memory'}</h3>
+      <h3 id="sub-memory">5. {isKo ? '메모리 (Memory)' : 'Memory'}</h3>
       <p>{isKo ? '에이전트가 다음 세션에도 사용할 수 있도록 보존하는 정보입니다. 내일 교대 근무자를 위한 메모에 비유됩니다. MEMORY.md 파일이나 외부 저장소를 통해 구현됩니다.' : 'Information preserved for agents to use in future sessions. Analogous to notes for tomorrow\'s staff. Implemented through MEMORY.md files or external storage.'}</p>
 
       <TipBox type="important">
@@ -253,24 +260,71 @@ function InstallSection({ isKo }: { isKo: boolean }): ReactElement {
       </ul>
 
       <h2>{isKo ? '설치 방법' : 'Installation Steps'}</h2>
-      <ol>
-        <li>
-          <strong>{isKo ? 'Claude Code 설치 확인' : 'Verify Claude Code Installation'}</strong>
-          <p>{isKo ? 'Claude Code가 최신 버전인지 확인합니다.' : 'Verify that Claude Code is the latest version.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? 'Agent Teams 활성화' : 'Enable Agent Teams'}</strong>
-          <p>{isKo ? '환경 변수를 통해 Agent Teams 기능을 활성화합니다. Claude Code 설정에서 CLAUDE_CODE_AGENT_TEAMS=true로 설정합니다.' : 'Enable the Agent Teams feature via environment variables. Set CLAUDE_CODE_AGENT_TEAMS=true in Claude Code settings.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? 'Harness 스킬 설치' : 'Install Harness Skills'}</strong>
-          <p>{isKo ? 'revfactory/harness 리포지토리에서 Harness 스킬 파일을 다운로드하여 .claude/skills/ 디렉토리에 배치합니다.' : 'Download the Harness skill file from revfactory/harness repository and place it in the .claude/skills/ directory.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '동작 확인' : 'Verify Operation'}</strong>
-          <p>{isKo ? 'Claude Code에서 /harness 명령으로 Harness가 정상 로드되는지 확인합니다.' : 'Verify Harness loads correctly with the /harness command in Claude Code.'}</p>
-        </li>
-      </ol>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">bash</span>
+          <span className="code-block-filename">{isKo ? '1단계: Claude Code 설치' : 'Step 1: Install Claude Code'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# npm으로 Claude Code 설치 (전역)
+npm install -g @anthropic-ai/claude-code
+
+# 설치 확인
+claude --version`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">bash</span>
+          <span className="code-block-filename">{isKo ? '2단계: 프로젝트 초기화 + 디렉토리 구성' : 'Step 2: Initialize project + directory setup'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 프로젝트 디렉토리로 이동
+cd my-project
+
+# Harness 디렉토리 구조 생성
+mkdir -p .claude/commands
+
+# CLAUDE.md 생성 (전역 지침 파일)
+touch .claude/CLAUDE.md`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (기본 템플릿)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 프로젝트 개요
+이 프로젝트는 [기술 스택]을 사용하는 [프로젝트 설명]입니다.
+
+# 코딩 컨벤션
+- 언어: TypeScript (strict mode)
+- 포매터: Prettier (탭 2칸)
+- 테스트: Jest + React Testing Library
+
+# 아키텍처 결정
+- 상태 관리: Zustand
+- API 통신: React Query
+
+# 주의사항
+- 직접 DOM 조작 금지, React 방식 사용
+- console.log 대신 logger 유틸리티 사용`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">bash</span>
+          <span className="code-block-filename">{isKo ? '3단계: Claude Code 시작 + 동작 확인' : 'Step 3: Start Claude Code + verify'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# Claude Code 시작 (프로젝트 루트에서)
+claude
+
+# Claude Code 내에서 CLAUDE.md 로드 확인
+# → Claude가 프로젝트 컨텍스트를 인식하면 성공`}</code></pre>
+        </div>
+      </div>
 
       <TipBox type="warning">
         {isKo
@@ -300,8 +354,17 @@ function FirstSection({ isKo }: { isKo: boolean }): ReactElement {
 
       <h3>{isKo ? '예제: 웹 개발 팀 생성' : 'Example: Creating a Web Dev Team'}</h3>
       <p>{isKo ? 'Claude Code에서 다음과 같이 입력합니다:' : 'Enter the following in Claude Code:'}</p>
-      <div className="code-example">
-        <pre><code>{`/harness\n\n도메인: React + TypeScript 웹 애플리케이션 개발\n요구사항: 컴포넌트 설계, 코드 리뷰, 테스트 작성`}</code></pre>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? 'Claude Code 입력 예시' : 'Claude Code input example'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`/harness
+
+도메인: React + TypeScript 웹 애플리케이션 개발
+요구사항: 컴포넌트 설계, 코드 리뷰, 테스트 작성`}</code></pre>
+        </div>
       </div>
       <p>{isKo ? 'Harness는 도메인을 분석하여 적합한 에이전트 팀(아키텍트, 개발자, 리뷰어, 테스터)과 각 에이전트의 스킬 파일을 자동 생성합니다.' : 'Harness analyzes the domain and automatically generates an appropriate agent team (architect, developer, reviewer, tester) and skill files for each agent.'}</p>
 
