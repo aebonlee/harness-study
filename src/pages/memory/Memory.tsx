@@ -69,10 +69,12 @@ export default function Memory(): ReactElement {
             {activeSection === 'longterm' && <LongtermSection isKo={isKo} />}
             <div className="guide-section-nav">
               <button className="guide-nav-btn prev" onClick={() => handleNav(SECTIONS[currentIndex-1].id)} disabled={currentIndex===0}>
-                <i className="fa-solid fa-arrow-left" /><span>{currentIndex>0?(isKo?SECTIONS[currentIndex-1].ko:SECTIONS[currentIndex-1].en):(isKo?'이전':'Prev')}</span>
+                <i className="fa-solid fa-arrow-left" />
+                <span><small>{isKo ? '이전' : 'Prev'}</small><strong>{currentIndex > 0 ? (isKo ? SECTIONS[currentIndex-1].ko : SECTIONS[currentIndex-1].en) : ''}</strong></span>
               </button>
               <button className="guide-nav-btn next" onClick={() => handleNav(SECTIONS[currentIndex+1].id)} disabled={currentIndex===SECTIONS.length-1}>
-                <span>{currentIndex<SECTIONS.length-1?(isKo?SECTIONS[currentIndex+1].ko:SECTIONS[currentIndex+1].en):(isKo?'다음':'Next')}</span><i className="fa-solid fa-arrow-right" />
+                <span><small>{isKo ? '다음' : 'Next'}</small><strong>{currentIndex < SECTIONS.length-1 ? (isKo ? SECTIONS[currentIndex+1].ko : SECTIONS[currentIndex+1].en) : ''}</strong></span>
+                <i className="fa-solid fa-arrow-right" />
               </button>
             </div>
           </main>
