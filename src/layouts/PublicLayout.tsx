@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import type { ReactElement } from 'react';
@@ -31,7 +31,40 @@ function LoadingFallback(): ReactElement {
   );
 }
 
+function useCopyButtons(): void {
+  const location = useLocation();
+  useEffect(() => {
+    const inject = () => {
+      document.querySelectorAll('.code-block').forEach(block => {
+        const header = block.querySelector('.code-block-header');
+        if (!header || header.querySelector('.code-block-copy')) return;
+        const pre = block.querySelector('.code-block-body pre');
+        if (!pre) return;
+
+        const btn = document.createElement('button');
+        btn.className = 'code-block-copy';
+        btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>복사</span>';
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(pre.textContent ?? '');
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i><span>완료</span>';
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>복사</span>';
+            }, 2000);
+          } catch { /* clipboard denied */ }
+        });
+        header.appendChild(btn);
+      });
+    };
+    const timer = setTimeout(inject, 150);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+}
+
 export default function PublicLayout(): ReactElement {
+  useCopyButtons();
   return (
     <div className="site-wrapper">
       <Navbar />
