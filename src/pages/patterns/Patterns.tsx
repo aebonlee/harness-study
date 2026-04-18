@@ -62,6 +62,12 @@ export default function Patterns(): ReactElement {
   const isKo = language === 'ko';
   const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
   const handleNav = (id: string) => { setActiveSection(id); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubNav = (subId: string) => {
+    setTimeout(() => {
+      const el = document.getElementById(subId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
 
   return (
     <>
@@ -72,6 +78,7 @@ export default function Patterns(): ReactElement {
             groups={NAV_GROUPS}
             activeSection={activeSection}
             onNavigate={handleNav}
+            onSubNavigate={handleSubNav}
             isKo={isKo}
           />
           <main className="guide-content">
@@ -105,12 +112,45 @@ function PipelineSection({ isKo }: { isKo: boolean }): ReactElement {
         <h1>{isKo ? '파이프라인 패턴' : 'Pipeline Pattern'}</h1>
         <p>{isKo ? '에이전트들이 순차적으로 작업을 처리하는 가장 기본적인 패턴입니다.' : 'The most fundamental pattern where agents process tasks sequentially.'}</p>
       </div>
-      <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
+      <h2 id="sub-pipeline-struct">{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '파이프라인 패턴에서는 에이전트 A의 출력이 에이전트 B의 입력이 되고, 에이전트 B의 출력이 에이전트 C의 입력이 되는 방식으로 연속적으로 처리됩니다. 제조 공장의 조립 라인과 같습니다.' : 'In the pipeline pattern, Agent A\'s output becomes Agent B\'s input, Agent B\'s output becomes Agent C\'s input, and so on. Like an assembly line in a factory.'}</p>
-      <p className="flow-diagram">
-        {isKo ? '연구 에이전트 → 작성 에이전트 → 검토 에이전트 → 편집 에이전트' : 'Research Agent → Writing Agent → Review Agent → Editing Agent'}
-      </p>
-      <h3>{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '파이프라인 흐름도' : 'Pipeline Flow'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`입력(Input)
+   │
+   ▼
+┌─────────────────┐
+│  연구 에이전트   │  웹 검색, 문서 분석
+│  Research Agent │
+└────────┬────────┘
+         │  research.md (결과 파일)
+         ▼
+┌─────────────────┐
+│  작성 에이전트   │  초안 작성
+│  Writing Agent  │
+└────────┬────────┘
+         │  draft.md
+         ▼
+┌─────────────────┐
+│  검토 에이전트   │  품질·사실 검증
+│  Review Agent   │
+└────────┬────────┘
+         │  review.json
+         ▼
+┌─────────────────┐
+│  편집 에이전트   │  최종 교정
+│  Editing Agent  │
+└────────┬────────┘
+         │
+         ▼
+    최종 산출물(Output)`}</code></pre>
+        </div>
+      </div>
+      <h3 id="sub-pipeline-cases">{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
       <ul>
         <li>{isKo ? '콘텐츠 제작 (연구 → 초안 → 검토 → 최종본)' : 'Content creation (Research → Draft → Review → Final)'}</li>
         <li>{isKo ? '데이터 처리 파이프라인 (수집 → 정제 → 분석 → 보고)' : 'Data processing pipeline (Collect → Clean → Analyze → Report)'}</li>
@@ -128,6 +168,42 @@ function PipelineSection({ isKo }: { isKo: boolean }): ReactElement {
         </table>
       </div>
       <TipBox type="tip">{isKo ? '파이프라인의 각 단계 사이에 검증 단계를 추가하세요. 앞 단계의 오류가 뒤로 전파되는 것을 방지합니다.' : 'Add a validation step between each pipeline stage. Prevents errors from earlier stages propagating downstream.'}</TipBox>
+      <h3 id="sub-pipeline-ex">{isKo ? '실습 예제 — 블로그 포스트 생성 파이프라인' : 'Practice Example — Blog Post Generation Pipeline'}</h3>
+      <p>{isKo ? '아래는 CLAUDE.md에 파이프라인 오케스트레이터를 정의하는 예시입니다. 연구 → 초안 → 검토 3단계 파이프라인을 구성합니다.' : 'Below defines a pipeline orchestrator in CLAUDE.md. Sets up a 3-stage pipeline: Research → Draft → Review.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (파이프라인 오케스트레이터)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 블로그 포스트 생성 오케스트레이터
+
+## Role
+파이프라인 패턴으로 고품질 블로그 포스트를 생성하는 오케스트레이터
+
+## Pipeline Steps
+
+### Step 1: Research
+Task 도구로 research-agent를 실행한다:
+- 주제 관련 최신 정보 3-5개 수집
+- 결과를 tmp/research.md에 저장
+
+### Step 2: Writing
+tmp/research.md를 읽어 writing-agent를 실행한다:
+- 1500-2000자 초안 작성
+- SEO 최적화 H2/H3 구조 사용
+- 결과를 tmp/draft.md에 저장
+
+### Step 3: Review
+tmp/draft.md를 읽어 review-agent를 실행한다:
+- 사실 정확성, 가독성, SEO 검토
+- 수정사항을 draft.md에 직접 반영
+- 최종본을 output/post.md에 저장
+
+## Tools
+- Task (서브에이전트 실행)`}</code></pre>
+        </div>
+      </div>
     </div>
   );
 }
@@ -139,15 +215,92 @@ function FanoutSection({ isKo }: { isKo: boolean }): ReactElement {
         <h1>{isKo ? '팬아웃/팬인 패턴' : 'Fan-out/Fan-in Pattern'}</h1>
         <p>{isKo ? '하나의 작업을 여러 에이전트에게 분배하고 결과를 통합하는 병렬 처리 패턴입니다.' : 'A parallel processing pattern that distributes one task to multiple agents and integrates results.'}</p>
       </div>
-      <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
+      <h2 id="sub-fanout-struct">{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '팬아웃 단계에서 오케스트레이터가 작업을 여러 병렬 에이전트에게 분배합니다. 각 에이전트는 독립적으로 작업을 처리하고, 팬인 단계에서 오케스트레이터가 모든 결과를 수집하여 통합합니다.' : 'In the fan-out phase, the orchestrator distributes tasks to multiple parallel agents. Each agent processes independently, and in the fan-in phase, the orchestrator collects and integrates all results.'}</p>
-      <h3>{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '팬아웃/팬인 흐름도' : 'Fan-out/Fan-in Flow'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`               입력(Input)
+                    │
+                    ▼
+          ┌─────────────────┐
+          │   오케스트레이터  │  작업 분배(Fan-out)
+          └──┬──────┬──────┬┘
+             │      │      │
+             ▼      ▼      ▼
+         ┌──────┐┌──────┐┌──────┐
+         │Agent ││Agent ││Agent │  병렬 실행
+         │  A   ││  B   ││  C   │
+         └──┬───┘└──┬───┘└──┬───┘
+             │      │      │
+             ▼      ▼      ▼
+          결과A   결과B   결과C
+             │      │      │
+             └──────┴──────┘
+                    │  결과 수집(Fan-in)
+                    ▼
+          ┌─────────────────┐
+          │   오케스트레이터  │  통합·집계
+          └─────────────────┘
+                    │
+                    ▼
+               최종 산출물`}</code></pre>
+        </div>
+      </div>
+      <h3 id="sub-fanout-cases">{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
       <ul>
         <li>{isKo ? '다국어 번역 (동시에 여러 언어로 번역)' : 'Multi-language translation (simultaneously translate to multiple languages)'}</li>
         <li>{isKo ? '여러 소스에서 정보 수집 후 통합' : 'Information gathering from multiple sources then integration'}</li>
         <li>{isKo ? '코드베이스의 여러 모듈 동시 분석' : 'Simultaneous analysis of multiple codebase modules'}</li>
       </ul>
       <TipBox type="important">{isKo ? '팬아웃 단계에서 분배되는 작업은 서로 독립적이어야 합니다. 작업 간 의존성이 있다면 파이프라인 패턴이 더 적합합니다.' : 'Tasks distributed in the fan-out phase should be independent of each other. If there are dependencies, the pipeline pattern is more appropriate.'}</TipBox>
+      <h3 id="sub-fanout-ex">{isKo ? '실습 예제 — 다국어 문서 생성' : 'Practice Example — Multi-language Document Generation'}</h3>
+      <p>{isKo ? '3개 언어(한국어·영어·일본어)로 동시 번역하는 팬아웃 패턴 예시입니다. 각 번역 에이전트가 병렬로 실행됩니다.' : 'A fan-out example that translates to 3 languages (Korean, English, Japanese) simultaneously. Each translation agent runs in parallel.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/commands/translate-all.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# translate-all (팬아웃 패턴)
+## Trigger
+다국어 번역 요청, 여러 언어로 동시 번역이 필요할 때
+
+## Role
+팬아웃 패턴으로 여러 언어를 병렬 번역하는 오케스트레이터
+
+## Fan-out Steps
+
+### 1. 원본 로드
+$ARGUMENTS로 받은 파일을 읽어 번역 대상을 확인한다.
+
+### 2. 병렬 번역 실행 (Fan-out)
+아래 3개 Task를 동시에 실행한다:
+
+Task A: 한국어 번역
+- 역할: 전문 한국어 번역가
+- 결과: output/ko.md에 저장
+
+Task B: 영어 번역
+- 역할: 전문 영어 번역가
+- 결과: output/en.md에 저장
+
+Task C: 일본어 번역
+- 역할: 전문 일본어 번역가
+- 결과: output/ja.md에 저장
+
+### 3. 결과 취합 (Fan-in)
+3개 번역 완료 후 품질을 확인하고
+output/translation-report.md에 비교 요약을 작성한다.
+
+## Tools
+- Task (서브에이전트 실행)
+- Read / Write`}</code></pre>
+        </div>
+      </div>
     </div>
   );
 }

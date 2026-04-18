@@ -108,6 +108,38 @@ function ConceptSection({ isKo }: { isKo: boolean }): ReactElement {
       <TipBox type="important">
         {isKo ? '에이전트는 "최소 권한 원칙(Principle of Least Privilege)"을 따릅니다. 각 에이전트에게는 역할 수행에 필요한 최소한의 도구만 부여하는 것이 보안과 효율 측면에서 바람직합니다.' : 'Agents follow the "Principle of Least Privilege." Granting each agent only the minimum tools needed for their role is best for security and efficiency.'}
       </TipBox>
+      <h3>{isKo ? '에이전트 스킬 파일 예시' : 'Agent Skill File Example'}</h3>
+      <p>{isKo ? '아래는 코드 리뷰 에이전트의 스킬 파일 예시입니다. Role, Tools, Process, Output 4개 섹션으로 에이전트의 동작을 완전히 정의합니다.' : 'Below is a skill file example for a code review agent. Four sections — Role, Tools, Process, Output — fully define the agent\'s behavior.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/commands/code-reviewer.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# code-reviewer
+## Trigger
+PR 코드 리뷰 요청, 코드 품질 검토가 필요할 때
+
+## Role
+코드 품질·보안·성능을 체계적으로 검토하는 전문 에이전트
+
+## Tools
+- Read   (소스 파일 읽기)
+- Bash   (lint 실행, 테스트 확인)
+
+## Process
+1. 변경된 파일 목록 확인
+2. 보안 취약점 검토 (OWASP Top 10)
+3. 성능 이슈 검토 (N+1, 메모리 누수 등)
+4. 코드 스타일 및 컨벤션 검토
+5. 개선 제안 목록 작성
+
+## Output Format
+\`\`\`json
+{ "score": 0-100, "issues": [], "suggestions": [] }
+\`\`\``}</code></pre>
+        </div>
+      </div>
     </div>
   );
 }
@@ -176,6 +208,39 @@ function RolesSection({ isKo }: { isKo: boolean }): ReactElement {
       <TipBox type="tip">
         {isKo ? '역할 이름은 직관적으로 지정하세요. "agent-1"보다 "code-reviewer" 또는 "documentation-writer"가 훨씬 명확합니다. 좋은 이름은 오케스트레이터가 올바른 에이전트를 선택하는 데 도움을 줍니다.' : 'Name roles intuitively. "code-reviewer" or "documentation-writer" is much clearer than "agent-1". Good names help the orchestrator select the right agent.'}
       </TipBox>
+      <h3>{isKo ? '역할 정의 템플릿' : 'Role Definition Template'}</h3>
+      <p>{isKo ? '새 에이전트를 설계할 때 아래 템플릿을 출발점으로 사용하세요. 입출력 형식과 성공 기준을 명확히 정의할수록 에이전트 품질이 높아집니다.' : 'Use the template below as a starting point when designing a new agent. The clearer the input/output format and success criteria, the higher the agent quality.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">yaml</span>
+          <span className="code-block-filename">{isKo ? '역할 정의 템플릿' : 'Role Definition Template'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`role: documentation-writer
+description: 코드 변경사항을 기반으로 문서를 자동 작성
+
+input:
+  - changed_files: 변경된 소스 파일 목록
+  - context: PR 제목 및 설명 요약
+
+output:
+  format: markdown
+  targets:
+    - README.md    # 프로젝트 개요 업데이트
+    - CHANGELOG.md # 변경 이력 추가
+
+tools:
+  - Read   # 소스 파일 읽기
+  - Write  # 문서 파일 작성
+
+model: claude-sonnet   # 문서 작성은 Sonnet으로 충분
+
+success_criteria:
+  - 모든 공개 API 변경사항 문서화
+  - 마크다운 문법 오류 없음
+  - 코드 예제 포함`}</code></pre>
+        </div>
+      </div>
     </div>
   );
 }
@@ -192,6 +257,35 @@ function CommunicationSection({ isKo }: { isKo: boolean }): ReactElement {
       <p>{isKo ? '가장 일반적인 패턴입니다. 에이전트 A의 결과가 오케스트레이터로 전달되고, 오케스트레이터가 이를 처리하여 에이전트 B에게 전달합니다. 명확한 책임 분리와 감독이 가능합니다.' : "The most common pattern. Agent A's result is passed to the orchestrator, which processes it and delivers it to Agent B. Enables clear separation of responsibilities and oversight."}</p>
       <h3>{isKo ? '2. 공유 파일을 통한 통신' : '2. Communication via Shared Files'}</h3>
       <p>{isKo ? '에이전트들이 공유 파일(예: output.md, review.json)을 통해 결과를 교환합니다. 비동기 통신에 적합하며 감사 추적이 용이합니다.' : 'Agents exchange results through shared files (e.g., output.md, review.json). Suitable for asynchronous communication with easy audit trails.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">shared/agent-output.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "from": "code-reviewer",
+  "to": "orchestrator",
+  "task_id": "pr-review-042",
+  "status": "completed",
+  "result": {
+    "score": 78,
+    "issues": [
+      {
+        "file": "src/auth.ts",
+        "line": 45,
+        "severity": "high",
+        "message": "SQL Injection 가능성 — parameterized query 사용 권장"
+      }
+    ],
+    "suggestions": [
+      "입력값 검증 로직 추가",
+      "에러 메시지에 내부 정보 노출 방지"
+    ]
+  }
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="warning">
         {isKo ? '에이전트 간 직접 통신은 가능하지만 권장되지 않습니다. 직접 통신은 디버깅을 어렵게 만들고 오케스트레이터의 전체 상황 파악 능력을 저하시킵니다.' : "Direct agent-to-agent communication is possible but not recommended. It makes debugging difficult and reduces the orchestrator's ability to understand the full situation."}
       </TipBox>

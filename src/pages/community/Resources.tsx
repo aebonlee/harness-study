@@ -46,6 +46,33 @@ const RESOURCES: Resource[] = [
     title: 'Awesome Claude Code', titleEn: 'Awesome Claude Code',
     desc: '커뮤니티가 curate한 Claude Code 리소스 목록', descEn: 'Community-curated list of Claude Code resources',
     url: 'https://github.com/anthropics/awesome-claude-code', tag: 'GitHub', tagEn: 'GitHub' },
+  /* 공식 문서 추가 */
+  { category: 'official', icon: 'fa-plug',
+    title: 'Claude Code Hooks 가이드', titleEn: 'Claude Code Hooks Guide',
+    desc: '훅으로 Claude Code 워크플로우 이벤트를 자동화하는 방법', descEn: 'Automate Claude Code workflow events using hooks',
+    url: 'https://docs.anthropic.com/ko/docs/claude-code/hooks', tag: '공식', tagEn: 'Official' },
+  { category: 'official', icon: 'fa-sliders',
+    title: 'Claude Code 설정 레퍼런스', titleEn: 'Claude Code Settings Reference',
+    desc: '프로젝트·사용자 레벨 설정 파일 완전 가이드', descEn: 'Complete guide to project and user-level settings files',
+    url: 'https://docs.anthropic.com/ko/docs/claude-code/settings', tag: '공식', tagEn: 'Official' },
+  { category: 'official', icon: 'fa-server',
+    title: 'MCP 서버 통합 가이드', titleEn: 'MCP Server Integration',
+    desc: 'Model Context Protocol 서버 연결 및 도구 확장 가이드', descEn: 'Connecting MCP servers and extending tools in Claude Code',
+    url: 'https://docs.anthropic.com/ko/docs/claude-code/mcp', tag: '공식', tagEn: 'Official' },
+  /* GitHub 추가 */
+  { category: 'github', icon: 'fa-brands fa-github',
+    title: 'anthropic-cookbook', titleEn: 'anthropic-cookbook',
+    desc: 'Anthropic API 실용 예제 모음 (공식 레시피북)', descEn: 'Official practical examples for Anthropic API usage',
+    url: 'https://github.com/anthropics/anthropic-cookbook', tag: 'GitHub', tagEn: 'GitHub' },
+  /* 영상 */
+  { category: 'video', icon: 'fa-brands fa-youtube',
+    title: 'Anthropic 공식 유튜브', titleEn: 'Anthropic Official YouTube',
+    desc: 'Claude 제품 발표·데모·개발자 튜토리얼 영상 채널', descEn: 'Claude product announcements, demos, and developer tutorials',
+    url: 'https://www.youtube.com/@anthropic-ai', tag: '영상', tagEn: 'Video' },
+  { category: 'video', icon: 'fa-play-circle',
+    title: 'Claude Code 활용 강좌', titleEn: 'Claude Code Tutorial Series',
+    desc: 'Harness 구축 실전 시연 및 활용법 영상 모음', descEn: 'Real-world Harness setup demonstrations and usage videos',
+    url: 'https://www.youtube.com/results?search_query=claude+code+harness', tag: '영상', tagEn: 'Video' },
   /* 커뮤니티 */
   { category: 'community', icon: 'fa-comments',
     title: 'Anthropic Discord', titleEn: 'Anthropic Discord',
@@ -55,6 +82,14 @@ const RESOURCES: Resource[] = [
     title: 'r/ClaudeAI', titleEn: 'r/ClaudeAI',
     desc: 'Claude 관련 Reddit 커뮤니티', descEn: 'Claude-related Reddit community',
     url: 'https://reddit.com/r/ClaudeAI', tag: '커뮤니티', tagEn: 'Community' },
+  { category: 'community', icon: 'fa-brands fa-github',
+    title: 'Claude Code GitHub Discussions', titleEn: 'Claude Code GitHub Discussions',
+    desc: '개발자들의 사용 경험·아이디어·버그 리포트 공유', descEn: 'Developers sharing usage experiences, ideas, and bug reports',
+    url: 'https://github.com/anthropics/claude-code/discussions', tag: '커뮤니티', tagEn: 'Community' },
+  { category: 'community', icon: 'fa-globe',
+    title: '@AnthropicAI (X/Twitter)', titleEn: '@AnthropicAI (X/Twitter)',
+    desc: '최신 Claude 업데이트·개발자 팁 실시간 공유', descEn: 'Real-time Claude updates and developer tips',
+    url: 'https://x.com/AnthropicAI', tag: '커뮤니티', tagEn: 'Community' },
 ];
 
 const CATEGORIES = [
@@ -62,6 +97,7 @@ const CATEGORIES = [
   { id: 'official',  ko: '공식 문서', en: 'Official',  icon: 'fa-book-open' },
   { id: 'tutorial',  ko: '튜토리얼', en: 'Tutorials', icon: 'fa-graduation-cap' },
   { id: 'github',    ko: 'GitHub',  en: 'GitHub',    icon: 'fa-brands fa-github' },
+  { id: 'video',     ko: '영상',    en: 'Videos',    icon: 'fa-play-circle' },
   { id: 'community', ko: '커뮤니티', en: 'Community', icon: 'fa-comments' },
 ];
 
