@@ -68,7 +68,7 @@ function PipelineSection({ isKo }: { isKo: boolean }): ReactElement {
       </div>
       <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '파이프라인 패턴에서는 에이전트 A의 출력이 에이전트 B의 입력이 되고, 에이전트 B의 출력이 에이전트 C의 입력이 되는 방식으로 연속적으로 처리됩니다. 제조 공장의 조립 라인과 같습니다.' : 'In the pipeline pattern, Agent A\'s output becomes Agent B\'s input, Agent B\'s output becomes Agent C\'s input, and so on. Like an assembly line in a factory.'}</p>
-      <p style={{fontFamily:'monospace', background:'var(--bg-light-gray)', padding:'16px', borderRadius:'8px', margin:'16px 0'}}>
+      <p className="flow-diagram">
         {isKo ? '연구 에이전트 → 작성 에이전트 → 검토 에이전트 → 편집 에이전트' : 'Research Agent → Writing Agent → Review Agent → Editing Agent'}
       </p>
       <h3>{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
