@@ -2,7 +2,18 @@
    HERO CSS - Harness Master
    ============================================ */
 
+/* ---- Hero Wrapper (Home.tsx section.hero) ---- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
 /* ---- Hero Background ---- */
+/* Standalone usage: full page */
 .hero-bg {
   position: relative;
   width: 100%;
@@ -17,6 +28,15 @@
     var(--color-primary, #1D4ED8) 40%,
     var(--color-primary-light, #3B82F6) 100%
   );
+}
+
+/* When .hero-bg is inside .hero wrapper → absolute fill */
+.hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  min-height: unset;
+  height: 100%;
+  width: 100%;
 }
 
 .hero-bg-canvas {
@@ -72,6 +92,7 @@
 .hero-content {
   position: relative;
   z-index: 2;
+  width: 100%;
   text-align: center;
   color: white;
   padding: 0 1.5rem;
@@ -251,6 +272,12 @@
   animation: float 1.5s ease-in-out infinite;
 }
 
+/* ---- Hero Title Highlight ---- */
+.hero-title-highlight {
+  display: block;
+  color: rgba(255, 255, 255, 0.85);
+}
+
 /* ---- Hero Carousel ---- */
 .hero-carousel {
   position: relative;
@@ -262,16 +289,27 @@
   padding: 1.5rem;
   margin-top: 2rem;
   animation: fadeIn 0.6s ease 0.7s both;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.carousel-slides {
-  display: flex;
-  transition: transform 0.5s ease;
+/* carousel-track: TSX uses this (not carousel-slides) */
+.carousel-track {
+  position: relative;
+  min-height: 80px;
 }
 
+/* All slides hidden by default */
 .carousel-slide {
-  min-width: 100%;
-  padding: 0 0.5rem;
+  display: none;
+  padding: 0 0.25rem;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Only active slide shown */
+.carousel-slide.active {
+  display: block;
 }
 
 .carousel-slide-title {

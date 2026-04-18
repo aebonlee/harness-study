@@ -5,11 +5,11 @@
 
 /* ---- Auth Page Wrapper ---- */
 .auth-page {
-  min-height: calc(100vh - var(--nav-height));
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.5rem;
+  padding: calc(var(--nav-height) + 2rem) 1.5rem 2rem;
   background: var(--color-bg-secondary);
   position: relative;
   overflow: hidden;
