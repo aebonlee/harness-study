@@ -75,7 +75,7 @@ function WebdevSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '배포 에이전트 (Haiku)' : 'Deploy Agent (Haiku)'}</strong> — {isKo ? 'CI/CD 파이프라인 관리, 배포 스크립트 실행.' : 'CI/CD pipeline management, deployment script execution.'}</li>
       </ul>
       <h2>{isKo ? '워크플로우' : 'Workflow'}</h2>
-      <p style={{fontFamily:'monospace', background:'var(--bg-light-gray)', padding:'16px', borderRadius:'8px', margin:'16px 0', lineHeight: '2'}}>
+      <p className="flow-diagram">
         {isKo
           ? '요구사항 → [아키텍트] 설계 → [개발 x2] 병렬 구현 → [리뷰어] 검토 → [테스터] 테스트 → [배포] 배포'
           : 'Requirements → [Architect] Design → [Dev x2] Parallel Implementation → [Reviewer] Review → [Tester] Test → [Deploy] Deploy'}

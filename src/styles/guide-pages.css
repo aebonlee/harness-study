@@ -354,6 +354,13 @@
   font-weight: 600;
 }
 
+/* ---- Comparison Table Wrapper ---- */
+.comparison-table-wrapper {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: var(--radius-md);
+}
+
 /* ---- Comparison Table ---- */
 .comparison-table {
   width: 100%;
