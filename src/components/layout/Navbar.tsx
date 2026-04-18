@@ -147,9 +147,6 @@ export default function Navbar(): ReactElement {
                         to={child.path}
                         className={`nav-dropdown-item ${location.pathname.startsWith(child.path) ? 'active' : ''}`}
                       >
-                        <span className="nav-dropdown-item-icon">
-                          <i className={`fa-solid ${child.icon}`} />
-                        </span>
                         {isKo ? child.ko : child.en}
                       </Link>
                     ))}
@@ -260,7 +257,6 @@ export default function Navbar(): ReactElement {
                     to={child.path}
                     className={`mobile-dropdown-child ${location.pathname.startsWith(child.path) ? 'active' : ''}`}
                   >
-                    <i className={`fa-solid ${child.icon}`} />
                     {isKo ? child.ko : child.en}
                   </Link>
                 ))}
