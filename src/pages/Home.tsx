@@ -83,20 +83,17 @@ export default function Home(): ReactElement {
             <p className="section-subtitle">{t('home.pathsSubtitle')}</p>
           </div>
           <div className="paths-grid">
-            {LEARNING_PATHS.map(path => (
+            {LEARNING_PATHS.map((path, i) => (
               <Link key={path.id} to={path.path} className="path-card">
-                <div className="path-card-header">
-                  <div className="path-icon" style={{ background: path.color }}>
-                    <i className={`fa-solid ${path.icon}`} />
-                  </div>
-                  <h3 className="path-name">{isKo ? path.nameKo : path.nameEn}</h3>
+                <div className="path-card-badge" style={{ background: `${path.color}20`, color: path.color }}>
+                  <i className={`fa-solid ${path.icon}`} />
                 </div>
-                <p className="path-desc">{isKo ? path.descKo : path.descEn}</p>
-                <div className="path-topics">
-                  {path.topics.map((topic, i) => (
-                    <span key={i} className="path-topic">{topic}</span>
-                  ))}
+                <div className="path-card-content">
+                  <div className="path-card-num">{String(i + 1).padStart(2, '0')}</div>
+                  <h3 className="path-card-title">{isKo ? path.nameKo : path.nameEn}</h3>
+                  <p className="path-card-desc">{isKo ? path.descKo : path.descEn}</p>
                 </div>
+                <i className="fa-solid fa-arrow-right path-card-arrow" />
               </Link>
             ))}
           </div>
