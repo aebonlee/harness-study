@@ -6,13 +6,13 @@ import { useAuth } from '../../contexts/AuthContext';
 import type { ReactElement } from 'react';
 
 const NAV_ITEMS = [
-  { path: '/intro',    ko: '기초 개념', en: 'Basics' },
-  { path: '/agents',   ko: '에이전트',  en: 'Agents' },
-  { path: '/patterns', ko: '패턴',      en: 'Patterns' },
-  { path: '/skills',   ko: '스킬 설계', en: 'Skills' },
-  { path: '/teams',    ko: '팀 구성',   en: 'Teams' },
-  { path: '/memory',   ko: '메모리',    en: 'Memory' },
-  { path: '/practice', ko: '실전 활용', en: 'Practice' },
+  { path: '/intro',    icon: 'fa-rocket',         ko: '기초 개념', en: 'Basics' },
+  { path: '/agents',   icon: 'fa-robot',           ko: '에이전트',  en: 'Agents' },
+  { path: '/patterns', icon: 'fa-diagram-project', ko: '패턴',      en: 'Patterns' },
+  { path: '/skills',   icon: 'fa-code',            ko: '스킬 설계', en: 'Skills' },
+  { path: '/teams',    icon: 'fa-users-gear',      ko: '팀 구성',   en: 'Teams' },
+  { path: '/memory',   icon: 'fa-brain',           ko: '메모리',    en: 'Memory' },
+  { path: '/practice', icon: 'fa-flask',           ko: '실전 활용', en: 'Practice' },
 ];
 
 export default function Navbar(): ReactElement {
@@ -45,105 +45,140 @@ export default function Navbar(): ReactElement {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const themeIconClass = mode === 'auto' ? 'fa-circle-half-stroke' : mode === 'light' ? 'fa-sun' : 'fa-moon';
+  const themeIcon = mode === 'auto' ? 'fa-circle-half-stroke' : mode === 'light' ? 'fa-sun' : 'fa-moon';
+  const themeTitle = mode === 'auto' ? 'Auto' : mode === 'light' ? 'Light' : 'Dark';
   const avatarLetter = (user?.email?.[0] ?? 'U').toUpperCase();
+  const currentColor = COLOR_OPTIONS.find(c => c.name === colorTheme);
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : 'navbar-transparent'}`}>
         <div className="navbar-inner">
+
+          {/* Logo */}
           <Link to="/" className="navbar-logo">
-            <span className="logo-harness">Harness</span>
-            <span className="logo-master">Master</span>
+            <div className="navbar-logo-icon">H</div>
+            <div className="navbar-logo-text">
+              <span className="navbar-logo-main">Harness</span>
+              <span className="navbar-logo-sub">Master</span>
+            </div>
           </Link>
 
-          <ul className="nav-links">
+          {/* Nav Links */}
+          <ul className="navbar-nav">
             {NAV_ITEMS.map(item => (
-              <li key={item.path} className="nav-item">
+              <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`nav-link ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
+                  className={`navbar-nav-link ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
                 >
+                  <i className={`fa-solid ${item.icon}`} />
                   {isKo ? item.ko : item.en}
                 </Link>
               </li>
             ))}
           </ul>
 
+          {/* Actions */}
           <div className="navbar-actions">
-            <div className="color-picker-wrapper" ref={colorPickerRef}>
+
+            {/* Color Picker */}
+            <div className="color-picker" ref={colorPickerRef}>
               <button
                 className="color-picker-btn"
+                style={{ background: currentColor?.color ?? 'var(--color-primary)' }}
                 onClick={() => setShowColorPicker(!showColorPicker)}
                 title="Color Theme"
-              >
-                <div
-                  className="color-dot-preview"
-                  style={{ background: COLOR_OPTIONS.find(c => c.name === colorTheme)?.color }}
-                />
-              </button>
-              <div className={`color-picker-dropdown ${showColorPicker ? 'show' : ''}`}>
+              />
+              <div className={`color-picker-dropdown ${showColorPicker ? 'open' : ''}`}>
+                <div className="color-picker-title">{isKo ? '테마 색상' : 'Color Theme'}</div>
                 {COLOR_OPTIONS.map(opt => (
                   <button
                     key={opt.name}
                     className={`color-option ${colorTheme === opt.name ? 'active' : ''}`}
-                    style={{ background: opt.color }}
                     onClick={() => { setColorTheme(opt.name); setShowColorPicker(false); }}
-                    title={opt.name}
-                  />
+                  >
+                    <span className="color-option-dot" style={{ background: opt.color }} />
+                    <span className="color-option-label">{opt.name.charAt(0).toUpperCase() + opt.name.slice(1)}</span>
+                  </button>
                 ))}
               </div>
             </div>
 
-            <button className="theme-toggle" onClick={toggleTheme} title={mode}>
-              <i className={`fa-solid ${themeIconClass}`} />
+            {/* Theme Toggle */}
+            <button className="icon-btn" onClick={toggleTheme} title={themeTitle}>
+              <i className={`fa-solid ${themeIcon}`} />
             </button>
 
-            <button className="lang-toggle" onClick={toggleLanguage}>
-              {language === 'ko' ? 'EN' : 'KO'}
-            </button>
+            {/* Language Toggle */}
+            <div className="lang-toggle">
+              <button
+                className={`lang-btn ${language === 'ko' ? 'active' : ''}`}
+                onClick={() => language !== 'ko' && toggleLanguage()}
+              >KO</button>
+              <button
+                className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+                onClick={() => language !== 'en' && toggleLanguage()}
+              >EN</button>
+            </div>
 
-            {isLoggedIn ? (
-              <div className="nav-auth-group">
-                <button className="user-avatar-btn" onClick={signOut} title={isKo ? '로그아웃' : 'Sign Out'}>
-                  {avatarLetter}
+            {/* Auth */}
+            <div className="navbar-auth">
+              {isLoggedIn ? (
+                <button className="navbar-user" onClick={signOut} title={isKo ? '로그아웃' : 'Sign Out'}>
+                  <div className="navbar-user-avatar">{avatarLetter}</div>
+                  <span className="navbar-user-name">{user?.email?.split('@')[0]}</span>
+                  <i className="fa-solid fa-chevron-down" style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }} />
                 </button>
-              </div>
-            ) : (
-              <div className="nav-auth-group">
-                <Link to="/login" className="nav-auth-btn">
+              ) : (
+                <Link to="/login" className="btn btn-primary btn-sm">
                   {isKo ? '로그인' : 'Login'}
                 </Link>
-              </div>
-            )}
+              )}
+            </div>
 
+            {/* Mobile Menu Button */}
             <button
-              className={`mobile-menu-toggle ${isMobileMenuOpen ? 'open' : ''}`}
+              className={`mobile-menu-btn ${isMobileMenuOpen ? 'open' : ''}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Menu"
             >
-              <span /><span /><span />
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile Menu */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <ul className="mobile-nav-links">
-          {NAV_ITEMS.map(item => (
-            <li key={item.path}>
-              <Link to={item.path} className="mobile-nav-link">
-                {isKo ? item.ko : item.en}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="mobile-menu-actions">
+        {NAV_ITEMS.map(item => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`mobile-menu-link ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
+          >
+            <i className={`fa-solid ${item.icon}`} />
+            {isKo ? item.ko : item.en}
+          </Link>
+        ))}
+        <div className="mobile-menu-divider" />
+        <div className="mobile-actions">
+          <div className="lang-toggle">
+            <button className={`lang-btn ${language === 'ko' ? 'active' : ''}`} onClick={() => language !== 'ko' && toggleLanguage()}>KO</button>
+            <button className={`lang-btn ${language === 'en' ? 'active' : ''}`} onClick={() => language !== 'en' && toggleLanguage()}>EN</button>
+          </div>
+          <button className="icon-btn" onClick={toggleTheme} title={themeTitle}>
+            <i className={`fa-solid ${themeIcon}`} />
+          </button>
           {isLoggedIn ? (
-            <button className="nav-auth-btn" onClick={signOut}>
+            <button className="btn btn-ghost btn-sm" onClick={signOut}>
+              <i className="fa-solid fa-right-from-bracket" />
               {isKo ? '로그아웃' : 'Sign Out'}
             </button>
           ) : (
-            <Link to="/login" className="nav-auth-btn">
+            <Link to="/login" className="btn btn-primary btn-sm">
               {isKo ? '로그인' : 'Login'}
             </Link>
           )}

@@ -231,6 +231,61 @@
   background: rgba(239, 68, 68, 0.08);
 }
 
+/* ---- Guide Layout Dark ---- */
+[data-theme="dark"] .guide-nav-link {
+  color: #94A3B8;
+}
+[data-theme="dark"] .guide-nav-link:hover,
+[data-theme="dark"] .guide-nav-link.active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  color: var(--color-primary-light);
+}
+[data-theme="dark"] .guide-sidebar-title {
+  border-bottom-color: #334155;
+}
+[data-theme="dark"] .guide-content-header h1 {
+  color: #F1F5F9;
+}
+[data-theme="dark"] .guide-section-nav .guide-nav-btn {
+  background: #1E293B;
+  border-color: #334155;
+}
+[data-theme="dark"] .guide-section-nav .guide-nav-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.08);
+}
+
+/* ---- Footer Dark (alias) ---- */
+[data-theme="dark"] .footer-content {
+  border-bottom-color: #0F172A;
+}
+[data-theme="dark"] .footer-family select {
+  background: #0F172A;
+  border-color: #1E293B;
+  color: #64748B;
+}
+[data-theme="dark"] .footer-link-list li a {
+  color: #64748B;
+}
+[data-theme="dark"] .footer-link-list li a:hover {
+  color: var(--color-primary-light);
+}
+
+/* ---- Hero Dark ---- */
+[data-theme="dark"] .hero {
+  background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1D4ED8 100%);
+}
+
+/* ---- Path Card Dark ---- */
+[data-theme="dark"] .path-topic {
+  background: rgba(var(--color-primary-rgb), 0.15);
+}
+
+/* ---- Workflow Dark ---- */
+[data-theme="dark"] .workflow-number {
+  background: #1E293B;
+}
+
 /* ---- Scrollbar Dark ---- */
 [data-theme="dark"] ::-webkit-scrollbar-track {
   background: #1E293B;

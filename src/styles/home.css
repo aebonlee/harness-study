@@ -265,6 +265,128 @@
   line-height: 1.6;
 }
 
+/* ---- Home.tsx Class Aliases ---- */
+/* stat-number → stat-value */
+.stat-number {
+  font-size: var(--font-size-4xl);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: var(--color-primary); /* fallback */
+  line-height: 1;
+}
+
+/* workflow-grid → workflow-steps */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  position: relative;
+}
+
+/* workflow-number → workflow-step-num */
+.workflow-number {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 3px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  color: var(--color-primary);
+  box-shadow: var(--shadow-primary);
+  position: relative;
+  z-index: 1;
+  margin: 0 auto 1rem;
+}
+
+/* workflow-title / workflow-desc */
+.workflow-title { font-size: var(--font-size-base); font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.375rem; text-align: center; }
+.workflow-desc { font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6; text-align: center; }
+
+/* cta-description → cta-subtitle */
+.cta-description {
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+/* hero-description → hero-subtitle */
+.hero-description {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2.5rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* hero wrapper */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* path card inner classes */
+.path-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.path-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.625rem;
+}
+
+.path-name {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.path-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.path-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.path-topic {
+  padding: 0.2rem 0.5rem;
+  background: rgba(var(--color-primary-rgb), 0.08);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
 /* ---- CTA Section ---- */
 .cta-section {
   padding: 6rem 0;
