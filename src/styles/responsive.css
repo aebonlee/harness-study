@@ -323,6 +323,10 @@
     grid-template-columns: 1fr;
   }
 
+  .faq-list {
+    grid-template-columns: 1fr;
+  }
+
   .about-path-card {
     padding: 1rem;
     gap: 0.875rem;
