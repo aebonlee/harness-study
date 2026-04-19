@@ -158,6 +158,123 @@ export default function About(): ReactElement {
         </div>
       </section>
 
+      {/* Code Examples */}
+      <section className="section">
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="section-title">{isKo ? '실전 코드로 바로 확인하세요' : 'See It in Real Code'}</h2>
+            <p className="section-subtitle">
+              {isKo ? '복사해서 바로 쓸 수 있는 스킬 파일과 팀 설정 예시입니다.' : 'Skill files and team configs ready to copy and use immediately.'}
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            <div className="code-block">
+              <div className="code-block-header">
+                <span className="code-block-lang">markdown</span>
+                <span className="code-block-filename">commands/review.md</span>
+              </div>
+              <div className="code-block-body">
+                <pre><code>{isKo
+? `# 코드 리뷰 스킬
+
+## 역할
+제출된 코드를 품질·보안·성능 기준으로 검토합니다.
+
+## 출력 형식
+JSON 형식으로 결과 반환:
+{ "score": 0-100, "issues": [...] }
+
+## 검토 기준
+- 보안: SQL Injection, XSS 취약점
+- 성능: N+1 쿼리, 불필요한 렌더링
+- 품질: SOLID 원칙, 가독성`
+: `# Code Review Skill
+
+## Role
+Review submitted code for quality, security, and performance.
+
+## Output Format
+Return results as JSON:
+{ "score": 0-100, "issues": [...] }
+
+## Criteria
+- Security: SQL Injection, XSS vulnerabilities
+- Performance: N+1 queries, unnecessary renders
+- Quality: SOLID principles, readability`
+}</code></pre>
+              </div>
+            </div>
+            <div className="code-block">
+              <div className="code-block-header">
+                <span className="code-block-lang">yaml</span>
+                <span className="code-block-filename">.claude/team-config.yaml</span>
+              </div>
+              <div className="code-block-body">
+                <pre><code>{`team:
+  name: web-dev-team
+  purpose: "React + TypeScript 풀스택 개발"
+
+  agents:
+    - name: architect-agent
+      model: claude-opus-4-6
+      role: "시스템 설계 및 기술 결정"
+      output: "architecture.md"
+
+    - name: frontend-agent
+      model: claude-sonnet-4-6
+      role: "React/TypeScript UI 구현"
+      input: "architecture.md"
+
+    - name: reviewer-agent
+      model: claude-sonnet-4-6
+      role: "코드 품질·보안 검토"
+      skill: "commands/review.md"`}</code></pre>
+              </div>
+            </div>
+            <div className="code-block">
+              <div className="code-block-header">
+                <span className="code-block-lang">markdown</span>
+                <span className="code-block-filename">.claude/CLAUDE.md</span>
+              </div>
+              <div className="code-block-body">
+                <pre><code>{isKo
+? `# 팬아웃 오케스트레이터
+
+## Role
+멀티 에이전트 팀을 조율하는 오케스트레이터.
+
+## Workflow
+1. architect-agent에게 설계 위임
+2. frontend/backend 동시 실행 (팬아웃)
+3. reviewer-agent에게 검토 위임
+4. score < 70이면 재작업 요청
+5. 모든 결과 tmp/progress.json 기록
+
+## Rules
+- 각 에이전트에 이전 단계 결과 전달
+- 오류 시 3회 재시도 후 사용자 보고`
+: `# Fan-out Orchestrator
+
+## Role
+Orchestrator coordinating a multi-agent team.
+
+## Workflow
+1. Delegate design to architect-agent
+2. Run frontend/backend in parallel (fan-out)
+3. Delegate review to reviewer-agent
+4. If score < 70, request rework
+5. Record all results to tmp/progress.json
+
+## Rules
+- Pass previous step results to each agent
+- Retry 3 times on error, then report to user`
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="section cta-section">
         <div className="container" style={{ textAlign: 'center' }}>

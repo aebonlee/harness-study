@@ -92,13 +92,33 @@ function WebdevSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? 'Harness로 완전한 웹 개발 에이전트 팀을 구성하고 운영하는 방법을 실전 예시로 배웁니다.' : 'Learn through real examples how to build and operate a complete web development agent team with Harness.'}</p>
       </div>
       <h2>{isKo ? '추천 팀 구성' : 'Recommended Team Composition'}</h2>
-      <ul>
-        <li><strong>{isKo ? '아키텍트 에이전트 (Opus)' : 'Architect Agent (Opus)'}</strong> — {isKo ? '전체 시스템 설계, 기술 스택 결정, 아키텍처 문서 작성. 고비용이지만 핵심 결정에만 사용.' : 'Full system design, tech stack decisions, architecture documentation. Expensive but used only for key decisions.'}</li>
-        <li><strong>{isKo ? '개발 에이전트 (Sonnet) x2' : 'Dev Agent (Sonnet) x2'}</strong> — {isKo ? '실제 코드 구현. 두 개를 병렬로 실행하여 프론트/백엔드를 동시에 개발.' : 'Actual code implementation. Run two in parallel for simultaneous front/backend development.'}</li>
-        <li><strong>{isKo ? '리뷰어 에이전트 (Sonnet)' : 'Reviewer Agent (Sonnet)'}</strong> — {isKo ? '코드 품질, 보안 취약점, 성능 이슈 검토. 모든 PR에 의무 적용.' : 'Code quality, security vulnerability, performance issue review. Mandatory for all PRs.'}</li>
-        <li><strong>{isKo ? '테스터 에이전트 (Haiku)' : 'Tester Agent (Haiku)'}</strong> — {isKo ? '단위/통합 테스트 자동 생성 및 실행. 저비용 모델로도 충분.' : 'Automatic unit/integration test generation and execution. Low-cost model sufficient.'}</li>
-        <li><strong>{isKo ? '배포 에이전트 (Haiku)' : 'Deploy Agent (Haiku)'}</strong> — {isKo ? 'CI/CD 파이프라인 관리, 배포 스크립트 실행.' : 'CI/CD pipeline management, deployment script execution.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🏗️</div>
+          <div className="info-card-title">{isKo ? '아키텍트 에이전트 (Opus)' : 'Architect Agent (Opus)'}</div>
+          <div className="info-card-desc">{isKo ? '전체 시스템 설계, 기술 스택 결정, 아키텍처 문서 작성. 고비용이지만 핵심 결정에만 사용.' : 'Full system design, tech stack decisions, architecture documentation. Expensive but used only for key decisions.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🎨</div>
+          <div className="info-card-title">{isKo ? '개발 에이전트 (Sonnet) ×2' : 'Dev Agent (Sonnet) ×2'}</div>
+          <div className="info-card-desc">{isKo ? '실제 코드 구현. 두 개를 병렬로 실행하여 프론트/백엔드를 동시에 개발.' : 'Actual code implementation. Run two in parallel for simultaneous front/backend development.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔍</div>
+          <div className="info-card-title">{isKo ? '리뷰어 에이전트 (Sonnet)' : 'Reviewer Agent (Sonnet)'}</div>
+          <div className="info-card-desc">{isKo ? '코드 품질, 보안 취약점, 성능 이슈 검토. 모든 PR에 의무 적용.' : 'Code quality, security vulnerability, performance issue review. Mandatory for all PRs.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🧪</div>
+          <div className="info-card-title">{isKo ? '테스터 에이전트 (Haiku)' : 'Tester Agent (Haiku)'}</div>
+          <div className="info-card-desc">{isKo ? '단위/통합 테스트 자동 생성 및 실행. 저비용 모델로도 충분.' : 'Automatic unit/integration test generation and execution. Low-cost model sufficient.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🚀</div>
+          <div className="info-card-title">{isKo ? '배포 에이전트 (Haiku)' : 'Deploy Agent (Haiku)'}</div>
+          <div className="info-card-desc">{isKo ? 'CI/CD 파이프라인 관리, 배포 스크립트 실행.' : 'CI/CD pipeline management, deployment script execution.'}</div>
+        </div>
+      </div>
       <h2>{isKo ? '워크플로우' : 'Workflow'}</h2>
       <div className="code-block">
         <div className="code-block-header">
@@ -155,13 +175,33 @@ function ContentSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? 'Harness로 고품질 콘텐츠를 대규모로 제작하는 팀을 구성합니다.' : 'Build a team with Harness for large-scale high-quality content creation.'}</p>
       </div>
       <h2>{isKo ? '콘텐츠 제작 팀 구성' : 'Content Creation Team Composition'}</h2>
-      <ul>
-        <li><strong>{isKo ? '리서치 에이전트' : 'Research Agent'}</strong> — {isKo ? '주제 조사, 데이터 수집, 경쟁 분석, 키워드 발굴' : 'Topic research, data collection, competitive analysis, keyword discovery'}</li>
-        <li><strong>{isKo ? '아웃라인 에이전트' : 'Outline Agent'}</strong> — {isKo ? '콘텐츠 구조 설계, 목차 작성, 스토리라인 구성' : 'Content structure design, TOC writing, storyline composition'}</li>
-        <li><strong>{isKo ? '작성 에이전트 x2' : 'Writing Agent x2'}</strong> — {isKo ? '본문 작성, 팬아웃 패턴으로 섹션별 병렬 작성' : 'Body writing, parallel writing by section using fan-out pattern'}</li>
-        <li><strong>{isKo ? '편집 에이전트' : 'Editing Agent'}</strong> — {isKo ? '문체 통일, 가독성 개선, 오류 교정' : 'Style unification, readability improvement, error correction'}</li>
-        <li><strong>{isKo ? 'SEO 에이전트' : 'SEO Agent'}</strong> — {isKo ? '키워드 최적화, 메타 태그 작성, 내부 링크 구성' : 'Keyword optimization, meta tag writing, internal link structure'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔬</div>
+          <div className="info-card-title">{isKo ? '리서치 에이전트' : 'Research Agent'}</div>
+          <div className="info-card-desc">{isKo ? '주제 조사, 데이터 수집, 경쟁 분석, 키워드 발굴' : 'Topic research, data collection, competitive analysis, keyword discovery'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📐</div>
+          <div className="info-card-title">{isKo ? '아웃라인 에이전트' : 'Outline Agent'}</div>
+          <div className="info-card-desc">{isKo ? '콘텐츠 구조 설계, 목차 작성, 스토리라인 구성' : 'Content structure design, TOC writing, storyline composition'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✍️</div>
+          <div className="info-card-title">{isKo ? '작성 에이전트 ×2' : 'Writing Agent ×2'}</div>
+          <div className="info-card-desc">{isKo ? '본문 작성, 팬아웃 패턴으로 섹션별 병렬 작성' : 'Body writing, parallel writing by section using fan-out pattern'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✏️</div>
+          <div className="info-card-title">{isKo ? '편집 에이전트' : 'Editing Agent'}</div>
+          <div className="info-card-desc">{isKo ? '문체 통일, 가독성 개선, 오류 교정' : 'Style unification, readability improvement, error correction'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔎</div>
+          <div className="info-card-title">{isKo ? 'SEO 에이전트' : 'SEO Agent'}</div>
+          <div className="info-card-desc">{isKo ? '키워드 최적화, 메타 태그 작성, 내부 링크 구성' : 'Keyword optimization, meta tag writing, internal link structure'}</div>
+        </div>
+      </div>
       <h2>{isKo ? 'CLAUDE.md — 콘텐츠 제작 오케스트레이터' : 'CLAUDE.md — Content Creation Orchestrator'}</h2>
       <p>{isKo ? '아래는 5개 에이전트로 구성된 콘텐츠 제작팀의 오케스트레이터 파일입니다. 팬아웃 패턴으로 섹션별 병렬 작성을 수행합니다.' : 'Below is the orchestrator file for a 5-agent content creation team. Performs parallel section writing with a fan-out pattern.'}</p>
       <div className="code-block">
@@ -212,12 +252,28 @@ function ReviewSection({ isKo }: { isKo: boolean }): ReactElement {
       </div>
       <h2>{isKo ? '다층 리뷰 아키텍처' : 'Multi-layer Review Architecture'}</h2>
       <p>{isKo ? '전문가 풀 패턴을 활용하여 코드 유형에 따라 전문 리뷰어를 배정합니다.' : 'Using the expert pool pattern, assign specialist reviewers based on code type.'}</p>
-      <ul>
-        <li><strong>{isKo ? '보안 리뷰어' : 'Security Reviewer'}</strong> — {isKo ? 'OWASP Top 10, SQL Injection, XSS, 인증/인가 취약점 검토' : 'OWASP Top 10, SQL Injection, XSS, auth/authorization vulnerability review'}</li>
-        <li><strong>{isKo ? '성능 리뷰어' : 'Performance Reviewer'}</strong> — {isKo ? 'N+1 쿼리, 불필요한 렌더링, 메모리 누수 검토' : 'N+1 queries, unnecessary rendering, memory leak review'}</li>
-        <li><strong>{isKo ? '아키텍처 리뷰어' : 'Architecture Reviewer'}</strong> — {isKo ? 'SOLID 원칙, 디자인 패턴 준수, 결합도/응집도 검토' : 'SOLID principles, design pattern compliance, coupling/cohesion review'}</li>
-        <li><strong>{isKo ? '테스트 리뷰어' : 'Test Reviewer'}</strong> — {isKo ? '테스트 커버리지, 엣지 케이스, 테스트 품질 검토' : 'Test coverage, edge cases, test quality review'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔒</div>
+          <div className="info-card-title">{isKo ? '보안 리뷰어' : 'Security Reviewer'}</div>
+          <div className="info-card-desc">{isKo ? 'OWASP Top 10, SQL Injection, XSS, 인증/인가 취약점 검토' : 'OWASP Top 10, SQL Injection, XSS, auth/authorization vulnerability review'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <div className="info-card-title">{isKo ? '성능 리뷰어' : 'Performance Reviewer'}</div>
+          <div className="info-card-desc">{isKo ? 'N+1 쿼리, 불필요한 렌더링, 메모리 누수 검토' : 'N+1 queries, unnecessary rendering, memory leak review'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🏛️</div>
+          <div className="info-card-title">{isKo ? '아키텍처 리뷰어' : 'Architecture Reviewer'}</div>
+          <div className="info-card-desc">{isKo ? 'SOLID 원칙, 디자인 패턴 준수, 결합도/응집도 검토' : 'SOLID principles, design pattern compliance, coupling/cohesion review'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🧪</div>
+          <div className="info-card-title">{isKo ? '테스트 리뷰어' : 'Test Reviewer'}</div>
+          <div className="info-card-desc">{isKo ? '테스트 커버리지, 엣지 케이스, 테스트 품질 검토' : 'Test coverage, edge cases, test quality review'}</div>
+        </div>
+      </div>
       <h3>{isKo ? '표준화된 리뷰 결과 JSON 예시' : 'Standardized Review Result JSON Example'}</h3>
       <p>{isKo ? '4개 리뷰어 에이전트가 동일한 JSON 형식으로 결과를 반환하면, 오케스트레이터가 결과를 취합하여 종합 리뷰 보고서를 생성합니다.' : 'When 4 reviewer agents return results in the same JSON format, the orchestrator aggregates them into a comprehensive review report.'}</p>
       <div className="code-block">
@@ -352,24 +408,28 @@ function StrategySection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '조직이나 프로젝트에 Harness를 성공적으로 도입하는 단계별 전략을 배웁니다.' : 'Learn step-by-step strategies for successfully adopting Harness in an organization or project.'}</p>
       </div>
       <h2>{isKo ? '4단계 도입 로드맵' : '4-Phase Adoption Roadmap'}</h2>
-      <ol>
-        <li>
-          <strong>{isKo ? '1단계: 파일럿 (1-2주)' : 'Phase 1: Pilot (1-2 weeks)'}</strong>
-          <p>{isKo ? '작은 규모의 실제 프로젝트에 Harness를 적용합니다. 간단한 2-에이전트 팀부터 시작하여 팀원들이 개념을 이해합니다.' : 'Apply Harness to a small real project. Start with a simple 2-agent team for team members to understand the concept.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '2단계: 학습 (2-4주)' : 'Phase 2: Learning (2-4 weeks)'}</strong>
-          <p>{isKo ? '파일럿에서 얻은 교훈을 바탕으로 스킬을 개선하고 팀 구성을 최적화합니다. A/B 테스트로 효과를 검증합니다.' : 'Based on lessons from the pilot, improve skills and optimize team composition. Verify effectiveness with A/B tests.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '3단계: 확장 (1-2개월)' : 'Phase 3: Scaling (1-2 months)'}</strong>
-          <p>{isKo ? '검증된 팀 구성을 다른 프로젝트에 적용합니다. 스킬 라이브러리를 구축하고 팀 전체에 공유합니다.' : 'Apply validated team compositions to other projects. Build a skill library and share it with the entire team.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '4단계: 정착 (지속적)' : 'Phase 4: Establishment (Ongoing)'}</strong>
-          <p>{isKo ? 'Harness를 표준 개발 워크플로우에 통합합니다. 새 팀원 온보딩에 Harness 교육을 포함합니다.' : 'Integrate Harness into the standard development workflow. Include Harness training in new team member onboarding.'}</p>
-        </li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🌱</div>
+          <div className="info-card-title">{isKo ? '1단계: 파일럿 (1-2주)' : 'Phase 1: Pilot (1-2 weeks)'}</div>
+          <div className="info-card-desc">{isKo ? '작은 규모의 실제 프로젝트에 Harness를 적용합니다. 간단한 2-에이전트 팀부터 시작하여 팀원들이 개념을 이해합니다.' : 'Apply Harness to a small real project. Start with a simple 2-agent team for team members to understand the concept.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📚</div>
+          <div className="info-card-title">{isKo ? '2단계: 학습 (2-4주)' : 'Phase 2: Learning (2-4 weeks)'}</div>
+          <div className="info-card-desc">{isKo ? '파일럿에서 얻은 교훈을 바탕으로 스킬을 개선하고 팀 구성을 최적화합니다. A/B 테스트로 효과를 검증합니다.' : 'Based on lessons from the pilot, improve skills and optimize team composition. Verify effectiveness with A/B tests.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📈</div>
+          <div className="info-card-title">{isKo ? '3단계: 확장 (1-2개월)' : 'Phase 3: Scaling (1-2 months)'}</div>
+          <div className="info-card-desc">{isKo ? '검증된 팀 구성을 다른 프로젝트에 적용합니다. 스킬 라이브러리를 구축하고 팀 전체에 공유합니다.' : 'Apply validated team compositions to other projects. Build a skill library and share it with the entire team.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🏆</div>
+          <div className="info-card-title">{isKo ? '4단계: 정착 (지속적)' : 'Phase 4: Establishment (Ongoing)'}</div>
+          <div className="info-card-desc">{isKo ? 'Harness를 표준 개발 워크플로우에 통합합니다. 새 팀원 온보딩에 Harness 교육을 포함합니다.' : 'Integrate Harness into the standard development workflow. Include Harness training in new team member onboarding.'}</div>
+        </div>
+      </div>
       <h3>{isKo ? '도입 단계별 마일스톤 추적 JSON' : 'Phase-by-Phase Milestone Tracker JSON'}</h3>
       <p>{isKo ? '오케스트레이터 또는 팀 리드가 Harness 도입 진행 상황을 추적하는 파일입니다. 각 단계의 목표, 성공 기준, 완료 여부를 기록합니다.' : 'File for the orchestrator or team lead to track Harness adoption progress. Records each phase\'s goals, success criteria, and completion.'}</p>
       <div className="code-block">
@@ -433,12 +493,28 @@ function MeasureSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? 'Harness 도입의 성과를 객관적으로 측정하고 지속 개선하는 방법을 배웁니다.' : 'Learn how to objectively measure the results of Harness adoption and continuously improve.'}</p>
       </div>
       <h2>{isKo ? '핵심 성과 지표(KPI)' : 'Key Performance Indicators (KPIs)'}</h2>
-      <ul>
-        <li><strong>{isKo ? '생산성 지표' : 'Productivity Metrics'}</strong> — {isKo ? '작업당 평균 처리 시간, 일일 완료 작업 수, 반복 작업 자동화율' : 'Average processing time per task, daily completed tasks, repetitive task automation rate'}</li>
-        <li><strong>{isKo ? '품질 지표' : 'Quality Metrics'}</strong> — {isKo ? '코드 리뷰 통과율, 버그 발생률, 고객 만족도' : 'Code review pass rate, bug occurrence rate, customer satisfaction'}</li>
-        <li><strong>{isKo ? '비용 지표' : 'Cost Metrics'}</strong> — {isKo ? 'API 호출 비용, 모델별 비용 배분, ROI' : 'API call cost, cost distribution by model, ROI'}</li>
-        <li><strong>{isKo ? '학습 지표' : 'Learning Metrics'}</strong> — {isKo ? '스킬 재사용률, 팀 만족도, 온보딩 시간' : 'Skill reuse rate, team satisfaction, onboarding time'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <div className="info-card-title">{isKo ? '생산성 지표' : 'Productivity Metrics'}</div>
+          <div className="info-card-desc">{isKo ? '작업당 평균 처리 시간, 일일 완료 작업 수, 반복 작업 자동화율' : 'Average processing time per task, daily completed tasks, repetitive task automation rate'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✅</div>
+          <div className="info-card-title">{isKo ? '품질 지표' : 'Quality Metrics'}</div>
+          <div className="info-card-desc">{isKo ? '코드 리뷰 통과율, 버그 발생률, 고객 만족도' : 'Code review pass rate, bug occurrence rate, customer satisfaction'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💰</div>
+          <div className="info-card-title">{isKo ? '비용 지표' : 'Cost Metrics'}</div>
+          <div className="info-card-desc">{isKo ? 'API 호출 비용, 모델별 비용 배분, ROI' : 'API call cost, cost distribution by model, ROI'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📖</div>
+          <div className="info-card-title">{isKo ? '학습 지표' : 'Learning Metrics'}</div>
+          <div className="info-card-desc">{isKo ? '스킬 재사용률, 팀 만족도, 온보딩 시간' : 'Skill reuse rate, team satisfaction, onboarding time'}</div>
+        </div>
+      </div>
       <h3>{isKo ? 'KPI 추적 파일 예시' : 'KPI Tracking File Example'}</h3>
       <p>{isKo ? '오케스트레이터가 매 스프린트 종료 후 자동으로 업데이트하는 KPI 추적 파일입니다.' : 'A KPI tracking file the orchestrator automatically updates after each sprint.'}</p>
       <div className="code-block">

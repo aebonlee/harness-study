@@ -94,12 +94,28 @@ function ContextSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '컨텍스트 창이란?' : 'What is a Context Window?'}</h2>
       <p>{isKo ? '컨텍스트 창(Context Window)은 AI 에이전트가 한 번의 처리에서 고려할 수 있는 정보의 총량입니다. 주방의 작업대에 비유됩니다 — 작업대가 클수록 더 많은 재료를 한 번에 올려놓고 작업할 수 있습니다. 현재 고급 AI 모델의 컨텍스트 창은 수십만 토큰에 달하지만, 이는 여전히 제한적입니다.' : 'The context window is the total amount of information an AI agent can consider in one processing session. Analogous to a kitchen counter — the larger the counter, the more ingredients you can place at once. Current advanced AI models have context windows of hundreds of thousands of tokens, but this is still limited.'}</p>
       <h3>{isKo ? '컨텍스트 창의 구성요소' : 'Context Window Components'}</h3>
-      <ul>
-        <li><strong>{isKo ? '시스템 프롬프트' : 'System Prompt'}</strong> — {isKo ? '에이전트의 역할과 지침 정의. 항상 컨텍스트를 차지합니다.' : 'Defines agent role and instructions. Always occupies context.'}</li>
-        <li><strong>{isKo ? '대화 이력' : 'Conversation History'}</strong> — {isKo ? '이전 메시지들의 누적. 대화가 길어질수록 증가합니다.' : 'Accumulated previous messages. Grows as conversation extends.'}</li>
-        <li><strong>{isKo ? '도구 결과' : 'Tool Results'}</strong> — {isKo ? '파일 읽기, 웹 검색 등의 결과. 크기가 예측하기 어렵습니다.' : 'Results of file reads, web searches, etc. Size is unpredictable.'}</li>
-        <li><strong>{isKo ? '스킬 파일' : 'Skill Files'}</strong> — {isKo ? '로드된 스킬의 내용. 프로그레시브 디스클로저로 최소화합니다.' : 'Content of loaded skills. Minimized with progressive disclosure.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">📋</div>
+          <div className="info-card-title">{isKo ? '시스템 프롬프트' : 'System Prompt'}</div>
+          <div className="info-card-desc">{isKo ? '에이전트의 역할과 지침 정의. 항상 컨텍스트를 차지합니다.' : 'Defines agent role and instructions. Always occupies context.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💬</div>
+          <div className="info-card-title">{isKo ? '대화 이력' : 'Conversation History'}</div>
+          <div className="info-card-desc">{isKo ? '이전 메시지들의 누적. 대화가 길어질수록 증가합니다.' : 'Accumulated previous messages. Grows as conversation extends.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔧</div>
+          <div className="info-card-title">{isKo ? '도구 결과' : 'Tool Results'}</div>
+          <div className="info-card-desc">{isKo ? '파일 읽기, 웹 검색 등의 결과. 크기가 예측하기 어렵습니다.' : 'Results of file reads, web searches, etc. Size is unpredictable.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📄</div>
+          <div className="info-card-title">{isKo ? '스킬 파일' : 'Skill Files'}</div>
+          <div className="info-card-desc">{isKo ? '로드된 스킬의 내용. 프로그레시브 디스클로저로 최소화합니다.' : 'Content of loaded skills. Minimized with progressive disclosure.'}</div>
+        </div>
+      </div>
       <h3>{isKo ? '컨텍스트 창 사용 현황 — 실제 작업 예시' : 'Context Window Usage Breakdown — Real Task Example'}</h3>
       <p>{isKo ? '200K 토큰 컨텍스트 창에서 "로그인 기능 구현" 작업이 진행될 때 각 항목이 차지하는 비중입니다. 도구 결과가 가장 많은 공간을 차지합니다.' : 'Breakdown of space occupied by each item in a 200K context window during a "login feature implementation" task. Tool results occupy the most space.'}</p>
       <div className="code-block">
@@ -143,24 +159,28 @@ function StrategySection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '컨텍스트 창을 효율적으로 관리하는 핵심 전략들을 배웁니다.' : 'Learn key strategies for efficiently managing the context window.'}</p>
       </div>
       <h2>{isKo ? '4가지 핵심 전략' : '4 Key Strategies'}</h2>
-      <ol>
-        <li>
-          <strong>{isKo ? '압축(Compression)' : 'Compression'}</strong>
-          <p>{isKo ? '불필요한 대화 이력을 요약하여 컨텍스트를 줄입니다. 오케스트레이터가 주기적으로 "지금까지의 진행 상황 요약"을 생성하고 세부 이력을 제거합니다.' : 'Reduce context by summarizing unnecessary conversation history. The orchestrator periodically generates a "progress summary" and removes detailed history.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '외부화(Externalization)' : 'Externalization'}</strong>
-          <p>{isKo ? '중요하지만 자주 참조하지 않는 정보를 파일로 저장합니다. 필요할 때만 파일을 읽어 컨텍스트에 로드합니다.' : 'Store important but infrequently referenced information in files. Load files into context only when needed.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '체인지오버(Changeover)' : 'Changeover'}</strong>
-          <p>{isKo ? '컨텍스트가 가득 찰 때 새 에이전트 인스턴스를 시작하고 요약본만 전달합니다. 이전 에이전트는 종료됩니다.' : 'Start a new agent instance when context fills up, passing only the summary. The previous agent terminates.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '선택적 로딩(Selective Loading)' : 'Selective Loading'}</strong>
-          <p>{isKo ? '필요한 정보만 필요한 시점에 컨텍스트에 로드합니다. 프로그레시브 디스클로저가 이 전략을 구현합니다.' : 'Load only necessary information into context at the right time. Progressive disclosure implements this strategy.'}</p>
-        </li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🗜️</div>
+          <div className="info-card-title">{isKo ? '압축(Compression)' : 'Compression'}</div>
+          <div className="info-card-desc">{isKo ? '불필요한 대화 이력을 요약하여 컨텍스트를 줄입니다. 오케스트레이터가 주기적으로 요약본을 생성하고 세부 이력을 제거합니다.' : 'Reduce context by summarizing unnecessary conversation history. The orchestrator periodically generates summaries and removes detailed history.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📤</div>
+          <div className="info-card-title">{isKo ? '외부화(Externalization)' : 'Externalization'}</div>
+          <div className="info-card-desc">{isKo ? '중요하지만 자주 참조하지 않는 정보를 파일로 저장합니다. 필요할 때만 파일을 읽어 컨텍스트에 로드합니다.' : 'Store important but infrequently referenced information in files. Load files into context only when needed.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔄</div>
+          <div className="info-card-title">{isKo ? '체인지오버(Changeover)' : 'Changeover'}</div>
+          <div className="info-card-desc">{isKo ? '컨텍스트가 가득 찰 때 새 에이전트 인스턴스를 시작하고 요약본만 전달합니다. 이전 에이전트는 종료됩니다.' : 'Start a new agent instance when context fills up, passing only the summary. The previous agent terminates.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🎯</div>
+          <div className="info-card-title">{isKo ? '선택적 로딩(Selective Loading)' : 'Selective Loading'}</div>
+          <div className="info-card-desc">{isKo ? '필요한 정보만 필요한 시점에 컨텍스트에 로드합니다. 프로그레시브 디스클로저가 이 전략을 구현합니다.' : 'Load only necessary information into context at the right time. Progressive disclosure implements this strategy.'}</div>
+        </div>
+      </div>
       <h3>{isKo ? '체크포인트 시스템 구현 예시' : 'Checkpoint System Implementation Example'}</h3>
       <p>{isKo ? '아래는 오케스트레이터가 매 10개 작업마다 자동으로 저장하는 체크포인트 파일 구조입니다.' : 'Below is the checkpoint file structure the orchestrator automatically saves every 10 tasks.'}</p>
       <div className="code-block">
@@ -199,11 +219,23 @@ function AgentSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '에이전트가 세션 간 정보를 유지하는 메모리 메커니즘을 이해합니다.' : 'Understand the memory mechanisms agents use to maintain information across sessions.'}</p>
       </div>
       <h2>{isKo ? '메모리 유형' : 'Memory Types'}</h2>
-      <ul>
-        <li><strong>{isKo ? '휘발성 메모리(Volatile Memory)' : 'Volatile Memory'}</strong> — {isKo ? '현재 세션 컨텍스트 창. 세션 종료 시 사라집니다.' : 'Current session context window. Disappears when session ends.'}</li>
-        <li><strong>{isKo ? '파일 기반 메모리(File-based Memory)' : 'File-based Memory'}</strong> — {isKo ? 'MEMORY.md, state.json 등 파일로 영구 저장. 세션 간 유지됩니다.' : 'Permanently stored in files like MEMORY.md, state.json. Maintained across sessions.'}</li>
-        <li><strong>{isKo ? '데이터베이스 메모리(DB Memory)' : 'Database Memory'}</strong> — {isKo ? 'Supabase, Redis 등 외부 DB 활용. 팀 전체가 공유 가능합니다.' : 'Uses external DBs like Supabase, Redis. Shareable across the entire team.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <div className="info-card-title">{isKo ? '휘발성 메모리' : 'Volatile Memory'}</div>
+          <div className="info-card-desc">{isKo ? '현재 세션 컨텍스트 창. 세션 종료 시 사라집니다.' : 'Current session context window. Disappears when session ends.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📁</div>
+          <div className="info-card-title">{isKo ? '파일 기반 메모리' : 'File-based Memory'}</div>
+          <div className="info-card-desc">{isKo ? 'MEMORY.md, state.json 등 파일로 영구 저장. 세션 간 유지됩니다.' : 'Permanently stored in files like MEMORY.md, state.json. Maintained across sessions.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🗄️</div>
+          <div className="info-card-title">{isKo ? '데이터베이스 메모리' : 'Database Memory'}</div>
+          <div className="info-card-desc">{isKo ? 'Supabase, Redis 등 외부 DB 활용. 팀 전체가 공유 가능합니다.' : 'Uses external DBs like Supabase, Redis. Shareable across the entire team.'}</div>
+        </div>
+      </div>
       <h3>{isKo ? 'MEMORY.md 구조' : 'MEMORY.md Structure'}</h3>
       <div className="code-block">
         <div className="code-block-header">

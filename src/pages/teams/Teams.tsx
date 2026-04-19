@@ -92,13 +92,33 @@ function DesignSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '효과적인 에이전트 팀을 구성하기 위한 핵심 설계 원칙을 알아봅니다.' : 'Learn core design principles for building effective agent teams.'}</p>
       </div>
       <h2>{isKo ? '팀 구성의 5가지 원칙' : '5 Principles of Team Composition'}</h2>
-      <ol>
-        <li><strong>{isKo ? '목적 명확성' : 'Purpose Clarity'}</strong> — {isKo ? '팀이 달성해야 할 목표를 명확하게 정의합니다. 모호한 목표는 에이전트 역할 충돌을 일으킵니다.' : 'Clearly define the goals the team must achieve. Ambiguous goals cause agent role conflicts.'}</li>
-        <li><strong>{isKo ? '최소 규모 원칙' : 'Minimum Size Principle'}</strong> — {isKo ? '목표 달성에 필요한 최소한의 에이전트로 팀을 구성합니다. 불필요한 에이전트는 오버헤드를 증가시킵니다.' : 'Compose the team with the minimum agents needed to achieve goals. Unnecessary agents increase overhead.'}</li>
-        <li><strong>{isKo ? '역할 비중복성' : 'Role Non-overlap'}</strong> — {isKo ? '두 에이전트가 동일한 역할을 가지면 안 됩니다. 역할 중복은 혼란과 비효율을 야기합니다.' : 'No two agents should have the same role. Role overlap causes confusion and inefficiency.'}</li>
-        <li><strong>{isKo ? '인터페이스 명확성' : 'Interface Clarity'}</strong> — {isKo ? '각 에이전트의 입력/출력 인터페이스를 명확히 정의합니다.' : 'Clearly define the input/output interface for each agent.'}</li>
-        <li><strong>{isKo ? '확장성 고려' : 'Scalability Consideration'}</strong> — {isKo ? '향후 에이전트 추가나 역할 변경이 용이한 구조로 설계합니다.' : 'Design a structure that facilitates future agent addition or role changes.'}</li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🎯</div>
+          <div className="info-card-title">{isKo ? '목적 명확성' : 'Purpose Clarity'}</div>
+          <div className="info-card-desc">{isKo ? '팀이 달성해야 할 목표를 명확하게 정의합니다. 모호한 목표는 에이전트 역할 충돌을 일으킵니다.' : 'Clearly define the goals the team must achieve. Ambiguous goals cause agent role conflicts.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📦</div>
+          <div className="info-card-title">{isKo ? '최소 규모 원칙' : 'Minimum Size Principle'}</div>
+          <div className="info-card-desc">{isKo ? '목표 달성에 필요한 최소한의 에이전트로 팀을 구성합니다. 불필요한 에이전트는 오버헤드를 증가시킵니다.' : 'Compose the team with the minimum agents needed to achieve goals. Unnecessary agents increase overhead.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🚫</div>
+          <div className="info-card-title">{isKo ? '역할 비중복성' : 'Role Non-overlap'}</div>
+          <div className="info-card-desc">{isKo ? '두 에이전트가 동일한 역할을 가지면 안 됩니다. 역할 중복은 혼란과 비효율을 야기합니다.' : 'No two agents should have the same role. Role overlap causes confusion and inefficiency.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔌</div>
+          <div className="info-card-title">{isKo ? '인터페이스 명확성' : 'Interface Clarity'}</div>
+          <div className="info-card-desc">{isKo ? '각 에이전트의 입력/출력 인터페이스를 명확히 정의합니다.' : 'Clearly define the input/output interface for each agent.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📈</div>
+          <div className="info-card-title">{isKo ? '확장성 고려' : 'Scalability Consideration'}</div>
+          <div className="info-card-desc">{isKo ? '향후 에이전트 추가나 역할 변경이 용이한 구조로 설계합니다.' : 'Design a structure that facilitates future agent addition or role changes.'}</div>
+        </div>
+      </div>
       <h3>{isKo ? '팀 구성 YAML 설정 파일 예시' : 'Team Composition YAML Config Example'}</h3>
       <p>{isKo ? '아래는 5원칙을 모두 반영한 풀스택 개발팀 YAML 설정입니다. 각 에이전트의 역할, 모델, 도구, 성공 기준이 명확하게 정의됩니다.' : 'Below is a full-stack dev team YAML config reflecting all 5 principles. Each agent\'s role, model, tools, and success criteria are clearly defined.'}</p>
       <div className="code-block">
@@ -326,20 +346,56 @@ function ExamplesSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '다양한 도메인에서 성공적으로 적용된 에이전트 팀 구성 예시를 살펴봅니다.' : 'Explore agent team composition examples successfully applied in various domains.'}</p>
       </div>
       <h2>{isKo ? '예시 1: 풀스택 개발 팀' : 'Example 1: Full-stack Development Team'}</h2>
-      <ul>
-        <li><strong>{isKo ? '아키텍트 에이전트' : 'Architect Agent'}</strong> — {isKo ? '시스템 설계, 기술 선택, API 스펙 정의' : 'System design, tech selection, API spec definition'}</li>
-        <li><strong>{isKo ? '프론트엔드 에이전트' : 'Frontend Agent'}</strong> — {isKo ? 'React/TypeScript 컴포넌트 구현' : 'React/TypeScript component implementation'}</li>
-        <li><strong>{isKo ? '백엔드 에이전트' : 'Backend Agent'}</strong> — {isKo ? 'API 엔드포인트, DB 스키마 구현' : 'API endpoints, DB schema implementation'}</li>
-        <li><strong>{isKo ? '리뷰어 에이전트' : 'Reviewer Agent'}</strong> — {isKo ? '코드 품질, 보안, 성능 검토' : 'Code quality, security, performance review'}</li>
-        <li><strong>{isKo ? '테스터 에이전트' : 'Tester Agent'}</strong> — {isKo ? '단위/통합 테스트 작성 및 실행' : 'Unit/integration test writing and execution'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🏗️</div>
+          <div className="info-card-title">{isKo ? '아키텍트 에이전트' : 'Architect Agent'}</div>
+          <div className="info-card-desc">{isKo ? '시스템 설계, 기술 선택, API 스펙 정의' : 'System design, tech selection, API spec definition'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🎨</div>
+          <div className="info-card-title">{isKo ? '프론트엔드 에이전트' : 'Frontend Agent'}</div>
+          <div className="info-card-desc">{isKo ? 'React/TypeScript 컴포넌트 구현' : 'React/TypeScript component implementation'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚙️</div>
+          <div className="info-card-title">{isKo ? '백엔드 에이전트' : 'Backend Agent'}</div>
+          <div className="info-card-desc">{isKo ? 'API 엔드포인트, DB 스키마 구현' : 'API endpoints, DB schema implementation'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔍</div>
+          <div className="info-card-title">{isKo ? '리뷰어 에이전트' : 'Reviewer Agent'}</div>
+          <div className="info-card-desc">{isKo ? '코드 품질, 보안, 성능 검토' : 'Code quality, security, performance review'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🧪</div>
+          <div className="info-card-title">{isKo ? '테스터 에이전트' : 'Tester Agent'}</div>
+          <div className="info-card-desc">{isKo ? '단위/통합 테스트 작성 및 실행' : 'Unit/integration test writing and execution'}</div>
+        </div>
+      </div>
       <h2>{isKo ? '예시 2: 콘텐츠 제작 팀' : 'Example 2: Content Creation Team'}</h2>
-      <ul>
-        <li><strong>{isKo ? '연구 에이전트' : 'Research Agent'}</strong> — {isKo ? '주제 조사, 데이터 수집, 트렌드 분석' : 'Topic research, data collection, trend analysis'}</li>
-        <li><strong>{isKo ? '작성 에이전트' : 'Writing Agent'}</strong> — {isKo ? '초안 작성, 스토리라인 구성' : 'Draft writing, storyline composition'}</li>
-        <li><strong>{isKo ? '편집 에이전트' : 'Editing Agent'}</strong> — {isKo ? '문체 교정, 가독성 개선' : 'Style correction, readability improvement'}</li>
-        <li><strong>{isKo ? 'SEO 에이전트' : 'SEO Agent'}</strong> — {isKo ? '키워드 최적화, 메타데이터 작성' : 'Keyword optimization, metadata writing'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔬</div>
+          <div className="info-card-title">{isKo ? '연구 에이전트' : 'Research Agent'}</div>
+          <div className="info-card-desc">{isKo ? '주제 조사, 데이터 수집, 트렌드 분석' : 'Topic research, data collection, trend analysis'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✍️</div>
+          <div className="info-card-title">{isKo ? '작성 에이전트' : 'Writing Agent'}</div>
+          <div className="info-card-desc">{isKo ? '초안 작성, 스토리라인 구성' : 'Draft writing, storyline composition'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✏️</div>
+          <div className="info-card-title">{isKo ? '편집 에이전트' : 'Editing Agent'}</div>
+          <div className="info-card-desc">{isKo ? '문체 교정, 가독성 개선' : 'Style correction, readability improvement'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔎</div>
+          <div className="info-card-title">{isKo ? 'SEO 에이전트' : 'SEO Agent'}</div>
+          <div className="info-card-desc">{isKo ? '키워드 최적화, 메타데이터 작성' : 'Keyword optimization, metadata writing'}</div>
+        </div>
+      </div>
       <h2>{isKo ? 'CLAUDE.md — 풀스택 개발 오케스트레이터 예시' : 'CLAUDE.md — Full-stack Orchestrator Example'}</h2>
       <p>{isKo ? '아래는 실제로 사용할 수 있는 풀스택 개발팀 오케스트레이터 CLAUDE.md입니다. 이 파일 하나로 5개 에이전트 팀의 동작이 정의됩니다.' : 'Below is a real-world full-stack dev team orchestrator CLAUDE.md. This single file defines the behavior of a 5-agent team.'}</p>
       <div className="code-block">
@@ -391,12 +447,28 @@ function PerfSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '에이전트 팀의 처리 속도와 효율성을 극대화하는 최적화 전략을 배웁니다.' : 'Learn optimization strategies to maximize agent team processing speed and efficiency.'}</p>
       </div>
       <h2>{isKo ? '핵심 최적화 전략' : 'Key Optimization Strategies'}</h2>
-      <ol>
-        <li><strong>{isKo ? '병렬화 최대화' : 'Maximize Parallelization'}</strong> — {isKo ? '의존성 없는 작업은 항상 병렬로 실행합니다. 의존성 그래프를 사전에 분석하여 최대 병렬화 기회를 찾습니다.' : 'Always run independent tasks in parallel. Pre-analyze dependency graphs to find maximum parallelization opportunities.'}</li>
-        <li><strong>{isKo ? '컨텍스트 사전 로드' : 'Context Pre-loading'}</strong> — {isKo ? '에이전트가 필요로 할 정보를 미리 준비하여 대기 시간을 줄입니다.' : 'Pre-prepare information agents will need to reduce wait times.'}</li>
-        <li><strong>{isKo ? '결과 캐싱' : 'Result Caching'}</strong> — {isKo ? '자주 사용되는 에이전트 결과를 캐시하여 중복 작업을 방지합니다.' : 'Cache frequently used agent results to prevent duplicate work.'}</li>
-        <li><strong>{isKo ? '모델 선택 최적화' : 'Model Selection Optimization'}</strong> — {isKo ? '단순한 작업에는 빠르고 저렴한 모델을, 복잡한 작업에는 강력한 모델을 사용합니다.' : 'Use fast, economical models for simple tasks and powerful models for complex tasks.'}</li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <div className="info-card-title">{isKo ? '병렬화 최대화' : 'Maximize Parallelization'}</div>
+          <div className="info-card-desc">{isKo ? '의존성 없는 작업은 항상 병렬로 실행합니다. 의존성 그래프를 사전에 분석하여 최대 병렬화 기회를 찾습니다.' : 'Always run independent tasks in parallel. Pre-analyze dependency graphs to find maximum parallelization opportunities.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📥</div>
+          <div className="info-card-title">{isKo ? '컨텍스트 사전 로드' : 'Context Pre-loading'}</div>
+          <div className="info-card-desc">{isKo ? '에이전트가 필요로 할 정보를 미리 준비하여 대기 시간을 줄입니다.' : 'Pre-prepare information agents will need to reduce wait times.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💾</div>
+          <div className="info-card-title">{isKo ? '결과 캐싱' : 'Result Caching'}</div>
+          <div className="info-card-desc">{isKo ? '자주 사용되는 에이전트 결과를 캐시하여 중복 작업을 방지합니다.' : 'Cache frequently used agent results to prevent duplicate work.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🤖</div>
+          <div className="info-card-title">{isKo ? '모델 선택 최적화' : 'Model Selection Optimization'}</div>
+          <div className="info-card-desc">{isKo ? '단순한 작업에는 빠르고 저렴한 모델을, 복잡한 작업에는 강력한 모델을 사용합니다.' : 'Use fast, economical models for simple tasks and powerful models for complex tasks.'}</div>
+        </div>
+      </div>
       <h3>{isKo ? '순차 vs 병렬 처리 타임라인 비교' : 'Sequential vs Parallel Processing Timeline'}</h3>
       <p>{isKo ? '동일한 풀스택 개발 작업을 순차와 병렬로 처리할 때의 시간 차이입니다. 병렬화가 가능한 에이전트를 식별하는 것이 핵심입니다.' : 'Time difference when processing the same full-stack dev task sequentially vs in parallel. The key is identifying which agents can be parallelized.'}</p>
       <div className="code-block">

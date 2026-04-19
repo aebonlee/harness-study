@@ -50,14 +50,19 @@ export default function QnA(): ReactElement {
   const { isLoggedIn, user } = useAuth();
   const isKo = language === 'ko';
 
-  const [posts,      setPosts]      = useState<QnaPost[]>([]);
-  const [loading,    setLoading]    = useState(true);
-  const [showForm,   setShowForm]   = useState(false);
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [title,      setTitle]      = useState('');
-  const [content,    setContent]    = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [error,      setError]      = useState('');
+  const isAdmin = user?.email === 'aebonlee@gmail.com';
+
+  const [posts,           setPosts]           = useState<QnaPost[]>([]);
+  const [loading,         setLoading]         = useState(true);
+  const [showForm,        setShowForm]        = useState(false);
+  const [expandedId,      setExpandedId]      = useState<number | null>(null);
+  const [title,           setTitle]           = useState('');
+  const [content,         setContent]         = useState('');
+  const [submitting,      setSubmitting]      = useState(false);
+  const [error,           setError]           = useState('');
+  const [answerTargetId,  setAnswerTargetId]  = useState<number | null>(null);
+  const [answerText,      setAnswerText]      = useState('');
+  const [answerSubmitting,setAnswerSubmitting]= useState(false);
 
   useEffect(() => {
     fetchPosts();
@@ -97,6 +102,21 @@ export default function QnA(): ReactElement {
     if (!confirm(isKo ? '삭제하시겠습니까?' : 'Delete this post?')) return;
     await supabase.from('hs_qna').delete().eq('id', id);
     fetchPosts();
+  }
+
+  async function handleAnswer(postId: number) {
+    if (!answerText.trim()) return;
+    setAnswerSubmitting(true);
+    const { error: err } = await supabase
+      .from('hs_qna')
+      .update({ answer: answerText.trim() })
+      .eq('id', postId);
+    if (!err) {
+      setAnswerTargetId(null);
+      setAnswerText('');
+      fetchPosts();
+    }
+    setAnswerSubmitting(false);
   }
 
   return (
@@ -221,14 +241,57 @@ export default function QnA(): ReactElement {
                         <div className="post-answer-content">{post.answer}</div>
                       </div>
                     )}
-                    {isLoggedIn && user?.id === post.user_id && (
-                      <div className="post-actions">
+                    {isAdmin && answerTargetId === post.id && (
+                      <div className="community-form" style={{ marginTop: '0.75rem' }}>
+                        <h4 className="community-form-title" style={{ fontSize: '0.875rem' }}>
+                          {isKo ? '답변 작성' : 'Write Answer'}
+                        </h4>
+                        <div className="community-form-field">
+                          <textarea
+                            className="community-textarea"
+                            placeholder={isKo ? '답변 내용을 입력하세요' : 'Enter your answer'}
+                            value={answerText}
+                            onChange={e => setAnswerText(e.target.value)}
+                            rows={4}
+                          />
+                        </div>
+                        <div className="community-form-actions">
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-sm"
+                            onClick={() => { setAnswerTargetId(null); setAnswerText(''); }}
+                          >
+                            {isKo ? '취소' : 'Cancel'}
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm"
+                            disabled={answerSubmitting || !answerText.trim()}
+                            onClick={() => handleAnswer(post.id)}
+                          >
+                            {answerSubmitting ? (isKo ? '저장 중...' : 'Saving...') : (isKo ? '답변 저장' : 'Save Answer')}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    <div className="post-actions">
+                      {isAdmin && (
+                        <button
+                          className="btn btn-ghost btn-sm"
+                          style={{ color: 'var(--color-primary)' }}
+                          onClick={() => { setAnswerTargetId(post.id); setAnswerText(post.answer ?? ''); }}
+                        >
+                          <i className="fa-solid fa-reply" />
+                          {isKo ? (post.answer ? '답변 수정' : '답변하기') : (post.answer ? 'Edit Answer' : 'Answer')}
+                        </button>
+                      )}
+                      {isLoggedIn && user?.id === post.user_id && (
                         <button className="btn btn-ghost btn-sm" onClick={() => handleDelete(post.id)}>
                           <i className="fa-solid fa-trash" />
                           {isKo ? '삭제' : 'Delete'}
                         </button>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

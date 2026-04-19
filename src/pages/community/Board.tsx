@@ -51,14 +51,22 @@ export default function Board(): ReactElement {
   const { isLoggedIn, user } = useAuth();
   const isKo = language === 'ko';
 
-  const [posts,      setPosts]      = useState<BoardPost[]>([]);
-  const [loading,    setLoading]    = useState(true);
-  const [showForm,   setShowForm]   = useState(false);
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [title,      setTitle]      = useState('');
-  const [content,    setContent]    = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [error,      setError]      = useState('');
+  const CATEGORIES = isKo
+    ? ['전체', '스킬공유', '경험담', '아이디어', '질문']
+    : ['All', 'Skill Share', 'Experience', 'Idea', 'Question'];
+  const CAT_PREFIXES = ['', '[스킬공유]', '[경험담]', '[아이디어]', '[질문]'];
+
+  const [posts,        setPosts]        = useState<BoardPost[]>([]);
+  const [loading,      setLoading]      = useState(true);
+  const [showForm,     setShowForm]     = useState(false);
+  const [expandedId,   setExpandedId]   = useState<number | null>(null);
+  const [title,        setTitle]        = useState('');
+  const [category,     setCategory]     = useState(0);
+  const [content,      setContent]      = useState('');
+  const [submitting,   setSubmitting]   = useState(false);
+  const [error,        setError]        = useState('');
+  const [searchQuery,  setSearchQuery]  = useState('');
+  const [activeFilter, setActiveFilter] = useState(0);
 
   useEffect(() => {
     fetchPosts();
@@ -81,15 +89,25 @@ export default function Board(): ReactElement {
     setPosts(prev => prev.map(p => p.id === post.id ? { ...p, views: p.views + 1 } : p));
   }
 
+  const filteredPosts = posts.filter(p => {
+    const q = searchQuery.toLowerCase();
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.content.toLowerCase().includes(q);
+    const prefix = CAT_PREFIXES[activeFilter];
+    const matchCat = !prefix || p.title.startsWith(prefix);
+    return matchSearch && matchCat;
+  });
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
     setSubmitting(true);
     setError('');
+    const prefix = CAT_PREFIXES[category];
+    const fullTitle = prefix ? `${prefix} ${title.trim()}` : title.trim();
     const { error: err } = await supabase.from('hs_board').insert({
       user_id: user!.id,
       user_email: user!.email ?? 'unknown',
-      title: title.trim(),
+      title: fullTitle,
       content: content.trim(),
     });
     if (err) {
@@ -128,10 +146,38 @@ export default function Board(): ReactElement {
           </p>
         </div>
 
+        {/* Search */}
+        <div style={{ marginBottom: '1rem' }}>
+          <input
+            type="text"
+            className="community-input"
+            placeholder={isKo ? '제목 또는 내용으로 검색...' : 'Search by title or content...'}
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        {/* Category Filter */}
+        <div className="community-filter">
+          {CATEGORIES.map((cat, i) => (
+            <button
+              key={i}
+              className={`community-filter-btn ${activeFilter === i ? 'active' : ''}`}
+              onClick={() => setActiveFilter(i)}
+            >
+              {cat}
+              <span className="community-filter-count">
+                {i === 0 ? posts.length : posts.filter(p => p.title.startsWith(CAT_PREFIXES[i])).length}
+              </span>
+            </button>
+          ))}
+        </div>
+
         {/* Toolbar */}
         <div className="community-toolbar">
           <span className="community-count">
-            {isKo ? `전체 ${posts.length}개` : `${posts.length} posts`}
+            {isKo ? `${filteredPosts.length}개` : `${filteredPosts.length} posts`}
           </span>
           {isLoggedIn ? (
             <button className="btn btn-primary btn-sm" onClick={() => setShowForm(!showForm)}>
@@ -151,6 +197,21 @@ export default function Board(): ReactElement {
           <form className="community-form" onSubmit={handleSubmit}>
             <h3 className="community-form-title">{isKo ? '새 글 작성' : 'New Post'}</h3>
             <div className="community-form-field">
+              <label>{isKo ? '카테고리' : 'Category'}</label>
+              <div className="community-filter" style={{ marginBottom: 0 }}>
+                {CATEGORIES.slice(1).map((cat, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`community-filter-btn ${category === i + 1 ? 'active' : ''}`}
+                    onClick={() => setCategory(i + 1)}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="community-form-field">
               <label>{isKo ? '제목' : 'Title'}</label>
               <input
                 type="text"
@@ -158,7 +219,7 @@ export default function Board(): ReactElement {
                 placeholder={isKo ? '제목을 입력하세요' : 'Enter title'}
                 value={title}
                 onChange={e => setTitle(e.target.value)}
-                maxLength={100}
+                maxLength={80}
                 required
               />
             </div>
@@ -195,13 +256,18 @@ export default function Board(): ReactElement {
             <i className="fa-solid fa-chalkboard" />
             <p>{isKo ? '아직 게시물이 없습니다. 첫 번째 글을 작성해보세요!' : 'No posts yet. Be the first to write!'}</p>
           </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="community-empty">
+            <i className="fa-solid fa-magnifying-glass" />
+            <p>{isKo ? '검색 결과가 없습니다.' : 'No matching posts found.'}</p>
+          </div>
         ) : (
           <div className="post-list">
-            {posts.map((post, idx) => (
+            {filteredPosts.map((post, idx) => (
               <div key={post.id} className={`post-card ${expandedId === post.id ? 'expanded' : ''}`}>
                 <div className="post-card-header" onClick={() => handleExpand(post)}>
                   <div className="post-card-main">
-                    <span className="post-number">{posts.length - idx}</span>
+                    <span className="post-number">{filteredPosts.length - idx}</span>
                     <h3 className="post-title">{post.title}</h3>
                     <div className="post-meta">
                       <span><i className="fa-solid fa-user" />{maskEmail(post.user_email)}</span>
