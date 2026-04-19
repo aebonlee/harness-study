@@ -5,7 +5,7 @@ import type { ReactElement } from 'react';
 
 export default function Login(): ReactElement {
   const { language } = useLanguage();
-  const { signInWithGoogle, signInWithKakao, isLoading } = useAuth();
+  const { signInWithGoogle, signInWithKakao, isLoading, authError, clearAuthError } = useAuth();
   const isKo = language === 'ko';
 
   return (
@@ -47,6 +47,17 @@ export default function Login(): ReactElement {
               </li>
             </ul>
           </div>
+
+          {/* Error */}
+          {authError && (
+            <div className="auth-error" role="alert">
+              <i className="fa-solid fa-circle-exclamation" />
+              <span>{authError}</span>
+              <button className="auth-error-close" onClick={clearAuthError} aria-label="Close">
+                <i className="fa-solid fa-xmark" />
+              </button>
+            </div>
+          )}
 
           {/* Social Buttons */}
           <div className="auth-social">

@@ -8,6 +8,8 @@ interface AuthContextValue {
   session: Session | null;
   isLoggedIn: boolean;
   isLoading: boolean;
+  authError: string | null;
+  clearAuthError: () => void;
   signInWithGoogle: () => Promise<void>;
   signInWithKakao: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -19,6 +21,9 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  const clearAuthError = () => setAuthError(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -30,27 +35,51 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
+      setIsLoading(false);
+      if (session) setAuthError(null);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/`,
-      },
-    });
+    setAuthError(null);
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        },
+      });
+      if (error) {
+        setAuthError(error.message);
+        setIsLoading(false);
+      }
+    } catch {
+      setAuthError('Google 로그인 중 오류가 발생했습니다.');
+      setIsLoading(false);
+    }
   };
 
   const signInWithKakao = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: {
-        redirectTo: `${window.location.origin}/`,
-      },
-    });
+    setAuthError(null);
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'kakao',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        },
+      });
+      if (error) {
+        setAuthError(error.message);
+        setIsLoading(false);
+      }
+    } catch {
+      setAuthError('카카오 로그인 중 오류가 발생했습니다.');
+      setIsLoading(false);
+    }
   };
 
   const signOut = async () => {
@@ -63,6 +92,8 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
       session,
       isLoggedIn: !!user,
       isLoading,
+      authError,
+      clearAuthError,
       signInWithGoogle,
       signInWithKakao,
       signOut,

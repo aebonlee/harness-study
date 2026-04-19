@@ -242,6 +242,24 @@
   flex-shrink: 0;
 }
 
+.auth-error span {
+  flex: 1;
+}
+
+.auth-error-close {
+  background: none;
+  border: none;
+  color: #991B1B;
+  cursor: pointer;
+  padding: 0.25rem;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.auth-error-close:hover {
+  opacity: 1;
+}
+
 /* ---- Loading Spinner ---- */
 .auth-spinner {
   display: inline-block;
