@@ -115,12 +115,28 @@ function OverviewSection({ isKo }: { isKo: boolean }): ReactElement {
       <p>{isKo ? 'Harness는 메타-스킬(Meta-Skill)입니다. 즉, 다른 스킬을 만들어내는 스킬입니다. Claude Code에게 어떤 도메인을 설명하면, Harness는 6가지 사전 정의된 아키텍처 패턴을 사용하여 해당 도메인에 최적화된 에이전트 팀과 스킬 파일을 자동으로 생성합니다.' : 'Harness is a meta-skill — a skill that creates other skills. You describe a domain to Claude Code, and Harness automatically generates an optimized agent team and skill files for that domain using 6 predefined architectural patterns.'}</p>
 
       <h3>{isKo ? 'Harness가 해결하는 문제' : 'Problems Harness Solves'}</h3>
-      <ul>
-        <li><strong>{isKo ? '복잡성 관리' : 'Complexity Management'}</strong> — {isKo ? '복잡한 작업을 전문화된 에이전트들이 나누어 처리합니다.' : 'Complex tasks are divided among specialized agents.'}</li>
-        <li><strong>{isKo ? '품질 일관성' : 'Quality Consistency'}</strong> — {isKo ? '검토자 에이전트가 산출물의 품질을 일관되게 유지합니다.' : 'Reviewer agents maintain consistent output quality.'}</li>
-        <li><strong>{isKo ? '컨텍스트 효율성' : 'Context Efficiency'}</strong> — {isKo ? '스킬 파일로 프로그레시브 디스클로저를 구현해 컨텍스트 창을 절약합니다.' : 'Skill files implement progressive disclosure to conserve context window.'}</li>
-        <li><strong>{isKo ? '재사용성' : 'Reusability'}</strong> — {isKo ? '생성된 스킬과 팀 구성은 유사한 프로젝트에 재사용 가능합니다.' : 'Generated skills and team configurations can be reused for similar projects.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🧩</div>
+          <h4>{isKo ? '복잡성 관리' : 'Complexity Management'}</h4>
+          <p>{isKo ? '복잡한 작업을 전문화된 에이전트들이 나누어 처리합니다.' : 'Complex tasks are divided among specialized agents.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✅</div>
+          <h4>{isKo ? '품질 일관성' : 'Quality Consistency'}</h4>
+          <p>{isKo ? '검토자 에이전트가 산출물의 품질을 일관되게 유지합니다.' : 'Reviewer agents maintain consistent output quality.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💾</div>
+          <h4>{isKo ? '컨텍스트 효율성' : 'Context Efficiency'}</h4>
+          <p>{isKo ? '스킬 파일로 프로그레시브 디스클로저를 구현해 컨텍스트 창을 절약합니다.' : 'Skill files implement progressive disclosure to conserve context window.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">♻️</div>
+          <h4>{isKo ? '재사용성' : 'Reusability'}</h4>
+          <p>{isKo ? '생성된 스킬과 팀 구성은 유사한 프로젝트에 재사용 가능합니다.' : 'Generated skills and team configurations can be reused for similar projects.'}</p>
+        </div>
+      </div>
 
       <TipBox type="important">
         {isKo
@@ -156,12 +172,28 @@ function WhySection({ isKo }: { isKo: boolean }): ReactElement {
       <p>{isKo ? '단일 AI 에이전트는 강력하지만 한계가 있습니다. 복잡한 작업을 수행할 때 컨텍스트 창의 한계에 부딪히고, 다양한 전문 지식이 필요한 작업에서 품질이 저하될 수 있습니다. 또한 검토 없이 생성된 결과물은 오류를 포함할 가능성이 높습니다.' : 'Single AI agents are powerful but have limitations. When performing complex tasks, they hit context window limits and quality may degrade on tasks requiring diverse expertise. Outputs generated without review are more likely to contain errors.'}</p>
 
       <h3>{isKo ? 'Harness가 제공하는 가치' : 'Value Harness Provides'}</h3>
-      <ol>
-        <li><strong>{isKo ? '분업과 전문화' : 'Division & Specialization'}</strong> — {isKo ? '각 에이전트가 자신의 전문 영역에만 집중하여 더 높은 품질의 결과를 만들어냅니다.' : 'Each agent focuses only on its area of expertise, producing higher quality results.'}</li>
-        <li><strong>{isKo ? '병렬 처리로 속도 향상' : 'Speed Through Parallel Processing'}</strong> — {isKo ? '독립적인 작업은 여러 에이전트가 동시에 처리하여 전체 처리 시간을 단축합니다.' : 'Independent tasks are processed simultaneously by multiple agents, reducing total time.'}</li>
-        <li><strong>{isKo ? '내장된 품질 검증' : 'Built-in Quality Validation'}</strong> — {isKo ? '생산자-검토자 패턴으로 모든 산출물이 검증을 거칩니다.' : 'The Producer-Reviewer pattern ensures all outputs go through validation.'}</li>
-        <li><strong>{isKo ? '재현 가능한 워크플로우' : 'Reproducible Workflows'}</strong> — {isKo ? '스킬 파일로 정의된 워크플로우는 언제든지 동일한 방식으로 실행됩니다.' : 'Workflows defined in skill files execute consistently every time.'}</li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">👥</div>
+          <h4>{isKo ? '분업과 전문화' : 'Division & Specialization'}</h4>
+          <p>{isKo ? '각 에이전트가 자신의 전문 영역에만 집중하여 더 높은 품질의 결과를 만들어냅니다.' : 'Each agent focuses only on its area of expertise, producing higher quality results.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <h4>{isKo ? '병렬 처리로 속도 향상' : 'Speed Through Parallel Processing'}</h4>
+          <p>{isKo ? '독립적인 작업은 여러 에이전트가 동시에 처리하여 전체 처리 시간을 단축합니다.' : 'Independent tasks are processed simultaneously by multiple agents, reducing total time.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🛡️</div>
+          <h4>{isKo ? '내장된 품질 검증' : 'Built-in Quality Validation'}</h4>
+          <p>{isKo ? '생산자-검토자 패턴으로 모든 산출물이 검증을 거칩니다.' : 'The Producer-Reviewer pattern ensures all outputs go through validation.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔄</div>
+          <h4>{isKo ? '재현 가능한 워크플로우' : 'Reproducible Workflows'}</h4>
+          <p>{isKo ? '스킬 파일로 정의된 워크플로우는 언제든지 동일한 방식으로 실행됩니다.' : 'Workflows defined in skill files execute consistently every time.'}</p>
+        </div>
+      </div>
 
       <h3>{isKo ? '단일 에이전트 vs Harness 처리 흐름 비교' : 'Single Agent vs Harness Processing Flow'}</h3>
       <p>{isKo ? '동일한 "블로그 포스트 작성" 작업을 두 방식으로 처리할 때의 차이입니다. Harness는 전문화와 병렬화로 품질과 속도를 동시에 높입니다.' : 'The difference when processing the same "write a blog post" task with two approaches. Harness improves both quality and speed through specialization and parallelization.'}</p>
@@ -280,6 +312,42 @@ function EcosystemSection({ isKo }: { isKo: boolean }): ReactElement {
       </div>
 
       <h2>{isKo ? '레이어 아키텍처' : 'Layer Architecture'}</h2>
+
+      {/* SVG Layer Architecture Diagram */}
+      <div style={{ margin: '2rem 0', textAlign: 'center' }}>
+        <svg viewBox="0 0 500 280" style={{ width: '100%', maxWidth: '500px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+          {/* L4 */}
+          <rect x="50" y="10" width="400" height="50" rx="8" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.5)" strokeWidth="1.5"/>
+          <text x="250" y="30" textAnchor="middle" fontSize="11" fill="var(--color-text-muted)" fontWeight="600">L4</text>
+          <text x="250" y="46" textAnchor="middle" fontSize="13" fill="var(--color-text)" fontWeight="700">Archon — {isKo ? '런타임 설정 관리' : 'Runtime Config'}</text>
+          {/* L3 */}
+          <rect x="50" y="70" width="400" height="50" rx="8" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.6)" strokeWidth="2"/>
+          <text x="250" y="90" textAnchor="middle" fontSize="11" fill="var(--color-primary)" fontWeight="600">L3</text>
+          <text x="250" y="106" textAnchor="middle" fontSize="14" fill="var(--color-primary)" fontWeight="800">Harness — {isKo ? '팀 아키텍처 팩토리' : 'Team Architecture Factory'}</text>
+          {/* L2 */}
+          <rect x="50" y="130" width="400" height="50" rx="8" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.5)" strokeWidth="1.5"/>
+          <text x="250" y="150" textAnchor="middle" fontSize="11" fill="var(--color-text-muted)" fontWeight="600">L2</text>
+          <text x="250" y="166" textAnchor="middle" fontSize="13" fill="var(--color-text)" fontWeight="700">{isKo ? '복합 스킬 — 여러 L1 조합' : 'Composite Skills — Multi-L1'}</text>
+          {/* L1 */}
+          <rect x="50" y="190" width="400" height="50" rx="8" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.5)" strokeWidth="1.5"/>
+          <text x="250" y="210" textAnchor="middle" fontSize="11" fill="var(--color-text-muted)" fontWeight="600">L1</text>
+          <text x="250" y="226" textAnchor="middle" fontSize="13" fill="var(--color-text)" fontWeight="700">{isKo ? '기본 스킬 — 단일 작업 지침' : 'Basic Skills — Single Task'}</text>
+          {/* Arrows */}
+          <line x1="250" y1="60" x2="250" y2="70" stroke="var(--color-text-muted)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
+          <line x1="250" y1="120" x2="250" y2="130" stroke="var(--color-text-muted)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
+          <line x1="250" y1="180" x2="250" y2="190" stroke="var(--color-text-muted)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
+          <defs>
+            <marker id="arrowDown" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6 Z" fill="var(--color-text-muted)"/>
+            </marker>
+          </defs>
+          {/* Caption */}
+          <text x="250" y="268" textAnchor="middle" fontSize="11" fill="var(--color-text-muted)" fontStyle="italic">
+            {isKo ? 'Harness 에코시스템 레이어 아키텍처' : 'Harness Ecosystem Layer Architecture'}
+          </text>
+        </svg>
+      </div>
+
       <div className="comparison-table-wrapper">
         <table className="comparison-table">
           <thead><tr><th>{isKo ? '레이어' : 'Layer'}</th><th>{isKo ? '이름' : 'Name'}</th><th>{isKo ? '역할' : 'Role'}</th></tr></thead>
@@ -293,12 +361,28 @@ function EcosystemSection({ isKo }: { isKo: boolean }): ReactElement {
       </div>
 
       <h3>{isKo ? '주요 관련 프로젝트' : 'Key Related Projects'}</h3>
-      <ul>
-        <li><strong>revfactory/harness</strong> — {isKo ? '원본 Harness 메타-스킬 구현체' : 'Original Harness meta-skill implementation'}</li>
-        <li><strong>revfactory/harness-for-everyone</strong> — {isKo ? '비기술자를 위한 Harness 교육 자료 (KO/EN/JP)' : 'Harness educational materials for non-technical users (KO/EN/JP)'}</li>
-        <li><strong>revfactory/harness-abtest</strong> — {isKo ? 'A/B 테스트 프레임워크' : 'A/B testing framework'}</li>
-        <li><strong>tigerjk9/Harness-Engineering</strong> — {isKo ? 'Harness 엔지니어링 템플릿' : 'Harness engineering templates'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🏗️</div>
+          <h4>revfactory/harness</h4>
+          <p>{isKo ? '원본 Harness 메타-스킬 구현체' : 'Original Harness meta-skill implementation'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📚</div>
+          <h4>harness-for-everyone</h4>
+          <p>{isKo ? '비기술자를 위한 Harness 교육 자료 (KO/EN/JP)' : 'Harness educational materials for non-technical users (KO/EN/JP)'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🧪</div>
+          <h4>harness-abtest</h4>
+          <p>{isKo ? 'A/B 테스트 프레임워크' : 'A/B testing framework'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚙️</div>
+          <h4>Harness-Engineering</h4>
+          <p>{isKo ? 'Harness 엔지니어링 템플릿 (tigerjk9)' : 'Harness engineering templates (tigerjk9)'}</p>
+        </div>
+      </div>
 
       <TipBox type="tip">
         {isKo
@@ -395,6 +479,11 @@ claude
         {isKo
           ? 'Agent Teams 기능은 환경 변수 설정이 필요합니다. 설정 없이 하네스를 실행하면 단일 에이전트 모드로 동작하여 팀 기반 기능이 제한됩니다.'
           : 'The Agent Teams feature requires environment variable configuration. Running Harness without the setting will operate in single-agent mode with limited team-based features.'}
+      </TipBox>
+      <TipBox type="danger">
+        {isKo
+          ? 'CLAUDE.md에 API 키, 비밀번호, 토큰 등 민감한 정보를 절대 포함하지 마세요. 이 파일은 Git에 커밋되므로 .env 파일을 사용하고 .gitignore에 추가해야 합니다.'
+          : 'Never include sensitive information like API keys, passwords, or tokens in CLAUDE.md. This file is committed to Git — use .env files and add them to .gitignore instead.'}
       </TipBox>
     </div>
   );

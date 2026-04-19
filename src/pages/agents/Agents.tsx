@@ -100,11 +100,23 @@ function ConceptSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '에이전트란?' : 'What is an Agent?'}</h2>
       <p>{isKo ? 'Harness에서 에이전트는 특정 역할과 책임을 가진 AI 인스턴스입니다. 각 에이전트는 독립적으로 실행되며, 자신의 컨텍스트 창, 도구 세트, 전문 지식을 가집니다. 에이전트는 오케스트레이터로부터 지시를 받거나 다른 에이전트와 협력하여 작업을 완료합니다.' : 'In Harness, an agent is an AI instance with a specific role and responsibility. Each agent runs independently with its own context window, toolset, and expertise. Agents receive instructions from the orchestrator or collaborate with other agents to complete tasks.'}</p>
       <h3>{isKo ? '에이전트의 3가지 핵심 속성' : '3 Core Agent Attributes'}</h3>
-      <ul>
-        <li><strong>{isKo ? '역할(Role)' : 'Role'}</strong> — {isKo ? '에이전트가 무엇을 하는지 정의. 예: "코드 리뷰어", "테스트 작성자", "문서 작가"' : 'Defines what the agent does. E.g., "Code Reviewer", "Test Writer", "Documentation Writer"'}</li>
-        <li><strong>{isKo ? '책임(Responsibility)' : 'Responsibility'}</strong> — {isKo ? '에이전트가 담당하는 작업의 범위와 산출물' : 'The scope of tasks and outputs the agent is responsible for'}</li>
-        <li><strong>{isKo ? '도구(Tools)' : 'Tools'}</strong> — {isKo ? '에이전트가 사용할 수 있는 도구 목록. 예: Bash, Read, Write, WebFetch 등' : 'List of tools the agent can use. E.g., Bash, Read, Write, WebFetch, etc.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🎭</div>
+          <h4>{isKo ? '역할 (Role)' : 'Role'}</h4>
+          <p>{isKo ? '에이전트가 무엇을 하는지 정의. 예: "코드 리뷰어", "테스트 작성자", "문서 작가"' : 'Defines what the agent does. E.g., "Code Reviewer", "Test Writer", "Doc Writer"'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📋</div>
+          <h4>{isKo ? '책임 (Responsibility)' : 'Responsibility'}</h4>
+          <p>{isKo ? '에이전트가 담당하는 작업의 범위와 산출물' : 'The scope of tasks and outputs the agent is responsible for'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔧</div>
+          <h4>{isKo ? '도구 (Tools)' : 'Tools'}</h4>
+          <p>{isKo ? '에이전트가 사용할 수 있는 도구 목록. 예: Bash, Read, Write, WebFetch 등' : 'List of tools available. E.g., Bash, Read, Write, WebFetch, etc.'}</p>
+        </div>
+      </div>
       <TipBox type="important">
         {isKo ? '에이전트는 "최소 권한 원칙(Principle of Least Privilege)"을 따릅니다. 각 에이전트에게는 역할 수행에 필요한 최소한의 도구만 부여하는 것이 보안과 효율 측면에서 바람직합니다.' : 'Agents follow the "Principle of Least Privilege." Granting each agent only the minimum tools needed for their role is best for security and efficiency.'}
       </TipBox>
@@ -154,12 +166,63 @@ function OrchestratorSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '오케스트레이터의 역할' : "Orchestrator's Role"}</h2>
       <p>{isKo ? '오케스트레이터는 전체 워크플로우를 관리하는 중앙 조율자입니다. 주방의 수석 셰프에 비유할 수 있습니다 — 각 요리사(에이전트)에게 레시피(스킬)와 재료를 배분하고, 모든 요리가 제시간에 완성되도록 조율합니다. 오케스트레이터 자체도 AI 에이전트이며, 보통 가장 높은 수준의 추론 능력을 가진 모델을 사용합니다.' : "The orchestrator is the central coordinator managing the entire workflow. Think of the head chef in a kitchen — distributing recipes (skills) and ingredients to each cook (agent), coordinating so everything is ready on time. The orchestrator itself is an AI agent, typically using the highest reasoning capability model."}</p>
       <h3>{isKo ? '오케스트레이터의 핵심 책임' : "Orchestrator's Core Responsibilities"}</h3>
-      <ol>
-        <li><strong>{isKo ? '작업 분해(Task Decomposition)' : 'Task Decomposition'}</strong> — {isKo ? '복잡한 작업을 에이전트가 처리할 수 있는 단위로 분해합니다.' : 'Breaks complex tasks into units agents can handle.'}</li>
-        <li><strong>{isKo ? '에이전트 선택(Agent Selection)' : 'Agent Selection'}</strong> — {isKo ? '각 서브태스크에 가장 적합한 에이전트를 선택합니다.' : 'Selects the most appropriate agent for each subtask.'}</li>
-        <li><strong>{isKo ? '실행 순서 관리(Execution Order)' : 'Execution Order Management'}</strong> — {isKo ? '의존성을 고려한 최적의 실행 순서를 결정합니다.' : 'Determines the optimal execution order considering dependencies.'}</li>
-        <li><strong>{isKo ? '결과 통합(Result Integration)' : 'Result Integration'}</strong> — {isKo ? '각 에이전트의 결과를 수집하고 통합하여 최종 산출물을 생성합니다.' : "Collects and integrates each agent's results to produce the final output."}</li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔀</div>
+          <h4>{isKo ? '작업 분해' : 'Task Decomposition'}</h4>
+          <p>{isKo ? '복잡한 작업을 에이전트가 처리할 수 있는 단위로 분해합니다.' : 'Breaks complex tasks into units agents can handle.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🎯</div>
+          <h4>{isKo ? '에이전트 선택' : 'Agent Selection'}</h4>
+          <p>{isKo ? '각 서브태스크에 가장 적합한 에이전트를 선택합니다.' : 'Selects the most appropriate agent for each subtask.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📊</div>
+          <h4>{isKo ? '실행 순서 관리' : 'Execution Order'}</h4>
+          <p>{isKo ? '의존성을 고려한 최적의 실행 순서를 결정합니다.' : 'Determines the optimal execution order considering dependencies.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔗</div>
+          <h4>{isKo ? '결과 통합' : 'Result Integration'}</h4>
+          <p>{isKo ? '각 에이전트의 결과를 수집하고 통합하여 최종 산출물을 생성합니다.' : "Collects and integrates each agent's results to produce the final output."}</p>
+        </div>
+      </div>
+
+      {/* SVG Orchestrator Diagram */}
+      <div style={{ margin: '2rem 0', textAlign: 'center' }}>
+        <svg viewBox="0 0 460 260" style={{ width: '100%', maxWidth: '460px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+          {/* Orchestrator */}
+          <rect x="155" y="10" width="150" height="44" rx="8" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.6)" strokeWidth="2"/>
+          <text x="230" y="37" textAnchor="middle" fontSize="13" fill="var(--color-primary)" fontWeight="700">{isKo ? '👑 오케스트레이터' : '👑 Orchestrator'}</text>
+          {/* Lines */}
+          <line x1="180" y1="54" x2="80" y2="90" stroke="var(--color-text-muted)" strokeWidth="1.5"/>
+          <line x1="230" y1="54" x2="230" y2="90" stroke="var(--color-text-muted)" strokeWidth="1.5"/>
+          <line x1="280" y1="54" x2="380" y2="90" stroke="var(--color-text-muted)" strokeWidth="1.5"/>
+          {/* Agents */}
+          <rect x="20" y="90" width="120" height="40" rx="6" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.5)" strokeWidth="1.5"/>
+          <text x="80" y="114" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontWeight="600">{isKo ? '🔬 연구 에이전트' : '🔬 Research'}</text>
+          <rect x="170" y="90" width="120" height="40" rx="6" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.5)" strokeWidth="1.5"/>
+          <text x="230" y="114" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontWeight="600">{isKo ? '✍️ 작성 에이전트' : '✍️ Writing'}</text>
+          <rect x="320" y="90" width="120" height="40" rx="6" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.5)" strokeWidth="1.5"/>
+          <text x="380" y="114" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontWeight="600">{isKo ? '🔍 검토 에이전트' : '🔍 Reviewer'}</text>
+          {/* Output arrows */}
+          <line x1="80" y1="130" x2="80" y2="160" stroke="var(--color-text-muted)" strokeWidth="1" strokeDasharray="4,3"/>
+          <line x1="230" y1="130" x2="230" y2="160" stroke="var(--color-text-muted)" strokeWidth="1" strokeDasharray="4,3"/>
+          <line x1="380" y1="130" x2="380" y2="160" stroke="var(--color-text-muted)" strokeWidth="1" strokeDasharray="4,3"/>
+          {/* Output files */}
+          <rect x="30" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1"/>
+          <text x="80" y="178" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)" fontFamily="monospace">research.md</text>
+          <rect x="180" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1"/>
+          <text x="230" y="178" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)" fontFamily="monospace">draft.md</text>
+          <rect x="330" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1"/>
+          <text x="380" y="178" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)" fontFamily="monospace">review.json</text>
+          {/* Caption */}
+          <text x="230" y="220" textAnchor="middle" fontSize="10" fill="var(--color-text-muted)">
+            {isKo ? '오케스트레이터가 서브에이전트들에게 작업을 분배하고 결과를 수집합니다' : 'Orchestrator distributes tasks to subagents and collects results'}
+          </text>
+        </svg>
+      </div>
       <h3>{isKo ? '오케스트레이터 CLAUDE.md 최소 예시' : 'Minimal Orchestrator CLAUDE.md Example'}</h3>
       <p>{isKo ? '아래는 가장 간단한 형태의 오케스트레이터 파일입니다. Role과 Workflow 두 섹션만으로 에이전트 팀을 조율하는 최소 구조입니다.' : 'Below is the simplest form of an orchestrator file. A minimal structure coordinating an agent team with just two sections: Role and Workflow.'}</p>
       <div className="code-block">
@@ -205,13 +268,33 @@ function SubagentsSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '서브에이전트의 특징' : 'Subagent Characteristics'}</h2>
       <p>{isKo ? '서브에이전트는 특정 도메인이나 작업 유형에 전문화된 에이전트입니다. 오케스트레이터로부터 명확한 지시와 필요한 컨텍스트를 받아 작업을 수행하고, 구조화된 결과를 반환합니다.' : 'Subagents are agents specialized in specific domains or task types. They receive clear instructions and necessary context from the orchestrator, perform the task, and return structured results.'}</p>
       <h3>{isKo ? '일반적인 서브에이전트 유형' : 'Common Subagent Types'}</h3>
-      <ul>
-        <li><strong>{isKo ? '연구 에이전트(Research Agent)' : 'Research Agent'}</strong> — {isKo ? '정보 수집, 웹 검색, 문서 분석을 담당합니다.' : 'Handles information gathering, web search, and document analysis.'}</li>
-        <li><strong>{isKo ? '작성 에이전트(Writing Agent)' : 'Writing Agent'}</strong> — {isKo ? '코드, 문서, 콘텐츠 작성을 담당합니다.' : 'Handles writing code, documentation, and content.'}</li>
-        <li><strong>{isKo ? '검토 에이전트(Review Agent)' : 'Review Agent'}</strong> — {isKo ? '다른 에이전트의 산출물을 검토하고 피드백을 제공합니다.' : "Reviews other agents' outputs and provides feedback."}</li>
-        <li><strong>{isKo ? '테스트 에이전트(Test Agent)' : 'Test Agent'}</strong> — {isKo ? '코드 테스트 작성 및 실행을 담당합니다.' : 'Handles test writing and execution.'}</li>
-        <li><strong>{isKo ? '배포 에이전트(Deploy Agent)' : 'Deploy Agent'}</strong> — {isKo ? 'CI/CD 파이프라인 관리와 배포를 담당합니다.' : 'Manages CI/CD pipelines and deployments.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔬</div>
+          <h4>{isKo ? '연구 에이전트' : 'Research Agent'}</h4>
+          <p>{isKo ? '정보 수집, 웹 검색, 문서 분석을 담당합니다.' : 'Information gathering, web search, and document analysis.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✍️</div>
+          <h4>{isKo ? '작성 에이전트' : 'Writing Agent'}</h4>
+          <p>{isKo ? '코드, 문서, 콘텐츠 작성을 담당합니다.' : 'Writing code, documentation, and content.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔍</div>
+          <h4>{isKo ? '검토 에이전트' : 'Review Agent'}</h4>
+          <p>{isKo ? '다른 에이전트의 산출물을 검토하고 피드백을 제공합니다.' : "Reviews other agents' outputs and provides feedback."}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🧪</div>
+          <h4>{isKo ? '테스트 에이전트' : 'Test Agent'}</h4>
+          <p>{isKo ? '코드 테스트 작성 및 실행을 담당합니다.' : 'Test writing and execution.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🚀</div>
+          <h4>{isKo ? '배포 에이전트' : 'Deploy Agent'}</h4>
+          <p>{isKo ? 'CI/CD 파이프라인 관리와 배포를 담당합니다.' : 'Manages CI/CD pipelines and deployments.'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '서브에이전트 스킬 파일 및 호출 예시' : 'Subagent Skill File & Invocation Example'}</h3>
       <p>{isKo ? '아래는 research-agent 스킬 파일과 오케스트레이터가 이를 호출하는 CLAUDE.md 패턴입니다. Task 도구에 prompt와 allowed_tools를 명시하여 서브에이전트의 동작 범위를 제한합니다.' : 'Below is the research-agent skill file and the CLAUDE.md pattern for the orchestrator to invoke it. Specify prompt and allowed_tools in the Task tool to limit the subagent\'s scope.'}</p>
       <div className="code-block">
@@ -299,12 +382,28 @@ function RolesSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '효과적인 에이전트 역할을 설계하는 원칙과 방법을 알아봅니다.' : 'Learn principles and methods for designing effective agent roles.'}</p>
       </div>
       <h2>{isKo ? '좋은 역할 설계의 원칙' : 'Principles of Good Role Design'}</h2>
-      <ol>
-        <li><strong>{isKo ? '단일 책임 원칙(Single Responsibility)' : 'Single Responsibility Principle'}</strong> — {isKo ? '각 에이전트는 하나의 명확한 주요 책임을 가집니다.' : 'Each agent has one clear primary responsibility.'}</li>
-        <li><strong>{isKo ? '명확한 입출력 정의' : 'Clear Input/Output Definition'}</strong> — {isKo ? '에이전트가 받는 입력과 반환하는 출력의 형식을 명확히 정의합니다.' : 'Clearly define the format of inputs the agent receives and outputs it returns.'}</li>
-        <li><strong>{isKo ? '측정 가능한 성공 기준' : 'Measurable Success Criteria'}</strong> — {isKo ? '에이전트의 작업 완료 기준을 객관적으로 정의합니다.' : 'Objectively define the criteria for task completion.'}</li>
-        <li><strong>{isKo ? '적절한 도구 부여' : 'Appropriate Tool Assignment'}</strong> — {isKo ? '역할 수행에 필요한 도구만 부여합니다.' : 'Assign only tools needed for the role.'}</li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">1️⃣</div>
+          <h4>{isKo ? '단일 책임 원칙' : 'Single Responsibility'}</h4>
+          <p>{isKo ? '각 에이전트는 하나의 명확한 주요 책임을 가집니다.' : 'Each agent has one clear primary responsibility.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📥</div>
+          <h4>{isKo ? '명확한 입출력 정의' : 'Clear I/O Definition'}</h4>
+          <p>{isKo ? '에이전트가 받는 입력과 반환하는 출력의 형식을 명확히 정의합니다.' : 'Clearly define the format of inputs and outputs.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📏</div>
+          <h4>{isKo ? '측정 가능한 성공 기준' : 'Measurable Success'}</h4>
+          <p>{isKo ? '에이전트의 작업 완료 기준을 객관적으로 정의합니다.' : 'Objectively define criteria for task completion.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔐</div>
+          <h4>{isKo ? '적절한 도구 부여' : 'Tool Assignment'}</h4>
+          <p>{isKo ? '역할 수행에 필요한 도구만 부여합니다.' : 'Assign only tools needed for the role.'}</p>
+        </div>
+      </div>
       <TipBox type="tip">
         {isKo ? '역할 이름은 직관적으로 지정하세요. "agent-1"보다 "code-reviewer" 또는 "documentation-writer"가 훨씬 명확합니다. 좋은 이름은 오케스트레이터가 올바른 에이전트를 선택하는 데 도움을 줍니다.' : 'Name roles intuitively. "code-reviewer" or "documentation-writer" is much clearer than "agent-1". Good names help the orchestrator select the right agent.'}
       </TipBox>
@@ -415,6 +514,11 @@ function ToolsSection({ isKo }: { isKo: boolean }): ReactElement {
       </div>
       <TipBox type="important">
         {isKo ? 'Task 도구는 오케스트레이터 에이전트에게만 부여하는 것이 원칙입니다. 서브에이전트가 Task 도구를 사용하면 예상치 못한 중첩 실행이 발생할 수 있습니다.' : 'The Task tool should only be granted to the orchestrator agent. Subagents using the Task tool can cause unexpected nested executions.'}
+      </TipBox>
+      <TipBox type="danger">
+        {isKo
+          ? '서브에이전트에게 Bash 도구를 무분별하게 부여하면 위험합니다. rm -rf, git push --force 같은 파괴적 명령이 실행될 수 있으므로, 반드시 allowed_tools로 범위를 제한하세요.'
+          : 'Granting Bash tool to subagents indiscriminately is dangerous. Destructive commands like rm -rf or git push --force could be executed. Always limit scope with allowed_tools.'}
       </TipBox>
     </div>
   );

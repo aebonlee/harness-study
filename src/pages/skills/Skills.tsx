@@ -113,12 +113,28 @@ function ConceptSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '스킬의 정의' : 'Definition of Skills'}</h2>
       <p>{isKo ? '스킬(Skill)은 에이전트가 특정 작업을 수행하기 위한 상세한 지침과 컨텍스트를 담은 파일입니다. 요리 레시피에 비유할 수 있습니다. 레시피가 요리사에게 단계별 지침을 제공하듯, 스킬은 에이전트에게 작업 수행 방법을 알려줍니다.' : 'A Skill is a file containing detailed instructions and context for an agent to perform a specific task. It can be compared to a cooking recipe. Just as a recipe provides step-by-step instructions to a chef, a skill tells an agent how to perform a task.'}</p>
       <h3>{isKo ? '스킬의 핵심 가치' : 'Core Value of Skills'}</h3>
-      <ul>
-        <li><strong>{isKo ? '지식 캡슐화' : 'Knowledge Encapsulation'}</strong> — {isKo ? '전문 지식을 재사용 가능한 형태로 패키징합니다.' : 'Packages expertise into reusable form.'}</li>
-        <li><strong>{isKo ? '컨텍스트 절약' : 'Context Conservation'}</strong> — {isKo ? '필요할 때만 로드되는 프로그레시브 디스클로저로 컨텍스트 창을 효율적으로 사용합니다.' : 'Efficiently uses context window with progressive disclosure that loads only when needed.'}</li>
-        <li><strong>{isKo ? '일관성 보장' : 'Consistency Guarantee'}</strong> — {isKo ? '동일한 스킬을 사용하면 일관된 방식으로 작업이 수행됩니다.' : 'Using the same skill ensures tasks are performed consistently.'}</li>
-        <li><strong>{isKo ? '팀 공유 가능' : 'Team Shareable'}</strong> — {isKo ? '잘 설계된 스킬은 팀 전체에서 공유하고 재사용할 수 있습니다.' : 'Well-designed skills can be shared and reused across the entire team.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">📦</div>
+          <h4>{isKo ? '지식 캡슐화' : 'Knowledge Encapsulation'}</h4>
+          <p>{isKo ? '전문 지식을 재사용 가능한 형태로 패키징합니다.' : 'Packages expertise into reusable form.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💾</div>
+          <h4>{isKo ? '컨텍스트 절약' : 'Context Conservation'}</h4>
+          <p>{isKo ? '필요할 때만 로드되는 프로그레시브 디스클로저로 컨텍스트 창을 효율적으로 사용합니다.' : 'Progressive disclosure loads only when needed.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔒</div>
+          <h4>{isKo ? '일관성 보장' : 'Consistency Guarantee'}</h4>
+          <p>{isKo ? '동일한 스킬을 사용하면 일관된 방식으로 작업이 수행됩니다.' : 'Same skill ensures tasks are performed consistently.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">👥</div>
+          <h4>{isKo ? '팀 공유 가능' : 'Team Shareable'}</h4>
+          <p>{isKo ? '잘 설계된 스킬은 팀 전체에서 공유하고 재사용할 수 있습니다.' : 'Well-designed skills can be shared across the entire team.'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '스킬 파일 최소 예시 (hello-world)' : 'Minimal Skill File Example (hello-world)'}</h3>
       <p>{isKo ? '가장 단순한 형태의 스킬 파일입니다. 5줄로도 완전한 스킬을 만들 수 있습니다. 이 구조를 출발점으로 필요에 따라 확장하세요.' : 'The simplest form of a skill file. Even 5 lines can create a complete skill. Use this structure as your starting point and expand as needed.'}</p>
       <div className="code-block">
@@ -144,6 +160,20 @@ function ConceptSection({ isKo }: { isKo: boolean }): ReactElement {
 영어:   "Hello! How can I help you today?"`}</code></pre>
         </div>
       </div>
+      <h3>{isKo ? '스킬 관리 방식 비교' : 'Skill Management Comparison'}</h3>
+      <div className="comparison-table-wrapper">
+        <table className="comparison-table">
+          <thead><tr><th>{isKo ? '구분' : 'Aspect'}</th><th>{isKo ? '인라인 프롬프트' : 'Inline Prompt'}</th><th>{isKo ? '스킬 파일' : 'Skill File'}</th></tr></thead>
+          <tbody>
+            <tr><td>{isKo ? '재사용성' : 'Reusability'}</td><td>{isKo ? '매번 다시 작성' : 'Rewrite every time'}</td><td>{isKo ? '한 번 작성, 반복 사용' : 'Write once, reuse'}</td></tr>
+            <tr><td>{isKo ? '일관성' : 'Consistency'}</td><td>{isKo ? '작성자마다 다름' : 'Varies by author'}</td><td>{isKo ? '항상 동일한 동작' : 'Always consistent'}</td></tr>
+            <tr><td>{isKo ? '컨텍스트' : 'Context'}</td><td>{isKo ? '매번 전체 로드' : 'Full load every time'}</td><td>{isKo ? '프로그레시브 디스클로저' : 'Progressive disclosure'}</td></tr>
+            <tr><td>{isKo ? '버전 관리' : 'Version Control'}</td><td>{isKo ? '추적 불가' : 'Not trackable'}</td><td>{isKo ? 'Git으로 이력 관리' : 'Git-managed history'}</td></tr>
+            <tr><td>{isKo ? '팀 공유' : 'Team Sharing'}</td><td>{isKo ? '개인 지식에 의존' : 'Individual knowledge'}</td><td>{isKo ? '리포지토리로 공유' : 'Share via repository'}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <TipBox type="important">{isKo ? '스킬은 에이전트의 "장기 기억" 역할을 합니다. 에이전트의 컨텍스트 창이 제한적이라도, 스킬 파일을 통해 방대한 전문 지식에 접근할 수 있습니다.' : 'Skills serve as the "long-term memory" of agents. Even with limited context windows, agents can access vast expertise through skill files.'}</TipBox>
     </div>
   );
@@ -330,11 +360,23 @@ function TriggersSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2 id="sub-trigger-method">{isKo ? '트리거의 역할' : 'Role of Triggers'}</h2>
       <p>{isKo ? '트리거는 스킬이 언제 활성화되어야 하는지를 정의합니다. 잘 설계된 트리거는 에이전트가 상황에 맞는 스킬을 자동으로 선택하게 합니다.' : 'Triggers define when a skill should be activated. Well-designed triggers allow agents to automatically select the right skill for the situation.'}</p>
       <h3>{isKo ? '트리거 유형' : 'Trigger Types'}</h3>
-      <ul>
-        <li><strong>{isKo ? '키워드 트리거' : 'Keyword Trigger'}</strong> — {isKo ? '특정 키워드나 구문이 포함될 때 활성화. 예: "코드 리뷰", "PR 검토", "버그 수정"' : 'Activates when specific keywords or phrases appear. E.g., "code review", "PR review", "bug fix"'}</li>
-        <li><strong>{isKo ? '컨텍스트 트리거' : 'Context Trigger'}</strong> — {isKo ? '특정 상황이나 파일 유형을 감지. 예: ".ts 파일 편집 시", "에러 로그 존재 시"' : 'Detects specific situations or file types. E.g., "when editing .ts files", "when error logs exist"'}</li>
-        <li><strong>{isKo ? '명시적 트리거' : 'Explicit Trigger'}</strong> — {isKo ? '사용자나 오케스트레이터가 명시적으로 스킬을 호출. 예: /skill-name 명령어' : 'User or orchestrator explicitly calls the skill. E.g., /skill-name command'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔑</div>
+          <h4>{isKo ? '키워드 트리거' : 'Keyword Trigger'}</h4>
+          <p>{isKo ? '특정 키워드나 구문이 포함될 때 활성화. 예: "코드 리뷰", "PR 검토"' : 'Activates on specific keywords. E.g., "code review", "PR review"'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔍</div>
+          <h4>{isKo ? '컨텍스트 트리거' : 'Context Trigger'}</h4>
+          <p>{isKo ? '특정 상황이나 파일 유형을 감지. 예: ".ts 파일 편집 시"' : 'Detects situations or file types. E.g., "when editing .ts files"'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⌨️</div>
+          <h4>{isKo ? '명시적 트리거' : 'Explicit Trigger'}</h4>
+          <p>{isKo ? '사용자나 오케스트레이터가 명시적으로 호출. 예: /skill-name 명령어' : 'Explicit call via /skill-name command'}</p>
+        </div>
+      </div>
       <TipBox type="warning">{isKo ? '트리거가 너무 광범위하면 불필요한 스킬 로드가 발생합니다. 반대로 너무 좁으면 스킬이 필요한 상황에서도 활성화되지 않습니다. 정확한 트리거 문구를 테스트를 통해 검증하세요.' : 'Too broad triggers cause unnecessary skill loading. Too narrow triggers may not activate even when the skill is needed. Validate accurate trigger phrases through testing.'}</TipBox>
       <h3 id="sub-trigger-ex">{isKo ? '실습 예제 — 트리거 비교' : 'Practice Example — Trigger Comparison'}</h3>
       <p>{isKo ? '같은 스킬에 대해 나쁜 트리거와 좋은 트리거를 비교합니다. 트리거 문구의 구체성이 스킬 발동 정확도를 결정합니다.' : 'Compare bad vs. good triggers for the same skill. The specificity of trigger phrases determines skill activation accuracy.'}</p>
@@ -377,12 +419,28 @@ function OptimizeSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? '스킬 성능을 극대화하고 컨텍스트 사용을 최소화하는 최적화 기법을 배웁니다.' : 'Learn optimization techniques to maximize skill performance and minimize context usage.'}</p>
       </div>
       <h2>{isKo ? '최적화 원칙' : 'Optimization Principles'}</h2>
-      <ol>
-        <li><strong>{isKo ? '간결성 (Conciseness)' : 'Conciseness'}</strong> — {isKo ? '같은 내용을 더 적은 단어로 표현하세요. 불필요한 수식어와 중복을 제거합니다.' : 'Express the same content with fewer words. Remove unnecessary modifiers and redundancy.'}</li>
-        <li><strong>{isKo ? '구조화 (Structure)' : 'Structure'}</strong> — {isKo ? '번호 목록, 불릿 포인트, 표를 활용하여 정보를 구조화합니다.' : 'Use numbered lists, bullet points, and tables to structure information.'}</li>
-        <li><strong>{isKo ? '예시 최소화 (Minimal Examples)' : 'Minimal Examples'}</strong> — {isKo ? '예시는 레벨 3(상세)에만 포함합니다. 핵심 지침에는 최소한의 예시만 사용합니다.' : 'Examples only in Level 3 (Details). Use minimal examples in core guidelines.'}</li>
-        <li><strong>{isKo ? '중복 제거 (No Duplication)' : 'No Duplication'}</strong> — {isKo ? '여러 스킬에 중복되는 내용은 공통 스킬로 분리합니다.' : 'Content duplicated across skills should be separated into a shared skill.'}</li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">✂️</div>
+          <h4>{isKo ? '간결성' : 'Conciseness'}</h4>
+          <p>{isKo ? '같은 내용을 더 적은 단어로 표현. 불필요한 수식어와 중복 제거.' : 'Express the same content with fewer words. Remove redundancy.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📋</div>
+          <h4>{isKo ? '구조화' : 'Structure'}</h4>
+          <p>{isKo ? '번호 목록, 불릿 포인트, 표를 활용하여 정보를 구조화합니다.' : 'Use lists, bullet points, and tables to structure information.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📝</div>
+          <h4>{isKo ? '예시 최소화' : 'Minimal Examples'}</h4>
+          <p>{isKo ? '예시는 레벨 3(상세)에만 포함. 핵심 지침에는 최소 예시만 사용.' : 'Examples only in Level 3. Minimal examples in core guidelines.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🚫</div>
+          <h4>{isKo ? '중복 제거' : 'No Duplication'}</h4>
+          <p>{isKo ? '여러 스킬에 중복되는 내용은 공통 스킬로 분리합니다.' : 'Separate duplicated content into a shared skill.'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '최적화 전/후 비교 예시' : 'Before/After Optimization Example'}</h3>
       <p>{isKo ? '동일한 코드 리뷰 스킬을 최적화 전과 후로 비교합니다. 토큰 수를 절반으로 줄이면서 동일한 품질을 유지하는 것이 목표입니다.' : 'Compare the same code review skill before and after optimization. The goal is to halve the token count while maintaining the same quality.'}</p>
       <div className="code-block">
@@ -482,6 +540,7 @@ Treatment: code-review 스킬 사용 → 표준 JSON, 일관된 점수
         </div>
       </div>
       <TipBox type="important">{isKo ? 'harness-abtest 리포지토리를 활용하면 체계적인 A/B 테스트를 자동화할 수 있습니다. 새 스킬을 배포하기 전 최소 5회 이상의 비교 테스트를 권장합니다.' : 'Using the harness-abtest repository enables systematic A/B test automation. We recommend at least 5 comparative tests before deploying new skills.'}</TipBox>
+      <TipBox type="danger">{isKo ? '스킬 파일에 실제 API 키, 데이터베이스 연결 문자열, 인증 토큰 등을 하드코딩하지 마세요. 스킬 파일은 Git에 커밋되므로 환경 변수($ENV_VAR)를 참조하는 방식으로 작성해야 합니다.' : 'Never hardcode API keys, database connection strings, or auth tokens in skill files. Since skill files are committed to Git, always reference environment variables ($ENV_VAR) instead.'}</TipBox>
     </div>
   );
 }

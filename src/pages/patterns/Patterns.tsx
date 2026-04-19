@@ -151,11 +151,23 @@ function PipelineSection({ isKo }: { isKo: boolean }): ReactElement {
         </div>
       </div>
       <h3 id="sub-pipeline-cases">{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
-      <ul>
-        <li>{isKo ? '콘텐츠 제작 (연구 → 초안 → 검토 → 최종본)' : 'Content creation (Research → Draft → Review → Final)'}</li>
-        <li>{isKo ? '데이터 처리 파이프라인 (수집 → 정제 → 분석 → 보고)' : 'Data processing pipeline (Collect → Clean → Analyze → Report)'}</li>
-        <li>{isKo ? '소프트웨어 개발 (설계 → 구현 → 테스트 → 배포)' : 'Software development (Design → Implement → Test → Deploy)'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">📝</div>
+          <h4>{isKo ? '콘텐츠 제작' : 'Content Creation'}</h4>
+          <p>{isKo ? '연구 → 초안 → 검토 → 최종본' : 'Research → Draft → Review → Final'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📊</div>
+          <h4>{isKo ? '데이터 처리' : 'Data Processing'}</h4>
+          <p>{isKo ? '수집 → 정제 → 분석 → 보고' : 'Collect → Clean → Analyze → Report'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💻</div>
+          <h4>{isKo ? '소프트웨어 개발' : 'Software Dev'}</h4>
+          <p>{isKo ? '설계 → 구현 → 테스트 → 배포' : 'Design → Implement → Test → Deploy'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '장단점' : 'Pros & Cons'}</h3>
       <div className="comparison-table-wrapper">
         <table className="comparison-table">
@@ -251,12 +263,25 @@ function FanoutSection({ isKo }: { isKo: boolean }): ReactElement {
         </div>
       </div>
       <h3 id="sub-fanout-cases">{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
-      <ul>
-        <li>{isKo ? '다국어 번역 (동시에 여러 언어로 번역)' : 'Multi-language translation (simultaneously translate to multiple languages)'}</li>
-        <li>{isKo ? '여러 소스에서 정보 수집 후 통합' : 'Information gathering from multiple sources then integration'}</li>
-        <li>{isKo ? '코드베이스의 여러 모듈 동시 분석' : 'Simultaneous analysis of multiple codebase modules'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🌐</div>
+          <h4>{isKo ? '다국어 번역' : 'Multi-language'}</h4>
+          <p>{isKo ? '동시에 여러 언어로 번역' : 'Simultaneously translate to multiple languages'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📥</div>
+          <h4>{isKo ? '정보 수집 통합' : 'Info Gathering'}</h4>
+          <p>{isKo ? '여러 소스에서 정보 수집 후 통합' : 'Gather from multiple sources then integrate'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔎</div>
+          <h4>{isKo ? '코드 분석' : 'Code Analysis'}</h4>
+          <p>{isKo ? '코드베이스의 여러 모듈 동시 분석' : 'Simultaneous analysis of multiple modules'}</p>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '팬아웃 단계에서 분배되는 작업은 서로 독립적이어야 합니다. 작업 간 의존성이 있다면 파이프라인 패턴이 더 적합합니다.' : 'Tasks distributed in the fan-out phase should be independent of each other. If there are dependencies, the pipeline pattern is more appropriate.'}</TipBox>
+      <TipBox type="danger">{isKo ? '팬아웃 에이전트 수를 5개 이상으로 늘리면 API 동시 요청 한도에 도달할 수 있습니다. 또한 결과 통합 시 충돌이 발생하므로 동일 파일을 여러 에이전트가 동시에 수정하게 설계하지 마세요.' : 'Scaling to 5+ fan-out agents may hit API concurrency limits. Also avoid designing multiple agents to modify the same file simultaneously, as this causes merge conflicts.'}</TipBox>
       <h3 id="sub-fanout-ex">{isKo ? '실습 예제 — 다국어 문서 생성' : 'Practice Example — Multi-language Document Generation'}</h3>
       <p>{isKo ? '3개 언어(한국어·영어·일본어)로 동시 번역하는 팬아웃 패턴 예시입니다. 각 번역 에이전트가 병렬로 실행됩니다.' : 'A fan-out example that translates to 3 languages (Korean, English, Japanese) simultaneously. Each translation agent runs in parallel.'}</p>
       <div className="code-block">
@@ -315,11 +340,23 @@ function ExpertSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '오케스트레이터는 다양한 전문 에이전트(파이썬 전문가, 보안 전문가, DB 전문가 등)를 풀로 유지합니다. 작업이 들어오면 해당 작업에 가장 적합한 전문가를 선택하여 처리를 위임합니다.' : 'The orchestrator maintains a pool of diverse specialist agents (Python specialist, Security specialist, DB specialist, etc.). When a task arrives, it selects the most appropriate specialist and delegates the processing.'}</p>
       <h3>{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
-      <ul>
-        <li>{isKo ? '다양한 기술 스택을 다루는 코드 리뷰 시스템' : 'Code review system handling diverse tech stacks'}</li>
-        <li>{isKo ? '고객 문의를 담당 부서에 라우팅하는 지원 시스템' : 'Support system routing customer queries to responsible departments'}</li>
-        <li>{isKo ? '문서 유형에 따른 전문 처리 (법률/기술/마케팅 문서)' : 'Specialized processing by document type (legal/technical/marketing)'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🔧</div>
+          <h4>{isKo ? '코드 리뷰' : 'Code Review'}</h4>
+          <p>{isKo ? '다양한 기술 스택을 다루는 코드 리뷰 시스템' : 'Code review system handling diverse tech stacks'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🎧</div>
+          <h4>{isKo ? '고객 지원' : 'Customer Support'}</h4>
+          <p>{isKo ? '고객 문의를 담당 부서에 라우팅하는 지원 시스템' : 'Route customer queries to responsible departments'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📄</div>
+          <h4>{isKo ? '문서 처리' : 'Doc Processing'}</h4>
+          <p>{isKo ? '문서 유형에 따른 전문 처리 (법률/기술/마케팅)' : 'Specialized processing by document type'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '전문가 풀 라우팅 예시' : 'Expert Pool Routing Example'}</h3>
       <p>{isKo ? '코드 리뷰 요청이 들어오면 오케스트레이터가 파일 확장자를 보고 적합한 전문가에게 자동 라우팅합니다.' : 'When a code review request comes in, the orchestrator reads the file extension and auto-routes to the appropriate specialist.'}</p>
       <div className="code-block">
@@ -367,11 +404,23 @@ function ProducerSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '생산자(Producer) 에이전트가 초안이나 코드를 작성합니다. 검토자(Reviewer) 에이전트가 이를 평가하고 피드백을 제공합니다. 필요한 경우 생산자가 수정하고 재검토를 요청합니다. 이 사이클이 반복되어 최종 고품질 산출물이 만들어집니다.' : 'The Producer agent writes drafts or code. The Reviewer agent evaluates and provides feedback. The producer revises and requests re-review if needed. This cycle repeats until a final high-quality output is produced.'}</p>
       <h3>{isKo ? '효과적인 검토 기준 설정' : 'Setting Effective Review Criteria'}</h3>
-      <ul>
-        <li><strong>{isKo ? '명확성' : 'Clarity'}</strong> — {isKo ? '검토자가 무엇을 평가해야 하는지 명확히 정의' : 'Clearly define what the reviewer should evaluate'}</li>
-        <li><strong>{isKo ? '구체성' : 'Specificity'}</strong> — {isKo ? '추상적인 "좋음/나쁨" 대신 구체적인 기준 제시' : 'Specific criteria instead of abstract "good/bad"'}</li>
-        <li><strong>{isKo ? '실행 가능성' : 'Actionability'}</strong> — {isKo ? '피드백이 구체적인 개선 행동으로 이어질 수 있어야 함' : 'Feedback should lead to concrete improvement actions'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🎯</div>
+          <h4>{isKo ? '명확성' : 'Clarity'}</h4>
+          <p>{isKo ? '검토자가 무엇을 평가해야 하는지 명확히 정의' : 'Clearly define what the reviewer should evaluate'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔬</div>
+          <h4>{isKo ? '구체성' : 'Specificity'}</h4>
+          <p>{isKo ? '추상적인 "좋음/나쁨" 대신 구체적인 기준 제시' : 'Specific criteria instead of abstract "good/bad"'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <h4>{isKo ? '실행 가능성' : 'Actionability'}</h4>
+          <p>{isKo ? '피드백이 구체적인 개선 행동으로 이어질 수 있어야 함' : 'Feedback should lead to concrete improvement actions'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '생산자-검토자 재시도 사이클 예시' : 'Producer-Reviewer Retry Cycle Example'}</h3>
       <p>{isKo ? '검토자가 점수를 낮게 주면 생산자에게 재작업을 요청하는 사이클 구조입니다. 최대 3회 반복 후 최종 결과를 반환합니다.' : 'A cycle where the reviewer requests rework from the producer for low scores. Returns final result after max 3 iterations.'}</p>
       <div className="code-block">
@@ -425,11 +474,23 @@ function SupervisorSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '감독자(Supervisor) 에이전트는 여러 작업자(Worker) 에이전트를 모니터링합니다. 작업자가 오류를 만나거나 도움이 필요할 때 감독자가 개입합니다. 감독자는 또한 작업의 우선순위를 동적으로 조정할 수 있습니다.' : 'The Supervisor agent monitors multiple Worker agents. When workers encounter errors or need help, the supervisor intervenes. The supervisor can also dynamically adjust task priorities.'}</p>
       <h3>{isKo ? '적용 시나리오' : 'Application Scenarios'}</h3>
-      <ul>
-        <li>{isKo ? '장시간 실행되는 복잡한 작업의 모니터링' : 'Monitoring long-running complex tasks'}</li>
-        <li>{isKo ? '오류 복구가 중요한 미션 크리티컬 워크플로우' : 'Mission-critical workflows where error recovery is important'}</li>
-        <li>{isKo ? '동적으로 우선순위가 변경되는 작업 환경' : 'Task environments where priorities change dynamically'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">⏱️</div>
+          <h4>{isKo ? '장시간 작업' : 'Long-running Tasks'}</h4>
+          <p>{isKo ? '장시간 실행되는 복잡한 작업의 모니터링' : 'Monitoring long-running complex tasks'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🚨</div>
+          <h4>{isKo ? '미션 크리티컬' : 'Mission Critical'}</h4>
+          <p>{isKo ? '오류 복구가 중요한 미션 크리티컬 워크플로우' : 'Error recovery for mission-critical workflows'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔀</div>
+          <h4>{isKo ? '동적 우선순위' : 'Dynamic Priority'}</h4>
+          <p>{isKo ? '동적으로 우선순위가 변경되는 작업 환경' : 'Environments where priorities change dynamically'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '감독자 모니터링 상태 파일 예시' : 'Supervisor Monitoring State File Example'}</h3>
       <p>{isKo ? '감독자 에이전트가 작업자들의 상태를 주기적으로 기록하는 파일입니다. 이상 감지 시 자동 개입 트리거로 활용합니다.' : 'A file where the supervisor agent periodically records worker status. Used as an auto-intervention trigger on anomaly detection.'}</p>
       <div className="code-block">
@@ -488,11 +549,23 @@ function HierarchicalSection({ isKo }: { isKo: boolean }): ReactElement {
       <h2>{isKo ? '패턴 구조' : 'Pattern Structure'}</h2>
       <p>{isKo ? '최상위 오케스트레이터가 중간 관리자 에이전트들에게 큰 작업을 위임합니다. 중간 관리자들은 다시 실무 에이전트들에게 세부 작업을 위임합니다. 이 계층 구조는 매우 복잡한 대규모 프로젝트에 적합합니다.' : 'The top-level orchestrator delegates large tasks to middle-manager agents. Middle managers further delegate detailed tasks to worker agents. This hierarchy is suitable for very complex large-scale projects.'}</p>
       <h3>{isKo ? '계층 설계 원칙' : 'Hierarchy Design Principles'}</h3>
-      <ul>
-        <li><strong>{isKo ? '적절한 깊이' : 'Appropriate Depth'}</strong> — {isKo ? '3계층 이상은 관리 복잡도가 급격히 증가합니다. 대부분의 경우 2계층으로 충분합니다.' : 'More than 3 levels dramatically increases management complexity. 2 levels are sufficient for most cases.'}</li>
-        <li><strong>{isKo ? '명확한 위임 경계' : 'Clear Delegation Boundaries'}</strong> — {isKo ? '각 계층이 무엇을 담당하는지 명확히 정의합니다.' : 'Clearly define what each layer is responsible for.'}</li>
-        <li><strong>{isKo ? '결과 집계 전략' : 'Result Aggregation Strategy'}</strong> — {isKo ? '하위 계층의 결과를 어떻게 상위 계층으로 집계할지 사전 정의합니다.' : 'Pre-define how to aggregate lower-layer results to upper layers.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">📐</div>
+          <h4>{isKo ? '적절한 깊이' : 'Appropriate Depth'}</h4>
+          <p>{isKo ? '3계층 이상은 복잡도 급증. 대부분 2계층으로 충분합니다.' : 'Over 3 levels increases complexity. 2 levels suffice for most cases.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🏷️</div>
+          <h4>{isKo ? '명확한 위임 경계' : 'Clear Boundaries'}</h4>
+          <p>{isKo ? '각 계층이 무엇을 담당하는지 명확히 정의합니다.' : 'Clearly define each layer\'s responsibilities.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📈</div>
+          <h4>{isKo ? '결과 집계 전략' : 'Aggregation Strategy'}</h4>
+          <p>{isKo ? '하위 계층 결과를 상위 계층으로 집계하는 방법을 사전 정의합니다.' : 'Pre-define how to aggregate lower-layer results upward.'}</p>
+        </div>
+      </div>
       <h3>{isKo ? '계층적 위임 구조 예시 — 대규모 웹앱 개발' : 'Hierarchical Delegation Structure — Large-scale Web App'}</h3>
       <p>{isKo ? '최상위 오케스트레이터가 두 중간 관리자에게 위임하고, 각 관리자가 다시 작업자들에게 위임하는 2계층 구조입니다.' : 'A 2-level structure where the top orchestrator delegates to two managers, each of whom delegates to workers.'}</p>
       <div className="code-block">

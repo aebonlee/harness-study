@@ -5,6 +5,7 @@ import SEOHead from '../components/SEOHead';
 import HeroBackground from '../components/HeroBackground';
 import HeroCarousel from '../components/HeroCarousel';
 import FeatureCard from '../components/FeatureCard';
+import TipBox from '../components/TipBox';
 import type { ReactElement } from 'react';
 
 export default function Home(): ReactElement {
@@ -150,6 +151,35 @@ Task 3: seo      → 메타 최적화
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Tips */}
+      <section className="section" style={{ padding: '3rem 0' }}>
+        <div className="container">
+          <div className="section-header" style={{ marginBottom: '1.5rem' }}>
+            <h2 className="section-title">{isKo ? '시작하기 전 알아두세요' : 'Before You Start'}</h2>
+            <p className="section-subtitle">
+              {isKo ? 'Harness를 효과적으로 사용하기 위한 핵심 팁입니다.' : 'Essential tips for using Harness effectively.'}
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+            <TipBox type="tip">
+              {isKo
+                ? '처음이라면 기초 개념 → 에이전트 → 패턴 순서로 학습하세요. 각 가이드는 이전 단계의 지식을 기반으로 합니다.'
+                : 'If you\'re new, follow: Basics → Agents → Patterns. Each guide builds on the previous one.'}
+            </TipBox>
+            <TipBox type="important">
+              {isKo
+                ? '튜토리얼에서 체크리스트를 완료하면 진행도가 자동 저장됩니다. 로그인하면 어떤 기기에서든 이어서 학습할 수 있습니다.'
+                : 'Completing checklists in tutorials auto-saves your progress. Log in to continue learning from any device.'}
+            </TipBox>
+            <TipBox type="warning">
+              {isKo
+                ? 'Harness는 Claude Code와 함께 사용합니다. 먼저 Claude Code가 설치되어 있는지 확인하세요: npm install -g @anthropic-ai/claude-code'
+                : 'Harness is used with Claude Code. First verify Claude Code is installed: npm install -g @anthropic-ai/claude-code'}
+            </TipBox>
           </div>
         </div>
       </section>
