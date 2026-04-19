@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import SEOHead from '../../components/SEOHead';
@@ -679,6 +679,32 @@ function TutorialOverview({
   );
 }
 
+function CodeBlockWithCopy({ code, lang }: { code: string; lang: string }): ReactElement {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard denied */ }
+  }, [code]);
+
+  return (
+    <div className="code-block">
+      <div className="code-block-header">
+        <span className="code-block-lang">{lang}</span>
+        <button className={`code-block-copy${copied ? ' copied' : ''}`} onClick={handleCopy}>
+          <i className={copied ? 'fa-solid fa-check' : 'fa-regular fa-copy'} />
+          <span>{copied ? '완료' : '복사'}</span>
+        </button>
+      </div>
+      <div className="code-block-body">
+        <pre><code>{code}</code></pre>
+      </div>
+    </div>
+  );
+}
+
 function StepView({
   tutorial, step, stepIdx, isKo, toggleCheck, isChecked, onPrev, onNext,
 }: {
@@ -724,16 +750,7 @@ function StepView({
         <p style={{ margin: 0, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>
           {isKo ? step.taskKo : step.taskEn}
         </p>
-        {step.code && (
-          <div className="code-block">
-            <div className="code-block-header">
-              <span className="code-block-lang">bash</span>
-            </div>
-            <div className="code-block-body">
-              <pre><code>{step.code}</code></pre>
-            </div>
-          </div>
-        )}
+        {step.code && <CodeBlockWithCopy code={step.code} lang="bash" />}
       </div>
 
       {/* Checklist */}
