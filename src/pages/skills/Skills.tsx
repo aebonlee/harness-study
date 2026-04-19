@@ -304,6 +304,49 @@ function OptimizeSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '예시 최소화 (Minimal Examples)' : 'Minimal Examples'}</strong> — {isKo ? '예시는 레벨 3(상세)에만 포함합니다. 핵심 지침에는 최소한의 예시만 사용합니다.' : 'Examples only in Level 3 (Details). Use minimal examples in core guidelines.'}</li>
         <li><strong>{isKo ? '중복 제거 (No Duplication)' : 'No Duplication'}</strong> — {isKo ? '여러 스킬에 중복되는 내용은 공통 스킬로 분리합니다.' : 'Content duplicated across skills should be separated into a shared skill.'}</li>
       </ol>
+      <h3>{isKo ? '최적화 전/후 비교 예시' : 'Before/After Optimization Example'}</h3>
+      <p>{isKo ? '동일한 코드 리뷰 스킬을 최적화 전과 후로 비교합니다. 토큰 수를 절반으로 줄이면서 동일한 품질을 유지하는 것이 목표입니다.' : 'Compare the same code review skill before and after optimization. The goal is to halve the token count while maintaining the same quality.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? '❌ 최적화 전 (비효율, ~60줄)' : '❌ Before optimization (~60 lines)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 코드 리뷰 스킬
+
+## 이 스킬에 대한 설명
+이 스킬은 코드 리뷰를 수행하기 위한 스킬입니다.
+코드 리뷰는 소프트웨어 개발에서 매우 중요한 과정입니다.
+코드 리뷰를 통해 버그를 조기에 발견하고, 코드 품질을 향상시킬 수 있습니다.
+또한 팀원 간의 지식 공유에도 도움이 됩니다.
+
+## 언제 사용하는가?
+코드 리뷰가 필요할 때 이 스킬을 사용합니다.
+예를 들어 PR 리뷰, 코드 검토, 품질 점검 등의 상황에서 사용합니다.
+
+## 수행 방법
+1. 먼저 코드를 읽습니다
+2. 그 다음 문제를 찾습니다
+3. 문제를 찾으면 기록합니다
+4. 마지막으로 결과를 보고합니다`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? '✅ 최적화 후 (효율, ~20줄)' : '✅ After optimization (~20 lines)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# code-review
+## 트리거
+PR 리뷰, 코드 검토, 품질 점검 요청 시
+
+## 단계
+1. 보안(OWASP Top 10) → 성능(N+1, 누수) → 가독성 순으로 검토
+2. 각 이슈: 심각도[high/medium/low] + 파일 + 수정 제안
+3. JSON 형식으로 반환: { score, issues[], suggestions[] }`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '스킬 파일 크기를 정기적으로 측정하세요. 레벨 1이 3줄 이내, 레벨 2가 30줄 이내, 레벨 3이 100줄 이내를 유지하는 것이 이상적입니다.' : 'Regularly measure skill file size. Ideally maintain Level 1 under 3 lines, Level 2 under 30 lines, Level 3 under 100 lines.'}</TipBox>
     </div>
   );

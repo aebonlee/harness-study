@@ -197,6 +197,36 @@ function TestingSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '엔드투엔드 테스트(E2E Test)' : 'End-to-End Test'}</strong> — {isKo ? '전체 팀이 실제 작업을 처음부터 끝까지 올바르게 수행하는지 검증.' : 'Verify the entire team correctly performs real tasks from start to finish.'}</li>
         <li><strong>{isKo ? '스트레스 테스트(Stress Test)' : 'Stress Test'}</strong> — {isKo ? '팀이 높은 부하나 복잡한 시나리오에서도 안정적으로 동작하는지 검증.' : 'Verify the team operates stably under high load or complex scenarios.'}</li>
       </ol>
+      <h3>{isKo ? 'E2E 테스트 체크리스트 예시' : 'E2E Test Checklist Example'}</h3>
+      <p>{isKo ? '아래는 풀스택 개발팀의 E2E 테스트를 위한 체크리스트입니다. 새 팀을 배포하기 전 모든 항목을 통과해야 합니다.' : 'Below is a checklist for E2E testing of a full-stack development team. All items must pass before deploying a new team.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? 'E2E 테스트 체크리스트 — 풀스택 개발팀' : 'E2E Test Checklist — Full-stack Dev Team'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 풀스택 개발팀 E2E 테스트 체크리스트
+
+## 단위 테스트 (각 에이전트 독립 검증)
+- [ ] architect-agent: 요구사항 → API 스펙 JSON 정상 생성
+- [ ] frontend-agent: API 스펙 → React 컴포넌트 구현 성공
+- [ ] backend-agent: API 스펙 → Express 엔드포인트 구현 성공
+- [ ] reviewer-agent: 코드 제출 → score + issues 반환 성공
+- [ ] tester-agent: 소스 파일 → 테스트 파일 생성 성공
+
+## 통합 테스트 (에이전트 간 핸드오프 검증)
+- [ ] architect → frontend: API 스펙 파일 정상 전달
+- [ ] architect → backend: 동일 API 스펙으로 병렬 작업 성공
+- [ ] frontend + backend → reviewer: 통합 코드 리뷰 성공
+- [ ] reviewer score < 70: 재작업 요청 정상 동작
+
+## E2E 테스트 (전체 파이프라인)
+- [ ] 입력: "로그인 기능 구현" → 최종 결과물 생성 완료
+- [ ] tmp/progress.json에 모든 단계 기록 확인
+- [ ] 전체 실행 시간 10분 이내
+- [ ] 오류 없이 완료 (또는 오류 시 3회 재시도 후 보고)`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '팀 테스트는 실제 작업과 유사한 시나리오를 사용하세요. 인위적인 테스트 케이스보다 실전 시나리오가 더 의미 있는 결과를 제공합니다.' : 'Use scenarios similar to real tasks for team testing. Real-world scenarios provide more meaningful results than artificial test cases.'}</TipBox>
     </div>
   );

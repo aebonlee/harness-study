@@ -63,6 +63,12 @@ export default function Prereqs(): ReactElement {
   const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
 
   const handleNav = (id: string) => { setActiveSection(id); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubNav = (subId: string) => {
+    setTimeout(() => {
+      const el = document.getElementById(subId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
 
   return (
     <>
@@ -77,6 +83,7 @@ export default function Prereqs(): ReactElement {
             groups={NAV_GROUPS}
             activeSection={activeSection}
             onNavigate={handleNav}
+            onSubNavigate={handleSubNav}
             isKo={isKo}
           />
           <main className="guide-content">
@@ -214,7 +221,7 @@ function PromptSection({ isKo }: { isKo: boolean }): ReactElement {
           <span className="code-block-lang">CLAUDE.md 예시</span>
         </div>
         <div className="code-block-body">
-          <pre>{`# 역할
+          <pre><code>{`# 역할
 당신은 TypeScript 코드 리뷰 전문가입니다.
 
 # 목표
@@ -228,7 +235,7 @@ function PromptSection({ isKo }: { isKo: boolean }): ReactElement {
 # 출력 형식
 ## 리뷰 결과
 - [CRITICAL] 문제설명 → 수정방법
-- [WARNING] 문제설명 → 수정방법`}</pre>
+- [WARNING] 문제설명 → 수정방법`}</code></pre>
         </div>
       </div>
     </div>
@@ -294,7 +301,7 @@ function EnvSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? 'Harness를 실행하기 위한 개발 환경을 단계별로 구성합니다.' : 'Set up your development environment step by step to run Harness.'}</p>
       </div>
 
-      <h2>{isKo ? '1. Claude Code 설치' : '1. Install Claude Code'}</h2>
+      <h2 id="sub-claudecode-install">{isKo ? '1. Claude Code 설치' : '1. Install Claude Code'}</h2>
       <p>{isKo ? 'Claude Code는 npm으로 설치하는 CLI 도구입니다. Node.js 18 이상이 필요합니다.' : 'Claude Code is a CLI tool installed via npm. Requires Node.js 18 or higher.'}</p>
       <div className="code-block">
         <div className="code-block-header">
@@ -321,7 +328,7 @@ claude`}</pre>
           : 'Claude Code requires an Anthropic API key. Get your key from console.anthropic.com and set it as the ANTHROPIC_API_KEY environment variable, or enter it when running the claude command.'}
       </TipBox>
 
-      <h2>{isKo ? '2. VS Code 설정' : '2. VS Code Setup'}</h2>
+      <h2 id="sub-vscode">{isKo ? '2. VS Code 설정' : '2. VS Code Setup'}</h2>
       <p>{isKo ? 'Harness 개발에 유용한 VS Code 확장 프로그램을 설치합니다.' : 'Install VS Code extensions useful for Harness development.'}</p>
       <ul>
         <li><strong>YAML</strong> — {isKo ? 'YAML 파일 문법 강조 및 유효성 검사' : 'YAML syntax highlighting and validation'}</li>
@@ -330,7 +337,7 @@ claude`}</pre>
         <li><strong>GitHub Copilot</strong> — {isKo ? '(선택) 코드 자동완성 보조' : '(Optional) Code completion assistance'}</li>
       </ul>
 
-      <h2>{isKo ? '3. 터미널 기초' : '3. Terminal Basics'}</h2>
+      <h2 id="sub-terminal">{isKo ? '3. 터미널 기초' : '3. Terminal Basics'}</h2>
       <p>{isKo ? 'Claude Code는 터미널에서 실행됩니다. 기본 명령어를 숙지해야 합니다.' : 'Claude Code runs in the terminal. You need to be familiar with basic commands.'}</p>
       <div className="code-block">
         <div className="code-block-header">
@@ -359,7 +366,7 @@ function ToolsSection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? 'Harness 구축에 활용하는 핵심 도구들의 역할과 사용법을 알아봅니다.' : 'Learn the roles and usage of core tools used in building with Harness.'}</p>
       </div>
 
-      <h2>{isKo ? 'Anthropic API' : 'Anthropic API'}</h2>
+      <h2 id="sub-api">{isKo ? 'Anthropic API' : 'Anthropic API'}</h2>
       <p>{isKo
         ? 'Claude Code와 Harness의 모든 AI 기능은 Anthropic API를 통해 동작합니다. API 사용량에 따라 비용이 발생하므로 사용량을 모니터링하는 것이 중요합니다.'
         : 'All AI capabilities of Claude Code and Harness operate through the Anthropic API. Since costs are incurred based on usage, monitoring your usage is important.'}</p>
@@ -375,7 +382,7 @@ function ToolsSection({ isKo }: { isKo: boolean }): ReactElement {
           : 'Never enter API keys directly in code. Save them in a .env file and add it to .gitignore to prevent exposure on GitHub.'}
       </TipBox>
 
-      <h2>{isKo ? 'Git / GitHub' : 'Git / GitHub'}</h2>
+      <h2 id="sub-git">{isKo ? 'Git / GitHub' : 'Git / GitHub'}</h2>
       <p>{isKo
         ? 'Harness 스킬 파일과 프로젝트를 버전 관리하고 팀과 공유하기 위해 Git이 필수입니다.'
         : 'Git is essential for version-controlling Harness skill files and projects, and sharing them with your team.'}</p>
@@ -396,7 +403,7 @@ node_modules/
         </div>
       </div>
 
-      <h2>{isKo ? 'MCP (Model Context Protocol) 서버' : 'MCP (Model Context Protocol) Servers'}</h2>
+      <h2 id="sub-mcp">{isKo ? 'MCP (Model Context Protocol) 서버' : 'MCP (Model Context Protocol) Servers'}</h2>
       <p>{isKo
         ? 'MCP는 Claude Code가 외부 도구 및 데이터 소스와 연결하는 표준 프로토콜입니다. Harness 에이전트가 데이터베이스, API, 파일 시스템 등에 접근할 수 있게 합니다.'
         : 'MCP is the standard protocol that allows Claude Code to connect with external tools and data sources. It enables Harness agents to access databases, APIs, file systems, and more.'}</p>

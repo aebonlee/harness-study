@@ -235,6 +235,40 @@ function LongtermSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '패턴 라이브러리(Pattern Library)' : 'Pattern Library'}</strong> — {isKo ? '반복적으로 유용한 코드 패턴, 해결책을 라이브러리로 구축합니다.' : 'Build a library of repeatedly useful code patterns and solutions.'}</li>
         <li><strong>{isKo ? '벡터 임베딩(Vector Embedding)' : 'Vector Embedding'}</strong> — {isKo ? '과거 작업을 벡터로 변환하여 유사한 새 작업에서 관련 경험을 검색합니다.' : 'Convert past work to vectors to retrieve relevant experience for similar new tasks.'}</li>
       </ol>
+      <h3>{isKo ? '학습 로그 파일 예시' : 'Learning Log File Example'}</h3>
+      <p>{isKo ? '아래는 에이전트가 매 세션 후 자동으로 업데이트하는 학습 로그 파일입니다. 이 파일이 누적될수록 에이전트는 같은 실수를 반복하지 않게 됩니다.' : 'Below is a learning log file that the agent automatically updates after each session. As this file accumulates, the agent avoids repeating the same mistakes.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/learning-log.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# Agent Learning Log
+
+## 2026-04-19 — API 연동 작업
+### 배운 것
+- Supabase RLS 정책이 없으면 익명 사용자 접근 불가
+- TypeScript strict 모드에서 null 체크 필수
+
+### 실수한 것
+- .env 파일 없이 빌드 시도 → 환경변수 오류 발생
+- 해결: .env.example 파일 먼저 확인 후 복사
+
+### 재사용할 패턴
+- Supabase 클라이언트 초기화: createClient() + 타입 제네릭 적용
+
+---
+
+## 2026-04-18 — 컴포넌트 리팩토링
+### 배운 것
+- React 19에서 use() 훅 활용 시 Suspense 필수
+- CSS 변수로 테마 관리하면 다크모드 전환 용이
+
+### 실수한 것
+- 컴포넌트 key prop 누락 → 리스트 렌더링 경고
+- 해결: map() 시 항상 고유한 key 사용`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '하네스 자체도 진화 메커니즘을 가지고 있습니다. 실제 배포에서 얻은 피드백이 다시 팩토리로 돌아와 다음 세대 하네스를 개선합니다. 이것이 "Self-improving Harness"의 비전입니다.' : 'Harness itself has an evolution mechanism. Feedback from real deployments feeds back into the factory to improve the next generation of Harness. This is the vision of "Self-improving Harness."'}</TipBox>
     </div>
   );
