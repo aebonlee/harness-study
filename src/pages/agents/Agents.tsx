@@ -193,32 +193,32 @@ function OrchestratorSection({ isKo }: { isKo: boolean }): ReactElement {
       <div style={{ margin: '2rem 0', textAlign: 'center' }}>
         <svg viewBox="0 0 460 260" style={{ width: '100%', maxWidth: '460px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
           {/* Orchestrator */}
-          <rect x="155" y="10" width="150" height="44" rx="8" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.6)" strokeWidth="2"/>
+          <rect x="155" y="10" width="150" height="44" rx="8" fill="rgba(59,130,246,0.3)" stroke="rgba(59,130,246,0.8)" strokeWidth="2"/>
           <text x="230" y="37" textAnchor="middle" fontSize="13" fill="var(--color-primary)" fontWeight="700">{isKo ? '👑 오케스트레이터' : '👑 Orchestrator'}</text>
           {/* Lines */}
-          <line x1="180" y1="54" x2="80" y2="90" stroke="var(--color-text-muted)" strokeWidth="1.5"/>
-          <line x1="230" y1="54" x2="230" y2="90" stroke="var(--color-text-muted)" strokeWidth="1.5"/>
-          <line x1="280" y1="54" x2="380" y2="90" stroke="var(--color-text-muted)" strokeWidth="1.5"/>
+          <line x1="180" y1="54" x2="80" y2="90" stroke="var(--color-text)" strokeWidth="1.5"/>
+          <line x1="230" y1="54" x2="230" y2="90" stroke="var(--color-text)" strokeWidth="1.5"/>
+          <line x1="280" y1="54" x2="380" y2="90" stroke="var(--color-text)" strokeWidth="1.5"/>
           {/* Agents */}
-          <rect x="20" y="90" width="120" height="40" rx="6" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.5)" strokeWidth="1.5"/>
+          <rect x="20" y="90" width="120" height="40" rx="6" fill="rgba(16,185,129,0.25)" stroke="rgba(16,185,129,0.8)" strokeWidth="1.5"/>
           <text x="80" y="114" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontWeight="600">{isKo ? '🔬 연구 에이전트' : '🔬 Research'}</text>
-          <rect x="170" y="90" width="120" height="40" rx="6" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.5)" strokeWidth="1.5"/>
+          <rect x="170" y="90" width="120" height="40" rx="6" fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.8)" strokeWidth="1.5"/>
           <text x="230" y="114" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontWeight="600">{isKo ? '✍️ 작성 에이전트' : '✍️ Writing'}</text>
-          <rect x="320" y="90" width="120" height="40" rx="6" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.5)" strokeWidth="1.5"/>
+          <rect x="320" y="90" width="120" height="40" rx="6" fill="rgba(239,68,68,0.25)" stroke="rgba(239,68,68,0.8)" strokeWidth="1.5"/>
           <text x="380" y="114" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontWeight="600">{isKo ? '🔍 검토 에이전트' : '🔍 Reviewer'}</text>
           {/* Output arrows */}
-          <line x1="80" y1="130" x2="80" y2="160" stroke="var(--color-text-muted)" strokeWidth="1" strokeDasharray="4,3"/>
-          <line x1="230" y1="130" x2="230" y2="160" stroke="var(--color-text-muted)" strokeWidth="1" strokeDasharray="4,3"/>
-          <line x1="380" y1="130" x2="380" y2="160" stroke="var(--color-text-muted)" strokeWidth="1" strokeDasharray="4,3"/>
+          <line x1="80" y1="130" x2="80" y2="160" stroke="var(--color-text)" strokeWidth="1.5" strokeDasharray="4,3"/>
+          <line x1="230" y1="130" x2="230" y2="160" stroke="var(--color-text)" strokeWidth="1.5" strokeDasharray="4,3"/>
+          <line x1="380" y1="130" x2="380" y2="160" stroke="var(--color-text)" strokeWidth="1.5" strokeDasharray="4,3"/>
           {/* Output files */}
-          <rect x="30" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1"/>
-          <text x="80" y="178" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)" fontFamily="monospace">research.md</text>
-          <rect x="180" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1"/>
-          <text x="230" y="178" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)" fontFamily="monospace">draft.md</text>
-          <rect x="330" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1"/>
-          <text x="380" y="178" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)" fontFamily="monospace">review.json</text>
+          <rect x="30" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1.5"/>
+          <text x="80" y="178" textAnchor="middle" fontSize="10" fill="var(--color-text)" fontFamily="monospace">research.md</text>
+          <rect x="180" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1.5"/>
+          <text x="230" y="178" textAnchor="middle" fontSize="10" fill="var(--color-text)" fontFamily="monospace">draft.md</text>
+          <rect x="330" y="160" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1.5"/>
+          <text x="380" y="178" textAnchor="middle" fontSize="10" fill="var(--color-text)" fontFamily="monospace">review.json</text>
           {/* Caption */}
-          <text x="230" y="220" textAnchor="middle" fontSize="10" fill="var(--color-text-muted)">
+          <text x="230" y="220" textAnchor="middle" fontSize="11" fill="var(--color-text)">
             {isKo ? '오케스트레이터가 서브에이전트들에게 작업을 분배하고 결과를 수집합니다' : 'Orchestrator distributes tasks to subagents and collects results'}
           </text>
         </svg>
