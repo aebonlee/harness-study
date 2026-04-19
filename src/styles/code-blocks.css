@@ -95,6 +95,7 @@ code:not(pre code) {
   font-size: var(--font-size-sm);
   line-height: 1.7;
   color: #E2E8F0;
+  background: transparent;
   font-family: var(--font-mono);
   white-space: pre;
 }
