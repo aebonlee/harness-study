@@ -288,6 +288,57 @@ function AbtestSection({ isKo }: { isKo: boolean }): ReactElement {
           </tbody>
         </table>
       </div>
+      <h3>{isKo ? 'A/B 테스트 설정 + 결과 JSON 예시' : 'A/B Test Config + Result JSON Example'}</h3>
+      <p>{isKo ? '하네스-abtest 프레임워크의 실제 설정 파일과 n=5 실행 결과입니다. 이 구조를 복사하여 자신의 스킬 A/B 테스트에 활용하세요.' : 'Actual config file and n=5 run results from the harness-abtest framework. Copy this structure for your own skill A/B tests.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">harness-abtest/config.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "experiment": "code-review-skill-v2",
+  "task": "PR #88 코드 리뷰 수행",
+  "runs": 5,
+  "groups": {
+    "control":   { "skill": null,            "model": "claude-sonnet-4-5" },
+    "treatment": { "skill": "code-review.md", "model": "claude-sonnet-4-5" }
+  },
+  "metrics": ["quality_score", "consistency", "execution_time_sec"]
+}`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">harness-abtest/results.json (n=5 결과)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "experiment": "code-review-skill-v2",
+  "summary": {
+    "control": {
+      "quality_score_avg": 64.2,
+      "quality_score_std": 18.7,
+      "output_format_match": 0.4,
+      "avg_time_sec": 28
+    },
+    "treatment": {
+      "quality_score_avg": 83.6,
+      "quality_score_std": 4.2,
+      "output_format_match": 1.0,
+      "avg_time_sec": 31
+    }
+  },
+  "verdict": {
+    "quality_improvement": "+30.2%",
+    "variance_reduction": "-77.5%",
+    "time_overhead": "+10.7%",
+    "recommendation": "ADOPT — 품질 향상이 시간 오버헤드를 상회함"
+  }
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '최소 5~10회 반복 테스트를 권장합니다. 단일 테스트 결과는 통계적으로 신뢰하기 어렵습니다. revfactory의 공식 A/B 테스트는 n=15로 진행되었습니다.' : 'We recommend a minimum of 5-10 repetitions. Single test results are statistically unreliable. revfactory\'s official A/B test was conducted with n=15.'}</TipBox>
     </div>
   );
@@ -319,6 +370,56 @@ function StrategySection({ isKo }: { isKo: boolean }): ReactElement {
           <p>{isKo ? 'Harness를 표준 개발 워크플로우에 통합합니다. 새 팀원 온보딩에 Harness 교육을 포함합니다.' : 'Integrate Harness into the standard development workflow. Include Harness training in new team member onboarding.'}</p>
         </li>
       </ol>
+      <h3>{isKo ? '도입 단계별 마일스톤 추적 JSON' : 'Phase-by-Phase Milestone Tracker JSON'}</h3>
+      <p>{isKo ? '오케스트레이터 또는 팀 리드가 Harness 도입 진행 상황을 추적하는 파일입니다. 각 단계의 목표, 성공 기준, 완료 여부를 기록합니다.' : 'File for the orchestrator or team lead to track Harness adoption progress. Records each phase\'s goals, success criteria, and completion.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">tmp/adoption-roadmap.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "project": "my-team-harness-adoption",
+  "started": "2026-04-01",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "pilot",
+      "duration": "1-2주",
+      "goal": "2-에이전트 팀으로 실제 작업 1개 완료",
+      "success_criteria": "수동 대비 오류 수 감소",
+      "status": "completed",
+      "actual_result": "리뷰 오류 40% 감소, 팀원 이해도 양호"
+    },
+    {
+      "phase": 2,
+      "name": "learning",
+      "duration": "2-4주",
+      "goal": "파일럿 교훈으로 스킬 3개 개선",
+      "success_criteria": "스킬 재사용률 > 60%",
+      "status": "in_progress",
+      "current_reuse_rate": 0.52
+    },
+    {
+      "phase": 3,
+      "name": "scaling",
+      "duration": "1-2개월",
+      "goal": "3개 이상 프로젝트에 적용",
+      "success_criteria": "수동 대비 시간 절약 > 20%",
+      "status": "pending"
+    },
+    {
+      "phase": 4,
+      "name": "establishment",
+      "duration": "지속",
+      "goal": "표준 워크플로우 통합 + 온보딩 포함",
+      "success_criteria": "신규 팀원 1주 이내 독립 사용",
+      "status": "pending"
+    }
+  ]
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="warning">{isKo ? '한 번에 모든 것을 바꾸려 하지 마세요. 점진적 도입이 성공률이 높습니다. 첫 번째 프로젝트에서 완벽한 Harness 활용을 목표로 삼지 말고, 배우고 개선하는 과정으로 여기세요.' : 'Don\'t try to change everything at once. Gradual adoption has a higher success rate. Don\'t aim for perfect Harness usage on the first project; treat it as a learning and improvement process.'}</TipBox>
     </div>
   );

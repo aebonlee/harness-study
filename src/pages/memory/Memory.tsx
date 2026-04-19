@@ -100,6 +100,36 @@ function ContextSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '도구 결과' : 'Tool Results'}</strong> — {isKo ? '파일 읽기, 웹 검색 등의 결과. 크기가 예측하기 어렵습니다.' : 'Results of file reads, web searches, etc. Size is unpredictable.'}</li>
         <li><strong>{isKo ? '스킬 파일' : 'Skill Files'}</strong> — {isKo ? '로드된 스킬의 내용. 프로그레시브 디스클로저로 최소화합니다.' : 'Content of loaded skills. Minimized with progressive disclosure.'}</li>
       </ul>
+      <h3>{isKo ? '컨텍스트 창 사용 현황 — 실제 작업 예시' : 'Context Window Usage Breakdown — Real Task Example'}</h3>
+      <p>{isKo ? '200K 토큰 컨텍스트 창에서 "로그인 기능 구현" 작업이 진행될 때 각 항목이 차지하는 비중입니다. 도구 결과가 가장 많은 공간을 차지합니다.' : 'Breakdown of space occupied by each item in a 200K context window during a "login feature implementation" task. Tool results occupy the most space.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '컨텍스트 창 사용 현황 (200K 토큰)' : 'Context Window Usage (200K tokens)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`컨텍스트 창 사용 현황 (총 200,000 토큰)
+═══════════════════════════════════════════
+
+시스템 프롬프트 + CLAUDE.md  ████░░░░░░░░░░░░░  20K (10%)
+대화 이력                   ████████░░░░░░░░░  40K (20%)
+도구 결과 (Read 파일들)     ████████████░░░░░  80K (40%)  ← 주범
+  └── src/auth.ts   12K
+  └── src/api/*.ts  35K
+  └── package.json   8K
+  └── tsconfig.json  5K
+  └── 기타           20K
+스킬 파일                   ████░░░░░░░░░░░░░  20K (10%)
+여유 공간                   ████████░░░░░░░░░  40K (20%)
+───────────────────────────────────────────
+⚠ 경고: 파일 5개 더 읽으면 컨텍스트 80% 초과
+
+🔧 최적화 방법:
+  1. Read 결과 요약 후 원본 폐기
+  2. 필요한 함수만 선택적 읽기 (파일 전체 X)
+  3. context_usage > 80%면 checkpoint 저장 후 체인지오버`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '컨텍스트 창이 가득 차면 에이전트는 초기 내용을 "망각"하기 시작합니다. 이는 작업 품질 저하로 이어집니다. Harness의 스킬 시스템은 이 문제를 해결하기 위해 설계되었습니다.' : 'When the context window fills up, the agent starts "forgetting" early content, leading to quality degradation. Harness\'s skill system is designed to solve this problem.'}</TipBox>
     </div>
   );
@@ -270,6 +300,37 @@ function ToolsSection({ isKo }: { isKo: boolean }): ReactElement {
             <tr><td>Vector DB</td><td>{isKo?'벡터 DB':'Vector DB'}</td><td>{isKo?'의미 기반 검색, 장기 메모리':'Semantic search, long-term memory'}</td></tr>
           </tbody>
         </table>
+      </div>
+      <h3>{isKo ? '도구별 실제 사용 패턴 — CLAUDE.md 코드 예시' : 'Per-Tool Usage Pattern — CLAUDE.md Code Example'}</h3>
+      <p>{isKo ? '각 메모리 도구를 에이전트 스킬 파일에서 어떻게 활용하는지 패턴을 보여줍니다.' : 'Shows how to use each memory tool in agent skill files.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? '메모리 도구 사용 패턴 — 오케스트레이터 CLAUDE.md' : 'Memory Tool Usage Patterns — Orchestrator CLAUDE.md'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`## Memory Management
+
+### MEMORY.md (파일 기반 — 세션 간 유지)
+작업 시작 시: Read(".claude/MEMORY.md") → 프로젝트 상태 파악
+작업 완료 시: Write(".claude/MEMORY.md", summary)
+
+### state.json (구조화 상태)
+진행 추적: Read("tmp/checkpoint.json") → 이전 체크포인트 복원
+상태 저장: Write("tmp/checkpoint.json", currentState)
+
+### Supabase (팀 공유 메모리 — MCP 사용 시)
+# 에이전트가 직접 Supabase에 접근하는 패턴 (MCP Tool 필요)
+# upsert("hs_progress", { user_id, lesson_id, completed: true })
+# select("hs_progress").eq("user_id", uid)
+
+### 세션 간 패턴 (MEMORY.md 기반)
+시작: Read(".claude/MEMORY.md") → 이전 작업 컨텍스트 복원
+종료: Append(".claude/MEMORY.md", todaysSummary)
+
+# 규칙: MEMORY.md는 200줄 이내 유지
+#       200줄 초과 시 오래된 항목을 .claude/archive/ 로 이동`}</code></pre>
+        </div>
       </div>
       <TipBox type="important">{isKo ? '이 프로젝트(harness-study)는 Supabase를 메모리 백엔드로 사용합니다. hs_ 테이블 접두사로 사용자 프로필과 학습 진행 상황을 저장합니다.' : 'This project (harness-study) uses Supabase as its memory backend. User profiles and learning progress are stored with the hs_ table prefix.'}</TipBox>
     </div>

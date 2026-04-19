@@ -119,6 +119,31 @@ function ConceptSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '일관성 보장' : 'Consistency Guarantee'}</strong> — {isKo ? '동일한 스킬을 사용하면 일관된 방식으로 작업이 수행됩니다.' : 'Using the same skill ensures tasks are performed consistently.'}</li>
         <li><strong>{isKo ? '팀 공유 가능' : 'Team Shareable'}</strong> — {isKo ? '잘 설계된 스킬은 팀 전체에서 공유하고 재사용할 수 있습니다.' : 'Well-designed skills can be shared and reused across the entire team.'}</li>
       </ul>
+      <h3>{isKo ? '스킬 파일 최소 예시 (hello-world)' : 'Minimal Skill File Example (hello-world)'}</h3>
+      <p>{isKo ? '가장 단순한 형태의 스킬 파일입니다. 5줄로도 완전한 스킬을 만들 수 있습니다. 이 구조를 출발점으로 필요에 따라 확장하세요.' : 'The simplest form of a skill file. Even 5 lines can create a complete skill. Use this structure as your starting point and expand as needed.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/commands/hello-world.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# hello-world
+
+## 트리거
+"hello", "안녕", "hi" 입력 시
+
+## 목적
+인사말에 친절하고 일관되게 답변하는 가장 간단한 스킬 예시
+
+## 단계
+1. 입력 언어 감지 (한국어 / 영어 / 기타)
+2. 언어에 맞는 인사말 반환
+
+## 출력
+한국어: "안녕하세요! 무엇을 도와드릴까요?"
+영어:   "Hello! How can I help you today?"`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '스킬은 에이전트의 "장기 기억" 역할을 합니다. 에이전트의 컨텍스트 창이 제한적이라도, 스킬 파일을 통해 방대한 전문 지식에 접근할 수 있습니다.' : 'Skills serve as the "long-term memory" of agents. Even with limited context windows, agents can access vast expertise through skill files.'}</TipBox>
     </div>
   );
@@ -148,6 +173,60 @@ function DisclosureSection({ isKo }: { isKo: boolean }): ReactElement {
           <p>{isKo ? '복잡한 케이스나 특수 상황에서만 로드. 예외 처리, 엣지 케이스, 상세 예시 포함. 필요할 때만 가져옵니다.' : 'Only loaded for complex cases or special situations. Includes exception handling, edge cases, and detailed examples. Only fetched when needed.'}</p>
         </li>
       </ol>
+      <h3>{isKo ? '3단계 디스클로저 구체 예시 — code-review 스킬' : '3-Level Disclosure Concrete Example — code-review skill'}</h3>
+      <p>{isKo ? '동일한 code-review 스킬을 3단계로 나누면 어떻게 되는지 비교합니다. 각 레벨에서 로드되는 토큰 양과 내용을 확인하세요.' : 'See how the same code-review skill is divided into 3 levels. Check the token count and content loaded at each level.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? 'Level 1 — 요약 (항상 로드, ~3줄, ~20토큰)' : 'Level 1 — Summary (always loaded, ~3 lines, ~20 tokens)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# code-review
+## 트리거
+PR 리뷰, 코드 검토, /review 명령어 실행 시`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? 'Level 2 — 개요 (스킬 활성화 시 로드, ~20줄, ~150토큰)' : 'Level 2 — Overview (loaded on activation, ~20 lines, ~150 tokens)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`## 목적
+코드 품질·보안·성능을 검토하고 JSON으로 결과 반환
+
+## 단계
+1. 보안 취약점 스캔 (OWASP Top 10 기준)
+2. 성능 이슈 검토 (N+1, 메모리 누수)
+3. 코드 컨벤션 확인
+
+## 출력 형식
+{ "score": 0-100, "issues": [], "pass": boolean }`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? 'Level 3 — 상세 (복잡한 케이스 시만 로드, ~60줄, ~500토큰)' : 'Level 3 — Details (only for complex cases, ~60 lines, ~500 tokens)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`## 심각도 판단 기준
+- high:   즉시 수정 (보안, 데이터 손실 가능)
+- medium: 다음 PR 권장 (성능, 유지보수)
+- low:    선택 개선 (스타일, 가독성)
+
+## 보안 체크리스트
+- SQL Injection: parameterized query 사용 여부
+- XSS: dangerouslySetInnerHTML 사용 여부
+- 인증/인가: JWT 만료 설정, 권한 검증 여부
+- 환경변수: .env 파일의 민감 정보 노출 여부
+
+## 성능 체크리스트
+- N+1 쿼리: 반복문 내 DB 호출 여부
+- 불필요한 리렌더링: useCallback/useMemo 활용
+- 메모리 누수: cleanup 함수, removeEventListener 여부`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '레벨 1 요약은 단 한 줄로도 충분합니다. "코드 리뷰 시 사용: 보안, 성능, 가독성을 평가합니다"처럼 명확하게 작성하세요. 에이전트가 빠르게 관련성을 판단할 수 있습니다.' : 'Level 1 summary can be just one line. Write clearly like "Use for code review: evaluates security, performance, readability." The agent can quickly determine relevance.'}</TipBox>
     </div>
   );
@@ -366,6 +445,42 @@ function TestSection({ isKo }: { isKo: boolean }): ReactElement {
       <p>{isKo ? '동일한 작업을 스킬 사용 시와 미사용 시로 비교합니다. 품질, 일관성, 실행 시간을 측정합니다.' : 'Compare the same task with and without skill use. Measure quality, consistency, and execution time.'}</p>
       <h3>{isKo ? '3. 엣지 케이스 테스트' : '3. Edge Case Testing'}</h3>
       <p>{isKo ? '예외 상황, 모호한 입력, 경계값에서의 스킬 동작을 검증합니다.' : 'Verify skill behavior in exceptional situations, ambiguous inputs, and boundary values.'}</p>
+      <h3>{isKo ? 'code-review 스킬 테스트 케이스 예시' : 'code-review Skill Test Cases Example'}</h3>
+      <p>{isKo ? '스킬 배포 전 아래 3가지 테스트를 순서대로 실행합니다. 모두 통과해야 프로덕션 적용이 가능합니다.' : 'Run the following 3 tests in order before deploying a skill. All must pass before applying to production.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">{isKo ? 'code-review 스킬 테스트 케이스' : 'code-review Skill Test Cases'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# code-review 스킬 테스트 케이스
+
+## 테스트 1 — 트리거 검증 (정상 발동)
+입력:   "PR #42 코드 리뷰해줘"
+기대:   code-review 스킬 활성화 → JSON 반환
+결과:   ✅ PASS  (score:82, issues:[...], pass:true)
+
+## 테스트 2 — 트리거 검증 (비발동)
+입력:   "함수 하나만 짜줘"
+기대:   code-review 스킬 미활성화
+결과:   ✅ PASS  (일반 응답, 스킬 미사용)
+
+## 테스트 3 — 엣지 케이스 (빈 파일)
+입력:   "이 파일 리뷰해줘" + 빈 index.ts 첨부
+기대:   score:100, issues:[], pass:true
+결과:   ✅ PASS
+
+## 테스트 4 — 품질 기준 (심각도 분류)
+입력:   SQL Injection 취약점이 있는 코드
+기대:   issues[0].severity === "high"
+결과:   ✅ PASS
+
+## 테스트 5 — A/B 비교 (스킬 유무)
+Control:   스킬 없이 "코드 리뷰해줘" → 점수 없음, 형식 불일치
+Treatment: code-review 스킬 사용 → 표준 JSON, 일관된 점수
+결과:   ✅ Treatment 품질 우수, 분산 낮음`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? 'harness-abtest 리포지토리를 활용하면 체계적인 A/B 테스트를 자동화할 수 있습니다. 새 스킬을 배포하기 전 최소 5회 이상의 비교 테스트를 권장합니다.' : 'Using the harness-abtest repository enables systematic A/B test automation. We recommend at least 5 comparative tests before deploying new skills.'}</TipBox>
     </div>
   );

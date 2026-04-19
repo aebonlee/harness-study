@@ -163,6 +163,40 @@ function WhySection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '재현 가능한 워크플로우' : 'Reproducible Workflows'}</strong> — {isKo ? '스킬 파일로 정의된 워크플로우는 언제든지 동일한 방식으로 실행됩니다.' : 'Workflows defined in skill files execute consistently every time.'}</li>
       </ol>
 
+      <h3>{isKo ? '단일 에이전트 vs Harness 처리 흐름 비교' : 'Single Agent vs Harness Processing Flow'}</h3>
+      <p>{isKo ? '동일한 "블로그 포스트 작성" 작업을 두 방식으로 처리할 때의 차이입니다. Harness는 전문화와 병렬화로 품질과 속도를 동시에 높입니다.' : 'The difference when processing the same "write a blog post" task with two approaches. Harness improves both quality and speed through specialization and parallelization.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '단일 에이전트 vs Harness 비교' : 'Single Agent vs Harness'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`❌ 단일 에이전트 (Sequential, 45분)
+─────────────────────────────────────────
+Input ──▶ [범용 AI]  ──▶ Output
+           (조사+작성+리뷰+SEO를 혼자 처리)
+           • 컨텍스트 창 빠르게 소모
+           • 전문성 부족 → 평균 품질
+           • 하나가 막히면 전체 중단
+
+✅ Harness (Parallel + Specialized, 20분)
+─────────────────────────────────────────
+            ┌─ [research-agent] ──▶ research.md
+Input ──▶  │                              │
+[Orch]     └─ [outline-agent]  ──▶ outline.md
+            ↓ (팬아웃)
+           [writing-agent-1]  ──▶ section1-3.md ─┐
+           [writing-agent-2]  ──▶ section4-6.md ─┤ (팬인)
+            ↓                                     │
+           [seo-agent] ◀── draft.md ◀─────────────┘
+            ↓
+           final.md (Output)
+
+• 병렬 처리: 45분 → 20분 (55% 단축)
+• 전문화: 각 에이전트가 자신의 영역만 담당
+• 품질 검증: reviewer가 자동으로 재작업 요청`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">
         {isKo
           ? 'revfactory의 A/B 테스트 결과(n=15)에 따르면, Harness를 사용한 작업은 품질이 향상되고 출력 분산이 줄어들었습니다. 특히 소프트웨어 엔지니어링 작업에서 효과가 두드러졌습니다.'
@@ -197,6 +231,37 @@ function ComponentsSection({ isKo }: { isKo: boolean }): ReactElement {
       <h3 id="sub-memory">5. {isKo ? '메모리 (Memory)' : 'Memory'}</h3>
       <p>{isKo ? '에이전트가 다음 세션에도 사용할 수 있도록 보존하는 정보입니다. 내일 교대 근무자를 위한 메모에 비유됩니다. MEMORY.md 파일이나 외부 저장소를 통해 구현됩니다.' : 'Information preserved for agents to use in future sessions. Analogous to notes for tomorrow\'s staff. Implemented through MEMORY.md files or external storage.'}</p>
 
+      <h3>{isKo ? '5가지 구성요소가 모인 .claude/ 디렉토리' : 'All 5 Components in the .claude/ Directory'}</h3>
+      <p>{isKo ? '실제 프로젝트에서 5가지 구성요소가 어떻게 파일로 구현되는지 확인합니다. 이 구조가 Harness의 실체입니다.' : 'See how the 5 components are implemented as files in a real project. This structure is the essence of Harness.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? 'Harness 프로젝트 디렉토리 구조' : 'Harness Project Directory Structure'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`my-project/
+├── .claude/
+│   ├── CLAUDE.md          ← ① 오케스트레이터 지침
+│   │                         (팀 역할 정의 + 워크플로우)
+│   ├── MEMORY.md          ← ⑤ 에이전트 장기 메모리
+│   │                         (프로젝트 상태, 결정사항)
+│   └── commands/          ← ③ 스킬 라이브러리
+│       ├── research.md       (연구 에이전트 스킬)
+│       ├── writing.md        (작성 에이전트 스킬)
+│       ├── code-review.md    (리뷰 에이전트 스킬)
+│       └── deploy.md         (배포 에이전트 스킬)
+│
+└── tmp/                   ← ④ 컨텍스트 창 관리용
+    ├── checkpoint.json       (에이전트 진행 상태)
+    ├── research-result.md    (에이전트 간 통신 파일)
+    └── kpi-report.json       (성과 측정)
+
+─────────────────────────────────────────
+① CLAUDE.md = 오케스트레이터  ② 각 에이전트 = CLAUDE.md + skill 조합
+③ commands/*.md = 스킬       ④ tmp/*.json = 컨텍스트 관리
+⑤ MEMORY.md = 장기 메모리`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">
         {isKo
           ? 'Harness의 모든 구성요소는 상호 연결되어 있습니다. 스킬이 에이전트를 정의하고, 에이전트가 팀을 구성하며, 오케스트레이터가 팀을 조율합니다. 이 순환 구조가 Harness의 강력함의 원천입니다.'

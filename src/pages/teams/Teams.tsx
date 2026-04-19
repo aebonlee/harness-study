@@ -99,6 +99,58 @@ function DesignSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '인터페이스 명확성' : 'Interface Clarity'}</strong> — {isKo ? '각 에이전트의 입력/출력 인터페이스를 명확히 정의합니다.' : 'Clearly define the input/output interface for each agent.'}</li>
         <li><strong>{isKo ? '확장성 고려' : 'Scalability Consideration'}</strong> — {isKo ? '향후 에이전트 추가나 역할 변경이 용이한 구조로 설계합니다.' : 'Design a structure that facilitates future agent addition or role changes.'}</li>
       </ol>
+      <h3>{isKo ? '팀 구성 YAML 설정 파일 예시' : 'Team Composition YAML Config Example'}</h3>
+      <p>{isKo ? '아래는 5원칙을 모두 반영한 풀스택 개발팀 YAML 설정입니다. 각 에이전트의 역할, 모델, 도구, 성공 기준이 명확하게 정의됩니다.' : 'Below is a full-stack dev team YAML config reflecting all 5 principles. Each agent\'s role, model, tools, and success criteria are clearly defined.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">yaml</span>
+          <span className="code-block-filename">.claude/team-config.yaml</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`team:
+  name: web-dev-team
+  purpose: "React + TypeScript 웹앱 풀스택 개발"   # ① 목적 명확성
+  max_agents: 5                                     # ② 최소 규모
+
+  agents:
+    - name: architect-agent
+      model: claude-opus-4-5
+      role: "시스템 설계 및 기술 결정 전담"           # ③ 역할 비중복
+      tools: [Read, Write, WebSearch]               # ④ 적절한 도구
+      input:  "요구사항 텍스트"
+      output: "architecture.md (API 스펙 + 기술 스택)"
+
+    - name: frontend-agent
+      model: claude-sonnet-4-5
+      role: "React/TypeScript UI 컴포넌트 구현 전담"  # ③
+      tools: [Read, Write, Bash]
+      input:  "architecture.md"
+      output: "src/components/*.tsx"
+
+    - name: backend-agent
+      model: claude-sonnet-4-5
+      role: "API 엔드포인트 및 DB 구현 전담"          # ③
+      tools: [Read, Write, Bash]
+      input:  "architecture.md"
+      output: "src/api/*.ts"
+
+    - name: reviewer-agent
+      model: claude-sonnet-4-5
+      role: "코드 품질·보안·성능 검토 전담"           # ③
+      tools: [Read, Bash]
+      output: "review-result.json"
+
+    - name: tester-agent
+      model: claude-haiku-4-5
+      role: "단위·통합 테스트 작성 및 실행 전담"       # ③
+      tools: [Read, Write, Bash]
+      output: "src/**/*.test.ts"
+
+  scalability:                                       # ⑤ 확장성
+    add_agent: "commands/ 에 스킬 파일 추가 후 여기 등록"
+    remove_agent: "해당 항목 삭제 (다른 에이전트 영향 없음)"`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '"2-Pizza Rule"을 적용하세요. 팀의 모든 에이전트가 피자 2판으로 먹을 수 있는 규모(2-6개)를 초과하면 팀 분할을 고려하세요.' : 'Apply the "2-Pizza Rule." Consider splitting the team if the number of all agents exceeds what can be fed by 2 pizzas (2-6 agents).'}</TipBox>
     </div>
   );
@@ -177,6 +229,40 @@ function ErrorSection({ isKo }: { isKo: boolean }): ReactElement {
             <tr><td>{isKo?'컨텍스트 초과':'Context Overflow'}</td><td>{isKo?'과도한 컨텍스트 누적':'Excessive context accumulation'}</td><td>{isKo?'컨텍스트 압축':'Context compression'}</td></tr>
           </tbody>
         </table>
+      </div>
+      <h3>{isKo ? '재시도 & 폴백 패턴 CLAUDE.md 예시' : 'Retry & Fallback Pattern CLAUDE.md Example'}</h3>
+      <p>{isKo ? '오케스트레이터 CLAUDE.md에 오류 처리 규칙을 명시하여 에이전트가 자율적으로 재시도·폴백·보고를 수행하게 합니다.' : 'Specify error handling rules in the orchestrator CLAUDE.md so agents autonomously perform retries, fallbacks, and reporting.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (오류 처리 규칙 섹션)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`## Error Handling Rules
+
+### 도구 실패 (API 오류, 타임아웃)
+retry:
+  max: 3
+  delay_sec: [5, 15, 30]   # 지수 백오프
+on_fail:
+  - 오케스트레이터에게 오류 내용 보고
+  - fallback 에이전트(general-agent) 투입
+
+### 품질 미달 (reviewer score < 70)
+- 해당 에이전트에게 피드백 + 재작업 요청
+- 최대 2회 재작업 허용
+- 2회 후에도 미달 시: 사용자에게 수동 검토 요청
+
+### 교착 상태 (10분 이상 진행 없음)
+- 오케스트레이터가 해당 에이전트 강제 종료
+- tmp/error-log.json에 상태 저장
+- 남은 에이전트로 워크플로우 재개 시도
+
+### 컨텍스트 초과 (usage > 80%)
+- tmp/checkpoint.json에 현재 상태 저장
+- 새 에이전트 인스턴스 시작
+- checkpoint.json 요약만 전달 (체인지오버)`}</code></pre>
+        </div>
       </div>
       <TipBox type="warning">{isKo ? '오류 발생 시 에이전트가 무한 재시도하지 않도록 재시도 횟수 제한을 설정하세요. 3회 실패 후 오케스트레이터에게 오류를 보고하고 대안을 요청하는 것이 좋습니다.' : 'Set retry count limits to prevent agents from infinitely retrying on error. It\'s good practice to report the error to the orchestrator and request alternatives after 3 failures.'}</TipBox>
     </div>
@@ -311,6 +397,43 @@ function PerfSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '결과 캐싱' : 'Result Caching'}</strong> — {isKo ? '자주 사용되는 에이전트 결과를 캐시하여 중복 작업을 방지합니다.' : 'Cache frequently used agent results to prevent duplicate work.'}</li>
         <li><strong>{isKo ? '모델 선택 최적화' : 'Model Selection Optimization'}</strong> — {isKo ? '단순한 작업에는 빠르고 저렴한 모델을, 복잡한 작업에는 강력한 모델을 사용합니다.' : 'Use fast, economical models for simple tasks and powerful models for complex tasks.'}</li>
       </ol>
+      <h3>{isKo ? '순차 vs 병렬 처리 타임라인 비교' : 'Sequential vs Parallel Processing Timeline'}</h3>
+      <p>{isKo ? '동일한 풀스택 개발 작업을 순차와 병렬로 처리할 때의 시간 차이입니다. 병렬화가 가능한 에이전트를 식별하는 것이 핵심입니다.' : 'Time difference when processing the same full-stack dev task sequentially vs in parallel. The key is identifying which agents can be parallelized.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '순차 처리 vs 병렬 처리 타임라인' : 'Sequential vs Parallel Timeline'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`❌ 순차 처리 — 총 50분
+──────────────────────────────────────────────
+0min    10min   20min   30min   40min   50min
+│──architect──│
+              │──frontend──│
+                           │──backend──│
+                                       │──review──│
+                                                  │─test─│
+
+✅ 병렬 처리 — 총 30분 (40% 단축)
+──────────────────────────────────────────────
+0min    10min   20min   30min
+│──architect──│
+              │──frontend──│  ← 동시 실행 (Fan-out)
+              │──backend───│  ← 동시 실행
+                           │──review──│
+                                      │─test─│
+
+💡 병렬화 가능 조건: 두 에이전트가 동일한 입력을 받고
+   서로의 결과에 의존하지 않을 때
+
+🔢 모델 비용 최적화:
+   architect  → Opus   (핵심 결정, 비싸도 OK)
+   frontend   → Sonnet (구현, 중간 비용)
+   backend    → Sonnet (구현, 중간 비용)
+   reviewer   → Sonnet (검토, 중간 비용)
+   tester     → Haiku  (반복 작업, 저비용)`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '팀 성능을 정기적으로 측정하세요. 총 실행 시간, 각 에이전트별 소요 시간, 오류율을 추적하면 병목 지점을 쉽게 발견할 수 있습니다.' : 'Regularly measure team performance. Tracking total execution time, time per agent, and error rates makes it easy to identify bottlenecks.'}</TipBox>
     </div>
   );

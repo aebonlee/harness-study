@@ -279,6 +279,40 @@ function AgentConceptSection({ isKo }: { isKo: boolean }): ReactElement {
         </div>
       </div>
 
+      <h3>{isKo ? '에이전트의 ReAct 실행 루프' : 'Agent ReAct Execution Loop'}</h3>
+      <p>{isKo ? 'AI 에이전트는 Reasoning + Acting의 ReAct 패턴으로 동작합니다. 목표가 달성될 때까지 "생각 → 행동 → 관찰"을 반복합니다.' : 'AI agents operate with the ReAct pattern (Reasoning + Acting). They repeat "Think → Act → Observe" until the goal is achieved.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? 'ReAct 루프 — "src/auth.ts 보안 취약점 수정" 예시' : 'ReAct Loop — "Fix security vulnerability in src/auth.ts" example'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`목표: src/auth.ts 보안 취약점 수정
+
+[Iteration 1]
+🧠 Think: "어떤 파일을 수정해야 하는지 먼저 확인해야 한다"
+⚡ Act:   Read("src/auth.ts")
+👁 Observe: JWT 토큰 만료 시간이 설정되지 않음 발견
+
+[Iteration 2]
+🧠 Think: "expiresIn 옵션을 추가하고 테스트해야 한다"
+⚡ Act:   Edit("src/auth.ts", old="sign(payload)", new="sign(payload, {expiresIn:'1h'})")
+👁 Observe: 파일 수정 성공
+
+[Iteration 3]
+🧠 Think: "변경이 올바른지 테스트를 실행해야 한다"
+⚡ Act:   Bash("npm test src/auth.test.ts")
+👁 Observe: 모든 테스트 통과 ✅
+
+[완료]
+🧠 Think: "목표 달성. 보안 취약점 수정 완료"
+Result: "JWT expiresIn:'1h' 추가 완료, 테스트 통과"
+
+──────────────────────────────────────────
+단일 에이전트: 위 루프 1개
+Harness(멀티):  오케스트레이터가 위 루프를 가진 에이전트를 여러 개 동시 실행`}</code></pre>
+        </div>
+      </div>
       <h3>{isKo ? '단일 에이전트 vs 멀티 에이전트' : 'Single Agent vs Multi-Agent'}</h3>
       <p>{isKo
         ? 'Harness는 멀티 에이전트 시스템입니다. 하나의 오케스트레이터가 여러 서브에이전트를 조율하여 복잡한 작업을 병렬로 처리합니다.'
