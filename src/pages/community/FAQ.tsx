@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
@@ -9,6 +10,7 @@ interface FaqItem {
   a: string; aEn: string;
   category: string;
   codeKo?: string; codeEn?: string; codeLang?: string;
+  link?: string;
 }
 
 const FAQ_ITEMS: FaqItem[] = [
@@ -18,6 +20,7 @@ const FAQ_ITEMS: FaqItem[] = [
     qEn: 'What exactly is Harness?',
     a: 'Harness는 Claude Code에서 .claude/CLAUDE.md와 .claude/commands/ 폴더에 저장된 마크다운 파일들의 집합을 의미합니다. 이 파일들이 Claude의 행동 방식, 사용 가능한 명령어, 작업 처리 방법을 정의합니다. 쉽게 말해 "나만의 AI 작업 매뉴얼"입니다.',
     aEn: 'Harness refers to the collection of markdown files stored in .claude/CLAUDE.md and the .claude/commands/ folder in Claude Code. These files define how Claude behaves, what commands are available, and how to handle tasks — essentially your personal AI work manual.',
+    link: '/intro',
     codeKo: `.claude/
 ├── CLAUDE.md          ← 오케스트레이터 지침 & 전역 규칙
 │                         (기술 스택, 코딩 컨벤션, 에이전트 역할)
@@ -47,6 +50,7 @@ const FAQ_ITEMS: FaqItem[] = [
     qEn: 'What is the difference between CLAUDE.md and commands/?',
     a: 'CLAUDE.md는 프로젝트 전체에 항상 적용되는 전역 지침입니다. 기술 스택, 코딩 컨벤션, 아키텍처 결정 등을 적습니다. commands/ 폴더는 특정 작업을 위해 명시적으로 호출하는 스킬 파일들을 저장합니다. /review, /refactor 같은 명령어가 여기서 나옵니다.',
     aEn: 'CLAUDE.md contains global guidelines always applied to the entire project — tech stack, coding conventions, architecture decisions. The commands/ folder stores skill files explicitly called for specific tasks. Commands like /review and /refactor come from here.',
+    link: '/intro',
     codeKo: `# CLAUDE.md — 전역 지침 (항상 적용)
 ## 프로젝트 기술 스택
 - React 19 + TypeScript + Vite
@@ -88,6 +92,7 @@ When /review is called or "please review this code" is typed
     qEn: 'How detailed should a skill file be?',
     a: 'Steps 섹션은 Claude가 각 단계를 건너뛸 수 없을 만큼 구체적이어야 합니다. 하지만 지나치게 상세하면 창의성이 억제됩니다. 경험상 각 Step에 2-4개의 세부 지침을 두는 것이 적당합니다. 처음에는 짧게 시작하고, 사용하면서 부족한 부분을 채워나가세요.',
     aEn: 'Steps should be specific enough that Claude cannot skip any step. But overly detailed instructions stifle creativity. Based on experience, 2-4 sub-guidelines per Step is appropriate. Start short and fill in gaps as you use it.',
+    link: '/skills',
     codeKo: `# ✅ 권장: 단계당 2-3개 세부 지침
 
 ## 단계
@@ -135,6 +140,7 @@ When /review is called or "please review this code" is typed
     qEn: 'Are there multiple ways to invoke a skill?',
     a: '네. 가장 일반적인 방법은 /skill-name 슬래시 커맨드입니다. 또한 CLAUDE.md나 스킬 파일의 Trigger 섹션에 자동 활성화 조건을 정의할 수 있습니다. "코드 리뷰해줘" 같은 자연어 요청에도 Claude가 적절한 스킬을 선택할 수 있습니다.',
     aEn: 'Yes. The most common is the /skill-name slash command. You can also define auto-activation conditions in the Trigger section of CLAUDE.md or skill files. Claude can also select appropriate skills from natural language requests like "please review this code".',
+    link: '/skills',
     codeKo: `# commands/review.md
 
 ## 트리거 (3가지 호출 방법)
@@ -172,6 +178,7 @@ When /review is called or "please review this code" is typed
     qEn: 'When should I use a multi-agent team?',
     a: '단일 에이전트로 30분 이상 걸리는 작업, 서로 다른 전문 지식이 필요한 작업, 병렬 처리로 속도를 높일 수 있는 작업에 팀을 씁니다. 단순한 작업에 팀을 쓰면 오버헤드만 늘어납니다. 먼저 단일 에이전트로 시도하고, 한계에 부딪힐 때 팀으로 확장하세요.',
     aEn: 'Use teams for tasks taking 30+ minutes with a single agent, tasks requiring different expertise, or tasks where parallel processing improves speed. Teams add overhead for simple tasks. Try single agent first, then scale to a team when you hit limits.',
+    link: '/teams',
     codeKo: `# 팬아웃 패턴 — 병렬 처리로 시간 단축
 
 # 상황: 블로그 포스트 3개 섹션 작성 (단일 45분 → 팀 20분)
@@ -200,6 +207,7 @@ All Tasks complete → merge results → quality review → final`,
     qEn: 'Pattern selection is difficult. What is the most important criterion?',
     a: '가장 중요한 질문은 "하위 작업들이 서로 독립적인가, 아니면 이전 결과가 필요한가?"입니다. 독립적이면 팬아웃(병렬), 이전 결과가 필요하면 파이프라인(순차)을 씁니다. 대부분의 복잡한 작업은 이 두 패턴의 조합으로 해결됩니다.',
     aEn: 'The most important question: "Are subtasks independent of each other, or does each need the previous result?" Independent → fan-out (parallel). Needs previous result → pipeline (sequential). Most complex tasks are solved by combining these two.',
+    link: '/patterns',
     codeKo: `패턴 선택 결정 트리
 ────────────────────────────────────────────
 하위 작업이 서로 독립적인가?
@@ -459,10 +467,38 @@ export default function FAQ(): ReactElement {
                       </div>
                     </div>
                   )}
+                  {item.link && (
+                    <Link to={item.link} className="faq-guide-link">
+                      <i className="fa-solid fa-book-open" />
+                      {isKo ? '관련 가이드 보기' : 'View related guide'}
+                      <i className="fa-solid fa-arrow-right" />
+                    </Link>
+                  )}
                 </div>
               )}
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="faq-cta">
+          <i className="fa-solid fa-comments faq-cta-icon" />
+          <h3 className="faq-cta-title">{isKo ? '찾는 질문이 없나요?' : "Can't find your question?"}</h3>
+          <p className="faq-cta-desc">
+            {isKo
+              ? '커뮤니티 GitHub Discussions에서 질문하시면 빠르게 답변을 받을 수 있습니다.'
+              : 'Ask on our GitHub Discussions and get a quick answer from the community.'}
+          </p>
+          <a
+            href="https://github.com/anthropics/claude-code/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="faq-cta-btn"
+          >
+            <i className="fa-brands fa-github" />
+            {isKo ? 'GitHub Discussions 바로가기' : 'Go to GitHub Discussions'}
+            <i className="fa-solid fa-arrow-up-right-from-square" />
+          </a>
         </div>
       </div>
     </>

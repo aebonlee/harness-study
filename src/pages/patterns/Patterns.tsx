@@ -3,8 +3,17 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/agents', icon: 'fa-robot', nameKo: '에이전트 이해', nameEn: 'Agents', descKo: '에이전트 역할과 오케스트레이터 구조', descEn: 'Agent roles and orchestrator structure' },
+  { path: '/teams', icon: 'fa-users', nameKo: '팀 구성', nameEn: 'Team Building', descKo: '효과적인 에이전트 팀 설계 원칙', descEn: 'Effective agent team design principles' },
+  { path: '/practice', icon: 'fa-flask', nameKo: '실전 활용', nameEn: 'Practice', descKo: '실전 프로젝트에서 패턴 적용 사례', descEn: 'Pattern application in real projects' },
+];
 
 const SECTIONS = [
   { id: 'pipeline',     ko: '파이프라인 패턴',    en: 'Pipeline' },
@@ -73,6 +82,7 @@ export default function Patterns(): ReactElement {
     <>
       <SEOHead title={isKo ? '6가지 아키텍처 패턴 | Harness Master' : '6 Architectural Patterns | Harness Master'} path="/patterns" />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '따라하기', labelEn: 'How-to', path: '/patterns' }, { label: '패턴', labelEn: 'Patterns' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -82,12 +92,20 @@ export default function Patterns(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'pipeline'     && <PipelineSection isKo={isKo} />}
             {activeSection === 'fanout'       && <FanoutSection isKo={isKo} />}
             {activeSection === 'expert'       && <ExpertSection isKo={isKo} />}
             {activeSection === 'producer'     && <ProducerSection isKo={isKo} />}
             {activeSection === 'supervisor'   && <SupervisorSection isKo={isKo} />}
             {activeSection === 'hierarchical' && <HierarchicalSection isKo={isKo} />}
+            <StarRating pageId="patterns" />
+            <RelatedGuides guides={RELATED} />
             <div className="guide-section-nav">
               <button className="guide-nav-btn prev" onClick={() => handleNav(SECTIONS[currentIndex-1].id)} disabled={currentIndex===0}>
                 <i className="fa-solid fa-arrow-left" />

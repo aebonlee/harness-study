@@ -3,8 +3,16 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/intro', icon: 'fa-rocket', nameKo: '하네스 기초', nameEn: 'Harness Basics', descKo: 'Harness 개요와 핵심 구성요소', descEn: 'Overview and core components' },
+  { path: '/agents', icon: 'fa-robot', nameKo: '에이전트 이해', nameEn: 'Agents', descKo: '에이전트, 오케스트레이터, 서브에이전트 역할', descEn: 'Agent, orchestrator, subagent roles' },
+];
 
 const SECTIONS = [
   { id: 'claudecode', icon: 'fa-terminal',       ko: 'Claude Code란?',     en: 'What is Claude Code?' },
@@ -78,6 +86,7 @@ export default function Prereqs(): ReactElement {
         path="/prereqs"
       />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '기본학습', labelEn: 'Basics', path: '/intro' }, { label: '사전지식 & 도구', labelEn: 'Prerequisites' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -87,12 +96,20 @@ export default function Prereqs(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'claudecode' && <ClaudeCodeSection isKo={isKo} />}
             {activeSection === 'prompt'     && <PromptSection isKo={isKo} />}
             {activeSection === 'agent'      && <AgentConceptSection isKo={isKo} />}
             {activeSection === 'env'        && <EnvSection isKo={isKo} />}
             {activeSection === 'tools'      && <ToolsSection isKo={isKo} />}
             {activeSection === 'yaml'       && <YamlSection isKo={isKo} />}
+            <StarRating pageId="prereqs" />
+            <RelatedGuides guides={RELATED} />
             <div className="guide-section-nav">
               <button
                 className="guide-nav-btn prev"

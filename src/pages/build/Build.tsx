@@ -3,8 +3,16 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/tutorials', icon: 'fa-graduation-cap', nameKo: '튜토리얼', nameEn: 'Tutorials', descKo: '단계별 실습으로 Harness 학습', descEn: 'Learn Harness with step-by-step tutorials' },
+  { path: '/practice', icon: 'fa-flask', nameKo: '실전 활용', nameEn: 'Practice', descKo: '실전 프로젝트에서 Harness 적용', descEn: 'Apply Harness in real projects' },
+];
 
 const SECTIONS = [
   { id: 'setup',   icon: 'fa-wrench',          ko: '환경 구성',      en: 'Environment Setup' },
@@ -1038,6 +1046,7 @@ export default function Build(): ReactElement {
         path="/build"
       />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '구축하기', labelEn: 'Build' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -1046,12 +1055,21 @@ export default function Build(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'setup'   && <SetupSection isKo={isKo} />}
             {activeSection === 'skill'   && <SkillSection isKo={isKo} />}
             {activeSection === 'team'    && <TeamSection isKo={isKo} />}
             {activeSection === 'pattern' && <PatternSection isKo={isKo} />}
             {activeSection === 'iterate' && <IterateSection isKo={isKo} />}
             {activeSection === 'library' && <LibrarySection isKo={isKo} />}
+
+            <StarRating pageId="build" />
+            <RelatedGuides guides={RELATED} />
 
             {/* Bottom Navigation */}
             <nav className="guide-nav">

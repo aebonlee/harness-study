@@ -4,8 +4,16 @@ import { useAuth } from '../../contexts/AuthContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import { useTutorialProgress } from '../../hooks/useTutorialProgress';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/build', icon: 'fa-hammer', nameKo: '직접 구축', nameEn: 'Build', descKo: '처음부터 Harness를 직접 구축', descEn: 'Build your own Harness from scratch' },
+  { path: '/practice', icon: 'fa-flask', nameKo: '실전 활용', nameEn: 'Practice', descKo: '실전 프로젝트에서 Harness 적용', descEn: 'Apply Harness in real projects' },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                                 */
@@ -507,6 +515,7 @@ export default function Tutorials(): ReactElement {
         path="/tutorials"
       />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '튜토리얼', labelEn: 'Tutorials' }]} />
         <div className="tutorial-layout">
           {/* Sidebar */}
           <aside className="guide-sidebar">
@@ -583,6 +592,12 @@ export default function Tutorials(): ReactElement {
 
           {/* Main Content */}
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {!activeTut && (
               <TutorialOverview
                 tutorials={TUTORIALS}
@@ -604,6 +619,8 @@ export default function Tutorials(): ReactElement {
                 onNext={() => { setActiveStepIdx(i => Math.min(activeTut.steps.length - 1, i + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               />
             )}
+            <StarRating pageId="tutorials" />
+            <RelatedGuides guides={RELATED} />
           </main>
         </div>
       </div>

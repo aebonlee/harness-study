@@ -3,8 +3,17 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/patterns', icon: 'fa-diagram-project', nameKo: '6가지 패턴', nameEn: '6 Patterns', descKo: '파이프라인, 팬아웃 등 아키텍처 패턴', descEn: 'Pipeline, fan-out and more architecture patterns' },
+  { path: '/skills', icon: 'fa-code', nameKo: '스킬 설계', nameEn: 'Skill Design', descKo: '스킬 파일 작성과 프로그레시브 디스클로저', descEn: 'Skill file writing and progressive disclosure' },
+  { path: '/teams', icon: 'fa-users', nameKo: '팀 구성', nameEn: 'Team Building', descKo: '효과적인 에이전트 팀 설계 원칙', descEn: 'Effective agent team design principles' },
+];
 
 const SECTIONS = [
   { id: 'concept',        ko: '에이전트 개념',   en: 'Agent Concepts' },
@@ -53,6 +62,7 @@ export default function Agents(): ReactElement {
     <>
       <SEOHead title={isKo ? '에이전트 이해 | Harness Master' : 'Understanding Agents | Harness Master'} path="/agents" />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '기본학습', labelEn: 'Basics', path: '/intro' }, { label: '에이전트', labelEn: 'Agents' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -61,12 +71,20 @@ export default function Agents(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'concept'       && <ConceptSection isKo={isKo} />}
             {activeSection === 'orchestrator'  && <OrchestratorSection isKo={isKo} />}
             {activeSection === 'subagents'     && <SubagentsSection isKo={isKo} />}
             {activeSection === 'roles'         && <RolesSection isKo={isKo} />}
             {activeSection === 'communication' && <CommunicationSection isKo={isKo} />}
             {activeSection === 'tools'         && <ToolsSection isKo={isKo} />}
+            <StarRating pageId="agents" />
+            <RelatedGuides guides={RELATED} />
             <div className="guide-section-nav">
               <button className="guide-nav-btn prev" onClick={() => handleNav(SECTIONS[currentIndex - 1].id)} disabled={currentIndex === 0}>
                 <i className="fa-solid fa-arrow-left" />

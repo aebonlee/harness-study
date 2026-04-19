@@ -3,8 +3,16 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/skills', icon: 'fa-code', nameKo: '스킬 설계', nameEn: 'Skill Design', descKo: '프로그레시브 디스클로저로 컨텍스트 절약', descEn: 'Save context with progressive disclosure' },
+  { path: '/agents', icon: 'fa-robot', nameKo: '에이전트 이해', nameEn: 'Agents', descKo: '에이전트의 역할과 통신 방식', descEn: 'Agent roles and communication methods' },
+];
 
 const SECTIONS = [
   { id: 'context',  ko: '컨텍스트 창 이해',   en: 'Context Window' },
@@ -53,6 +61,7 @@ export default function Memory(): ReactElement {
     <>
       <SEOHead title={isKo ? '메모리와 컨텍스트 | Harness Master' : 'Memory & Context | Harness Master'} path="/memory" />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '기본학습', labelEn: 'Basics', path: '/intro' }, { label: '메모리', labelEn: 'Memory' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -61,12 +70,20 @@ export default function Memory(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'context'  && <ContextSection isKo={isKo} />}
             {activeSection === 'strategy' && <StrategySection isKo={isKo} />}
             {activeSection === 'agent'    && <AgentSection isKo={isKo} />}
             {activeSection === 'optimize' && <OptimizeSection isKo={isKo} />}
             {activeSection === 'tools'    && <ToolsSection isKo={isKo} />}
             {activeSection === 'longterm' && <LongtermSection isKo={isKo} />}
+            <StarRating pageId="memory" />
+            <RelatedGuides guides={RELATED} />
             <div className="guide-section-nav">
               <button className="guide-nav-btn prev" onClick={() => handleNav(SECTIONS[currentIndex-1].id)} disabled={currentIndex===0}>
                 <i className="fa-solid fa-arrow-left" />

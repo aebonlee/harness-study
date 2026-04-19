@@ -10,6 +10,7 @@ interface Resource {
   url: string;   tag: string; tagEn: string;
   icon: string;  category: string;
   bullets?: string[]; bulletsEn?: string[];
+  updated?: string;
 }
 
 const RESOURCES: Resource[] = [
@@ -19,115 +20,133 @@ const RESOURCES: Resource[] = [
     desc: 'Anthropic이 제공하는 Claude Code 완전 가이드', descEn: 'Complete Claude Code guide by Anthropic',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/overview', tag: '공식', tagEn: 'Official',
     bullets: ['설치·초기 설정부터 고급 기능까지 전체 레퍼런스', 'CLAUDE.md, hooks, 멀티에이전트 공식 설명 포함'],
-    bulletsEn: ['Full reference from installation to advanced features', 'Includes CLAUDE.md, hooks, and multi-agent official docs'] },
+    bulletsEn: ['Full reference from installation to advanced features', 'Includes CLAUDE.md, hooks, and multi-agent official docs'],
+    updated: '2026-04-15' },
   { category: 'official', icon: 'fa-file-lines',
     title: 'Harness(CLAUDE.md) 개요', titleEn: 'Harness (CLAUDE.md) Overview',
     desc: 'CLAUDE.md와 커스텀 슬래시 커맨드 공식 설명', descEn: 'Official guide to CLAUDE.md and custom slash commands',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/memory', tag: '공식', tagEn: 'Official',
     bullets: ['CLAUDE.md 작성 형식과 메모리 계층 구조 이해', '프로젝트·전역·하위 디렉토리 우선순위 설명'],
-    bulletsEn: ['Understand CLAUDE.md format and memory hierarchy', 'Explains project, global, and sub-directory priority'] },
+    bulletsEn: ['Understand CLAUDE.md format and memory hierarchy', 'Explains project, global, and sub-directory priority'],
+    updated: '2026-04-15' },
   { category: 'official', icon: 'fa-terminal',
     title: 'Claude API Reference', titleEn: 'Claude API Reference',
     desc: 'Anthropic API 공식 레퍼런스 문서', descEn: 'Official Anthropic API reference documentation',
     url: 'https://docs.anthropic.com/ko/api/getting-started', tag: '공식', tagEn: 'Official',
     bullets: ['Messages, Tools, Streaming API 전체 엔드포인트 목록', '모델별 컨텍스트 한도 및 API 요금 정보 확인'],
-    bulletsEn: ['Full endpoint list: Messages, Tools, Streaming API', 'Check context limits and pricing for each model'] },
+    bulletsEn: ['Full endpoint list: Messages, Tools, Streaming API', 'Check context limits and pricing for each model'],
+    updated: '2026-04-15' },
   /* 튜토리얼 */
   { category: 'tutorial', icon: 'fa-graduation-cap',
     title: 'Claude Code 시작하기', titleEn: 'Getting Started with Claude Code',
     desc: 'Claude Code 설치부터 첫 번째 하네스 구성까지', descEn: 'From installation to your first Harness setup',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/quickstart', tag: '튜토리얼', tagEn: 'Tutorial',
     bullets: ['5분 안에 Claude Code 설치 및 첫 실행 완료', '기본 명령어와 /help 인터랙티브 가이드 빠른 학습'],
-    bulletsEn: ['Complete Claude Code install and first run in 5 minutes', 'Quickly learn basic commands and the /help guide'] },
+    bulletsEn: ['Complete Claude Code install and first run in 5 minutes', 'Quickly learn basic commands and the /help guide'],
+    updated: '2026-04-10' },
   { category: 'tutorial', icon: 'fa-code',
     title: '커스텀 커맨드 만들기', titleEn: 'Creating Custom Commands',
     desc: '.claude/commands/에 나만의 슬래시 커맨드 작성', descEn: 'Write your own slash commands in .claude/commands/',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/slash-commands', tag: '튜토리얼', tagEn: 'Tutorial',
     bullets: ['슬래시 커맨드가 자동 등록되는 원리 이해', '/review, /refactor 실제 작성 예시 단계별 확인'],
-    bulletsEn: ['Understand how slash commands are auto-registered', 'Step-by-step /review and /refactor writing examples'] },
+    bulletsEn: ['Understand how slash commands are auto-registered', 'Step-by-step /review and /refactor writing examples'],
+    updated: '2026-04-10' },
   { category: 'tutorial', icon: 'fa-robot',
     title: '멀티 에이전트 사용하기', titleEn: 'Using Multi-Agent Features',
     desc: 'Claude Code의 멀티 에이전트 워크플로우 가이드', descEn: 'Guide to multi-agent workflows in Claude Code',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/sub-agents', tag: '튜토리얼', tagEn: 'Tutorial',
     bullets: ['Task 도구로 서브에이전트 생성하는 방법 학습', '병렬 실행과 결과 취합 전략 실습 예시 포함'],
-    bulletsEn: ['Learn how to spawn subagents with the Task tool', 'Includes parallel execution and result aggregation examples'] },
+    bulletsEn: ['Learn how to spawn subagents with the Task tool', 'Includes parallel execution and result aggregation examples'],
+    updated: '2026-04-10' },
   /* GitHub */
   { category: 'github', icon: 'fa-brands fa-github',
     title: 'anthropics/claude-code', titleEn: 'anthropics/claude-code',
     desc: 'Claude Code 공식 GitHub 저장소', descEn: 'Official Claude Code GitHub repository',
     url: 'https://github.com/anthropics/claude-code', tag: 'GitHub', tagEn: 'GitHub',
     bullets: ['최신 릴리즈 노트와 버전별 변경 이력 확인', '버그 리포트 및 피처 요청 Issues 탭 활용'],
-    bulletsEn: ['Check latest release notes and version changelog', 'Submit bug reports and feature requests via Issues'] },
+    bulletsEn: ['Check latest release notes and version changelog', 'Submit bug reports and feature requests via Issues'],
+    updated: '2026-04-01' },
   { category: 'github', icon: 'fa-brands fa-github',
     title: 'Awesome Claude Code', titleEn: 'Awesome Claude Code',
     desc: '커뮤니티가 curate한 Claude Code 리소스 목록', descEn: 'Community-curated list of Claude Code resources',
     url: 'https://github.com/anthropics/awesome-claude-code', tag: 'GitHub', tagEn: 'GitHub',
     bullets: ['커뮤니티가 만든 실용 스킬 파일과 CLAUDE.md 템플릿', '실제 프로젝트 적용 사례와 아이디어 발견'],
-    bulletsEn: ['Community-built skill files and CLAUDE.md templates', 'Discover real project examples and creative ideas'] },
+    bulletsEn: ['Community-built skill files and CLAUDE.md templates', 'Discover real project examples and creative ideas'],
+    updated: '2026-04-01' },
   /* 공식 문서 추가 */
   { category: 'official', icon: 'fa-plug',
     title: 'Claude Code Hooks 가이드', titleEn: 'Claude Code Hooks Guide',
     desc: '훅으로 Claude Code 워크플로우 이벤트를 자동화하는 방법', descEn: 'Automate Claude Code workflow events using hooks',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/hooks', tag: '공식', tagEn: 'Official',
     bullets: ['PreToolUse/PostToolUse 훅 작성 방법 단계별 설명', '자동 테스트·린트·포맷 훅 설정 실전 예시'],
-    bulletsEn: ['Step-by-step guide to writing PreToolUse/PostToolUse hooks', 'Real-world examples for auto-test, lint, and format hooks'] },
+    bulletsEn: ['Step-by-step guide to writing PreToolUse/PostToolUse hooks', 'Real-world examples for auto-test, lint, and format hooks'],
+    updated: '2026-04-15' },
   { category: 'official', icon: 'fa-sliders',
     title: 'Claude Code 설정 레퍼런스', titleEn: 'Claude Code Settings Reference',
     desc: '프로젝트·사용자 레벨 설정 파일 완전 가이드', descEn: 'Complete guide to project and user-level settings files',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/settings', tag: '공식', tagEn: 'Official',
     bullets: ['settings.json 모든 옵션 완전 목록 확인', '프로젝트별·사용자별 설정 우선순위 이해'],
-    bulletsEn: ['Full list of all settings.json options', 'Understand priority between project and user-level settings'] },
+    bulletsEn: ['Full list of all settings.json options', 'Understand priority between project and user-level settings'],
+    updated: '2026-04-15' },
   { category: 'official', icon: 'fa-server',
     title: 'MCP 서버 통합 가이드', titleEn: 'MCP Server Integration',
     desc: 'Model Context Protocol 서버 연결 및 도구 확장 가이드', descEn: 'Connecting MCP servers and extending tools in Claude Code',
     url: 'https://docs.anthropic.com/ko/docs/claude-code/mcp', tag: '공식', tagEn: 'Official',
     bullets: ['MCP 서버 설치 및 Claude Code 연결 방법', '파일시스템·DB·브라우저 도구 확장 사례 포함'],
-    bulletsEn: ['How to install and connect MCP servers to Claude Code', 'Includes filesystem, DB, and browser tool extension examples'] },
+    bulletsEn: ['How to install and connect MCP servers to Claude Code', 'Includes filesystem, DB, and browser tool extension examples'],
+    updated: '2026-04-15' },
   /* GitHub 추가 */
   { category: 'github', icon: 'fa-brands fa-github',
     title: 'anthropic-cookbook', titleEn: 'anthropic-cookbook',
     desc: 'Anthropic API 실용 예제 모음 (공식 레시피북)', descEn: 'Official practical examples for Anthropic API usage',
     url: 'https://github.com/anthropics/anthropic-cookbook', tag: 'GitHub', tagEn: 'GitHub',
     bullets: ['Vision, Tools, Streaming 등 50+ 실용 코드 레시피', '코드를 복사해 바로 프로젝트에 적용 가능'],
-    bulletsEn: ['50+ practical code recipes: Vision, Tools, Streaming, etc.', 'Copy-paste code ready to use in your projects'] },
+    bulletsEn: ['50+ practical code recipes: Vision, Tools, Streaming, etc.', 'Copy-paste code ready to use in your projects'],
+    updated: '2026-04-01' },
   /* 영상 */
   { category: 'video', icon: 'fa-brands fa-youtube',
     title: 'Anthropic 공식 유튜브', titleEn: 'Anthropic Official YouTube',
     desc: 'Claude 제품 발표·데모·개발자 튜토리얼 영상 채널', descEn: 'Claude product announcements, demos, and developer tutorials',
     url: 'https://www.youtube.com/@anthropic-ai', tag: '영상', tagEn: 'Video',
     bullets: ['Claude 신기능 발표 영상과 개발자 데모 시청', '프롬프트 엔지니어링 팁 영상으로 빠른 기술 습득'],
-    bulletsEn: ['Watch Claude new feature announcements and developer demos', 'Quickly acquire skills from prompt engineering tip videos'] },
+    bulletsEn: ['Watch Claude new feature announcements and developer demos', 'Quickly acquire skills from prompt engineering tip videos'],
+    updated: '2026-03-20' },
   { category: 'video', icon: 'fa-play-circle',
     title: 'Claude Code 활용 강좌', titleEn: 'Claude Code Tutorial Series',
     desc: 'Harness 구축 실전 시연 및 활용법 영상 모음', descEn: 'Real-world Harness setup demonstrations and usage videos',
     url: 'https://www.youtube.com/results?search_query=claude+code+harness', tag: '영상', tagEn: 'Video',
     bullets: ['Harness 구축 과정을 영상으로 직접 따라하기', '초보자부터 고급 사용자까지 단계별 강좌 탐색'],
-    bulletsEn: ['Follow along with Harness setup walkthroughs on video', 'Browse step-by-step tutorials for beginners to advanced users'] },
+    bulletsEn: ['Follow along with Harness setup walkthroughs on video', 'Browse step-by-step tutorials for beginners to advanced users'],
+    updated: '2026-03-20' },
   /* 커뮤니티 */
   { category: 'community', icon: 'fa-comments',
     title: 'Anthropic Discord', titleEn: 'Anthropic Discord',
     desc: 'Claude 개발자 공식 디스코드 서버', descEn: 'Official Anthropic developer Discord server',
     url: 'https://discord.gg/anthropic', tag: '커뮤니티', tagEn: 'Community',
     bullets: ['실시간 개발자 Q&A와 베타 기능 피드백 기회', 'Anthropic 팀과 직접 소통하는 공식 채널'],
-    bulletsEn: ['Real-time developer Q&A and beta feature feedback', 'Official channel for direct communication with the Anthropic team'] },
+    bulletsEn: ['Real-time developer Q&A and beta feature feedback', 'Official channel for direct communication with the Anthropic team'],
+    updated: '2026-04-05' },
   { category: 'community', icon: 'fa-reddit',
     title: 'r/ClaudeAI', titleEn: 'r/ClaudeAI',
     desc: 'Claude 관련 Reddit 커뮤니티', descEn: 'Claude-related Reddit community',
     url: 'https://reddit.com/r/ClaudeAI', tag: '커뮤니티', tagEn: 'Community',
     bullets: ['커뮤니티 사용 사례, 팁, 오류 해결 경험 공유', '새로운 활용 아이디어와 프롬프트 트릭 발견'],
-    bulletsEn: ['Community use cases, tips, and error resolution stories', 'Discover new usage ideas and prompt tricks'] },
+    bulletsEn: ['Community use cases, tips, and error resolution stories', 'Discover new usage ideas and prompt tricks'],
+    updated: '2026-04-05' },
   { category: 'community', icon: 'fa-brands fa-github',
     title: 'Claude Code GitHub Discussions', titleEn: 'Claude Code GitHub Discussions',
     desc: '개발자들의 사용 경험·아이디어·버그 리포트 공유', descEn: 'Developers sharing usage experiences, ideas, and bug reports',
     url: 'https://github.com/anthropics/claude-code/discussions', tag: '커뮤니티', tagEn: 'Community',
     bullets: ['실제 사용자들의 Harness 구축 경험 및 사례 탐색', '공식 팀의 Q&A 답변과 로드맵 힌트 확인'],
-    bulletsEn: ['Browse real user Harness building experiences and cases', 'Check official team Q&A answers and roadmap hints'] },
+    bulletsEn: ['Browse real user Harness building experiences and cases', 'Check official team Q&A answers and roadmap hints'],
+    updated: '2026-04-05' },
   { category: 'community', icon: 'fa-globe',
     title: '@AnthropicAI (X/Twitter)', titleEn: '@AnthropicAI (X/Twitter)',
     desc: '최신 Claude 업데이트·개발자 팁 실시간 공유', descEn: 'Real-time Claude updates and developer tips',
     url: 'https://x.com/AnthropicAI', tag: '커뮤니티', tagEn: 'Community',
     bullets: ['Claude 새 버전 및 기능 출시 즉시 알림 수신', '짧은 개발자 팁과 AI 업계 최신 소식 파악'],
-    bulletsEn: ['Instant notifications for Claude version and feature releases', 'Get quick developer tips and the latest AI industry news'] },
+    bulletsEn: ['Instant notifications for Claude version and feature releases', 'Get quick developer tips and the latest AI industry news'],
+    updated: '2026-04-05' },
 ];
 
 const CATEGORIES = [
@@ -233,6 +252,13 @@ export default function Resources(): ReactElement {
                 </div>
                 <span className="resource-tag">{isKo ? res.tag : res.tagEn}</span>
               </div>
+              {res.category === 'video' && (
+                <div className="resource-video-thumb">
+                  <div className="resource-video-play">
+                    <i className="fa-solid fa-play" />
+                  </div>
+                </div>
+              )}
               <h3 className="resource-title">{isKo ? res.title : res.titleEn}</h3>
               <p className="resource-desc">{isKo ? res.desc : res.descEn}</p>
               {res.bullets && res.bullets.length > 0 && (
@@ -241,6 +267,12 @@ export default function Resources(): ReactElement {
                     <li key={bi}>{b}</li>
                   ))}
                 </ul>
+              )}
+              {res.updated && (
+                <div className="resource-updated">
+                  <i className="fa-solid fa-clock" />
+                  <span>{res.updated}</span>
+                </div>
               )}
               <div className="resource-link">
                 <span>{new URL(res.url).hostname}</span>

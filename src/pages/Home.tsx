@@ -1,16 +1,50 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import { LEARNING_PATHS } from '../config/site';
 import SEOHead from '../components/SEOHead';
 import HeroBackground from '../components/HeroBackground';
 import HeroCarousel from '../components/HeroCarousel';
 import FeatureCard from '../components/FeatureCard';
 import TipBox from '../components/TipBox';
+import { useCountUp } from '../hooks/useCountUp';
+import { useTutorialProgress } from '../hooks/useTutorialProgress';
 import type { ReactElement } from 'react';
+
+/* Tutorial metadata for progress dashboard */
+const TUTORIAL_META = [
+  { id: 'tut1', totalChecks: 15, nameKo: '첫 번째 에이전트', nameEn: 'First Agent' },
+  { id: 'tut2', totalChecks: 16, nameKo: '파이프라인 패턴', nameEn: 'Pipeline Pattern' },
+  { id: 'tut3', totalChecks: 14, nameKo: '팬아웃 패턴', nameEn: 'Fan-out Pattern' },
+  { id: 'tut4', totalChecks: 18, nameKo: '스킬 라이브러리', nameEn: 'Skill Library' },
+  { id: 'tut5', totalChecks: 17, nameKo: '풀스택 프로젝트', nameEn: 'Full-stack Project' },
+];
 
 export default function Home(): ReactElement {
   const { language, t } = useLanguage();
   const isKo = language === 'ko';
+  const { user } = useAuth();
+
+  // Count-up animations for stats
+  const stat1 = useCountUp(8);
+  const stat2 = useCountUp(48);
+  const stat3 = useCountUp(6);
+  const stat4 = useCountUp(50);
+
+  // Tutorial progress dashboard
+  const { tutorialProgress: getTutProgress } = useTutorialProgress(user?.id);
+  const [tutProgress, setTutProgress] = useState<number[]>([]);
+
+  useEffect(() => {
+    const progress = TUTORIAL_META.map(t => getTutProgress(t.id, t.totalChecks));
+    setTutProgress(progress);
+  }, [getTutProgress]);
+
+  const totalProgress = tutProgress.length > 0
+    ? Math.round(tutProgress.reduce((a, b) => a + b, 0) / tutProgress.length)
+    : 0;
+  const hasAnyProgress = tutProgress.some(p => p > 0);
 
   const carouselSlides = [
     {
@@ -213,25 +247,61 @@ Task 3: seo      → 메타 최적화
       <section className="stats-section">
         <div className="container">
           <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-number">8</div>
+            <div className="stat-item" ref={stat1.ref}>
+              <div className="stat-number">{stat1.count}</div>
               <div className="stat-label">{t('stats.guides')}</div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">48+</div>
+            <div className="stat-item" ref={stat2.ref}>
+              <div className="stat-number">{stat2.count}+</div>
               <div className="stat-label">{t('stats.topics')}</div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">6</div>
+            <div className="stat-item" ref={stat3.ref}>
+              <div className="stat-number">{stat3.count}</div>
               <div className="stat-label">{t('stats.patterns')}</div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">50+</div>
+            <div className="stat-item" ref={stat4.ref}>
+              <div className="stat-number">{stat4.count}+</div>
               <div className="stat-label">{isKo ? '코드 예제' : 'Code Examples'}</div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Progress Dashboard */}
+      {hasAnyProgress && (
+        <section className="section progress-dashboard">
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">{isKo ? '나의 학습 진행도' : 'My Learning Progress'}</h2>
+              <p className="section-subtitle">
+                {isKo ? '튜토리얼 완료 현황을 확인하세요.' : 'Check your tutorial completion status.'}
+              </p>
+            </div>
+            <div className="progress-overview">
+              <div className="progress-total">
+                <div className="progress-total-label">{isKo ? '전체 진행률' : 'Overall Progress'}</div>
+                <div className="progress-total-value">{totalProgress}%</div>
+                <div className="progress-bar-track">
+                  <div className="progress-bar-fill" style={{ width: `${totalProgress}%` }} />
+                </div>
+              </div>
+              <div className="progress-items">
+                {TUTORIAL_META.map((meta, i) => (
+                  <div key={meta.id} className="progress-item">
+                    <div className="progress-item-header">
+                      <span className="progress-item-name">{isKo ? meta.nameKo : meta.nameEn}</span>
+                      <span className="progress-item-pct">{tutProgress[i]}%</span>
+                    </div>
+                    <div className="progress-bar-track small">
+                      <div className="progress-bar-fill" style={{ width: `${tutProgress[i]}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Workflow */}
       <section className="workflow-section">

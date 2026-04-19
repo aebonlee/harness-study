@@ -198,6 +198,104 @@
   align-self: center;
 }
 
+/* ---- Progress Dashboard Section ---- */
+.progress-dashboard {
+  padding: 4rem 0;
+  background: var(--color-bg-secondary);
+}
+
+.progress-overview {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.progress-total {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  text-align: center;
+}
+
+.progress-total-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.progress-total-value {
+  font-size: var(--font-size-4xl);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-track.small {
+  height: 6px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease-out;
+  min-width: 0;
+}
+
+.progress-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.progress-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+}
+
+.progress-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progress-item-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.progress-item-pct {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .progress-overview {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 /* ---- Workflow Section ---- */
 .workflow-section {
   padding: 5rem 0;
@@ -385,6 +483,91 @@
   border-radius: var(--radius-full);
   font-size: 0.7rem;
   font-weight: 600;
+}
+
+/* ---- Progress Dashboard ---- */
+.progress-dashboard {
+  padding: 4rem 0;
+  background: var(--color-bg);
+}
+
+.progress-overview {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: 2rem;
+}
+
+.progress-total {
+  text-align: center;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.progress-total-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  margin-bottom: 0.375rem;
+}
+
+.progress-total-value {
+  font-size: var(--font-size-4xl);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-track.small {
+  height: 6px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease;
+}
+
+.progress-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.progress-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.375rem;
+}
+
+.progress-item-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.progress-item-pct {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
 }
 
 /* ---- CTA Section ---- */

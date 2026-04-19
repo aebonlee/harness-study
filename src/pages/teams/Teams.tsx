@@ -3,8 +3,17 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import Breadcrumb from '../../components/Breadcrumb';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/patterns', icon: 'fa-diagram-project', nameKo: '6가지 패턴', nameEn: '6 Patterns', descKo: '파이프라인, 팬아웃 등 아키텍처 패턴', descEn: 'Pipeline, fan-out and more architecture patterns' },
+  { path: '/practice', icon: 'fa-flask', nameKo: '실전 활용', nameEn: 'Practice', descKo: '실전 프로젝트에 팀을 적용하는 사례', descEn: 'Applying teams in real projects' },
+  { path: '/build', icon: 'fa-hammer', nameKo: '직접 구축', nameEn: 'Build', descKo: '처음부터 Harness 팀을 직접 구축', descEn: 'Build a Harness team from scratch' },
+];
 
 const SECTIONS = [
   { id: 'design',    ko: '팀 설계 원칙',      en: 'Team Design Principles' },
@@ -53,6 +62,7 @@ export default function Teams(): ReactElement {
     <>
       <SEOHead title={isKo ? '팀 구성 | Harness Master' : 'Team Building | Harness Master'} path="/teams" />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '따라하기', labelEn: 'How-to', path: '/patterns' }, { label: '팀 구성', labelEn: 'Teams' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -61,12 +71,20 @@ export default function Teams(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'design'   && <DesignSection isKo={isKo} />}
             {activeSection === 'protocol' && <ProtocolSection isKo={isKo} />}
             {activeSection === 'error'    && <ErrorSection isKo={isKo} />}
             {activeSection === 'testing'  && <TestingSection isKo={isKo} />}
             {activeSection === 'examples' && <ExamplesSection isKo={isKo} />}
             {activeSection === 'perf'     && <PerfSection isKo={isKo} />}
+            <StarRating pageId="teams" />
+            <RelatedGuides guides={RELATED} />
             <div className="guide-section-nav">
               <button className="guide-nav-btn prev" onClick={() => handleNav(SECTIONS[currentIndex-1].id)} disabled={currentIndex===0}>
                 <i className="fa-solid fa-arrow-left" />

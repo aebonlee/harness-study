@@ -340,6 +340,44 @@
     flex-direction: column;
     align-items: stretch;
   }
+
+  .breadcrumb {
+    padding: 0.625rem 1rem;
+  }
+
+  .related-guides-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instructor-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .instructor-avatar {
+    margin: 0 auto;
+  }
+
+  .instructor-contacts {
+    justify-content: center;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-newsletter-form {
+    flex-direction: column;
+  }
+
+  .search-modal {
+    max-width: calc(100% - 2rem);
+    margin: 0 1rem;
+  }
+
+  .progress-overview {
+    padding: 1.25rem;
+  }
 }
 
 /* ---- Print ---- */
@@ -350,7 +388,13 @@
   .guide-sidebar-toggle,
   .guide-nav,
   .hero-scroll,
-  .mobile-menu-btn {
+  .mobile-menu-btn,
+  .guide-pdf-btn-wrapper,
+  .related-guides,
+  .star-rating-section,
+  .guide-section-nav,
+  .breadcrumb,
+  .search-overlay {
     display: none !important;
   }
 

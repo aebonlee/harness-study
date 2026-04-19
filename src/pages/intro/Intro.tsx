@@ -3,8 +3,16 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import TipBox from '../../components/TipBox';
 import GuideSidebar3 from '../../components/GuideSidebar3';
+import RelatedGuides from '../../components/RelatedGuides';
+import StarRating from '../../components/StarRating';
+import Breadcrumb from '../../components/Breadcrumb';
 import type { ReactElement } from 'react';
 import type { NavGroup } from '../../components/GuideSidebar3';
+
+const RELATED = [
+  { path: '/agents', icon: 'fa-robot', nameKo: '에이전트 이해', nameEn: 'Agents', descKo: '에이전트, 오케스트레이터, 서브에이전트 역할', descEn: 'Agent, orchestrator, subagent roles' },
+  { path: '/prereqs', icon: 'fa-book-open', nameKo: '사전지식 & 도구', nameEn: 'Prerequisites', descKo: 'Claude Code 설치와 사전 준비', descEn: 'Claude Code setup and prerequisites' },
+];
 
 const SECTIONS = [
   { id: 'overview',   icon: 'fa-rocket',        ko: '하네스란?',       en: 'What is Harness?' },
@@ -71,6 +79,7 @@ export default function Intro(): ReactElement {
         path="/intro"
       />
       <div className="guide-page">
+        <Breadcrumb items={[{ label: '기본학습', labelEn: 'Basics', path: '/intro' }, { label: '기초 개념', labelEn: 'Concepts' }]} />
         <div className="guide-layout">
           <GuideSidebar3
             groups={NAV_GROUPS}
@@ -80,12 +89,20 @@ export default function Intro(): ReactElement {
             isKo={isKo}
           />
           <main className="guide-content">
+            <div className="guide-pdf-btn-wrapper">
+              <button className="guide-pdf-btn" onClick={() => window.print()} title={isKo ? 'PDF로 저장' : 'Save as PDF'}>
+                <i className="fa-solid fa-file-pdf" />
+                {isKo ? 'PDF 저장' : 'Save PDF'}
+              </button>
+            </div>
             {activeSection === 'overview'   && <OverviewSection isKo={isKo} />}
             {activeSection === 'why'        && <WhySection isKo={isKo} />}
             {activeSection === 'components' && <ComponentsSection isKo={isKo} />}
             {activeSection === 'ecosystem'  && <EcosystemSection isKo={isKo} />}
             {activeSection === 'install'    && <InstallSection isKo={isKo} />}
             {activeSection === 'first'      && <FirstSection isKo={isKo} />}
+            <StarRating pageId="intro" />
+            <RelatedGuides guides={RELATED} />
             <div className="guide-section-nav">
               <button className="guide-nav-btn prev" onClick={() => handleNav(SECTIONS[currentIndex - 1].id)} disabled={currentIndex === 0}>
                 <i className="fa-solid fa-arrow-left" />

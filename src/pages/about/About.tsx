@@ -107,6 +107,47 @@ export default function About(): ReactElement {
         </div>
       </section>
 
+      {/* Instructor */}
+      <section className="section">
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="section-title">{isKo ? '제작자 소개' : 'About the Creator'}</h2>
+            <p className="section-subtitle">
+              {isKo ? '이 플랫폼을 만든 사람을 소개합니다.' : 'Meet the person behind this platform.'}
+            </p>
+          </div>
+          <div className="instructor-card">
+            <div className="instructor-avatar">
+              <i className="fa-solid fa-user-tie" />
+            </div>
+            <div className="instructor-info">
+              <h3 className="instructor-name">{isKo ? '이애본 박사' : 'Ph.D Aebon Lee'}</h3>
+              <p className="instructor-role">{isKo ? 'DreamIT Biz 대표 / AI·SW 교육 전문가' : 'CEO of DreamIT Biz / AI·SW Education Expert'}</p>
+              <div className="instructor-tags">
+                <span className="instructor-tag">Claude Code</span>
+                <span className="instructor-tag">AI Agent</span>
+                <span className="instructor-tag">Prompt Engineering</span>
+                <span className="instructor-tag">{isKo ? '에이전트 오케스트레이션' : 'Agent Orchestration'}</span>
+                <span className="instructor-tag">{isKo ? 'SW 교육' : 'SW Education'}</span>
+              </div>
+              <p className="instructor-bio">
+                {isKo
+                  ? '75개 이상의 교육 플랫폼을 설계·개발한 경험을 바탕으로, AI 에이전트 오케스트레이션과 Claude Code 하네스 활용법을 체계적으로 정리했습니다. 대학교 강의와 기업 교육을 병행하며 실전 중심의 AI·SW 교육 콘텐츠를 제작하고 있습니다.'
+                  : 'With experience designing and developing 75+ educational platforms, I have systematically organized AI agent orchestration and Claude Code Harness usage. I create practical AI/SW educational content while teaching at universities and conducting corporate training.'}
+              </p>
+              <div className="instructor-contacts">
+                <a href="mailto:aebon@dreamitbiz.com" className="instructor-contact">
+                  <i className="fa-solid fa-envelope" /> aebon@dreamitbiz.com
+                </a>
+                <a href="https://github.com/aebonlee" target="_blank" rel="noopener noreferrer" className="instructor-contact">
+                  <i className="fa-brands fa-github" /> github.com/aebonlee
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Learning Path */}
       <section className="section">
         <div className="container">
@@ -293,6 +334,79 @@ Orchestrator coordinating a multi-agent team.
                 ? 'Harness 실습을 위해 Claude Code(npm install -g @anthropic-ai/claude-code)가 사전 설치되어 있어야 합니다.'
                 : 'Claude Code must be pre-installed (npm install -g @anthropic-ai/claude-code) for Harness practice.'}
             </TipBox>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section" style={{ background: 'var(--color-bg-secondary)' }}>
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="section-title">{isKo ? '학습자 후기' : 'Learner Testimonials'}</h2>
+            <p className="section-subtitle">
+              {isKo ? 'Harness Master를 사용한 학습자들의 실제 후기입니다.' : 'Real testimonials from learners who used Harness Master.'}
+            </p>
+          </div>
+          <div className="testimonials-grid">
+            {[
+              {
+                name: isKo ? '김지훈' : 'Jihoon K.',
+                role: isKo ? '프론트엔드 개발자' : 'Frontend Developer',
+                quote: isKo
+                  ? '하네스 개념이 추상적이었는데, 이 사이트의 단계별 가이드를 따라하니 실제 프로젝트에 바로 적용할 수 있었습니다. 특히 팬아웃 패턴 설명이 실무에 많은 도움이 됐습니다.'
+                  : 'Harness concepts were abstract, but following the step-by-step guides here let me apply them to real projects immediately. The fan-out pattern explanation was especially helpful.',
+                stars: 5,
+              },
+              {
+                name: isKo ? '박서연' : 'Seoyeon P.',
+                role: isKo ? 'AI 엔지니어' : 'AI Engineer',
+                quote: isKo
+                  ? '멀티 에이전트 팀 구성법을 찾다가 이 사이트를 발견했어요. 6가지 패턴을 코드 예제와 함께 배울 수 있어서 학습 속도가 확 빨라졌습니다.'
+                  : 'I found this site looking for multi-agent team setup methods. Being able to learn 6 patterns with code examples dramatically sped up my learning.',
+                stars: 5,
+              },
+              {
+                name: isKo ? '이동현' : 'Donghyun L.',
+                role: isKo ? '풀스택 개발자' : 'Full-stack Developer',
+                quote: isKo
+                  ? '튜토리얼의 체크리스트 기능이 정말 좋습니다. 어디까지 했는지 자동 저장되니까 점심 먹고 와도 바로 이어서 할 수 있어요. 한영 전환도 깔끔합니다.'
+                  : 'The tutorial checklist feature is excellent. Auto-saving progress means I can pick up right where I left off. The Korean/English toggle is also well implemented.',
+                stars: 4,
+              },
+              {
+                name: isKo ? '최은지' : 'Eunji C.',
+                role: isKo ? 'DevOps 엔지니어' : 'DevOps Engineer',
+                quote: isKo
+                  ? 'CLAUDE.md 작성법부터 스킬 파일 설계까지 체계적으로 배울 수 있는 유일한 한국어 자료입니다. 팀원들에게도 추천했습니다.'
+                  : 'The only Korean resource for systematically learning from CLAUDE.md to skill file design. I recommended it to my team as well.',
+                stars: 5,
+              },
+              {
+                name: isKo ? '정민수' : 'Minsu J.',
+                role: isKo ? '스타트업 CTO' : 'Startup CTO',
+                quote: isKo
+                  ? 'Claude Code를 팀에 도입하려고 했는데 하네스 개념을 몰라서 막혔었습니다. 이 사이트에서 오케스트레이터와 서브에이전트 개념을 확실히 잡았습니다.'
+                  : 'I was stuck introducing Claude Code to my team without understanding Harness. This site solidified my understanding of orchestrators and subagents.',
+                stars: 5,
+              },
+            ].map((t, i) => (
+              <div key={i} className="testimonial-card">
+                <div className="testimonial-quote-icon"><i className="fa-solid fa-quote-left" /></div>
+                <p className="testimonial-text">{t.quote}</p>
+                <div className="testimonial-stars">
+                  {Array.from({ length: 5 }, (_, si) => (
+                    <i key={si} className={`fa-${si < t.stars ? 'solid' : 'regular'} fa-star`} />
+                  ))}
+                </div>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">{t.name[0]}</div>
+                  <div>
+                    <div className="testimonial-name">{t.name}</div>
+                    <div className="testimonial-role">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

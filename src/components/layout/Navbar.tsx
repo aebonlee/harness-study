@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
+import SearchModal from '../SearchModal';
 import type { ReactElement } from 'react';
 
 /* ── Nav data types ── */
@@ -55,6 +56,7 @@ export default function Navbar(): ReactElement {
   const [showColorPicker,  setShowColorPicker]  = useState(false);
   const [openDropdown,     setOpenDropdown]     = useState<number | null>(null);
   const [openMobileDrop,   setOpenMobileDrop]   = useState<number | null>(null);
+  const [isSearchOpen,     setIsSearchOpen]     = useState(false);
 
   const colorPickerRef = useRef<HTMLDivElement>(null);
   const navRef         = useRef<HTMLUListElement>(null);
@@ -64,6 +66,17 @@ export default function Navbar(): ReactElement {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
   }, []);
 
   useEffect(() => {
@@ -159,6 +172,11 @@ export default function Navbar(): ReactElement {
 
           {/* Actions */}
           <div className="navbar-actions">
+
+            {/* Search */}
+            <button className="icon-btn" onClick={() => setIsSearchOpen(true)} title={isKo ? '검색 (Ctrl+K)' : 'Search (Ctrl+K)'}>
+              <i className="fa-solid fa-magnifying-glass" />
+            </button>
 
             {/* Color Picker */}
             <div className="color-picker" ref={colorPickerRef}>
@@ -286,6 +304,7 @@ export default function Navbar(): ReactElement {
           )}
         </div>
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 }
