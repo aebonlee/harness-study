@@ -502,6 +502,47 @@ function ProducerSection({ isKo }: { isKo: boolean }): ReactElement {
         </div>
       </div>
       <TipBox type="important">{isKo ? '생산자-검토자 패턴은 Harness A/B 테스트에서 가장 큰 품질 개선을 보인 패턴입니다. 특히 코드 품질과 문서 완성도 측면에서 탁월한 효과를 발휘합니다.' : 'The Producer-Reviewer pattern showed the largest quality improvement in Harness A/B tests, especially in code quality and documentation completeness.'}</TipBox>
+
+      <h3>{isKo ? 'Context Reset — 교대 근무 방식' : 'Context Reset — Shift Work Approach'}</h3>
+      <p>{isKo ? 'Anthropic이 공개한 핵심 기법입니다. AI가 긴 작업을 하면 "컨텍스트 불안"으로 품질이 떨어집니다. 해결책: AI 1번이 작업 → 진행 메모 작성 → AI 2번이 메모를 읽고 이어서 작업. 각 AI가 항상 "맑은 머리"로 시작하므로 대충하는 일이 없습니다.' : 'A key technique revealed by Anthropic. Long tasks cause "Context Anxiety" that degrades quality. Solution: AI 1 works → writes progress notes → AI 2 reads notes and continues. Each AI starts with a "fresh mind," preventing quality drops.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">Context Reset Flow</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`Context Reset (교대 근무 방식)
+─────────────────────────────────────
+AI-1  ▶ 작업 전반부 완료
+      ▶ progress.md 작성 (진행 상황 메모)
+      ▶ 컨텍스트 종료 ✂️
+
+AI-2  ◀ progress.md 읽기 (맑은 머리로 시작)
+      ▶ 작업 후반부 완료
+      ▶ 최종 산출물 작성
+
+핵심: 각 AI는 항상 fresh context로 시작
+      → 컨텍스트 불안 없이 고품질 유지`}</code></pre>
+        </div>
+      </div>
+
+      <h3>{isKo ? 'Evaluator 채점 기준표 설계' : 'Evaluator Scoring Rubric Design'}</h3>
+      <p>{isKo ? 'Anthropic의 프론트엔드 디자인 실험에서 검증된 채점 기준입니다. AI가 약한 영역에 높은 비중을, AI가 이미 잘하는 영역에 낮은 비중을 배치하는 것이 핵심입니다.' : 'Scoring rubric validated in Anthropic\'s frontend design experiments. The key is assigning high weight to areas where AI is weak, and low weight to areas AI already handles well.'}</p>
+      <div className="comparison-table-wrapper">
+        <table className="comparison-table">
+          <thead><tr><th>{isKo ? '비중' : 'Weight'}</th><th>{isKo ? '기준' : 'Criteria'}</th><th>{isKo ? '설명' : 'Description'}</th></tr></thead>
+          <tbody>
+            <tr><td><strong>{isKo ? '높음' : 'High'}</strong></td><td>{isKo ? '디자인 품질' : 'Design Quality'}</td><td>{isKo ? '색상·글꼴·레이아웃이 통일된 분위기를 만드는가?' : 'Do colors, fonts, and layout create a unified atmosphere?'}</td></tr>
+            <tr><td><strong>{isKo ? '높음' : 'High'}</strong></td><td>{isKo ? '독창성' : 'Originality'}</td><td>{isKo ? 'AI 특유의 "뻔한 패턴"(흰 카드+보라색 그라데이션 등)을 피했는가?' : 'Does it avoid typical AI patterns (white cards + purple gradients)?'}</td></tr>
+            <tr><td>{isKo ? '낮음' : 'Low'}</td><td>{isKo ? '완성도' : 'Craft'}</td><td>{isKo ? '글자 크기, 간격 등 기술적 완성도 (AI가 이미 잘함)' : 'Font sizes, spacing — technical polish (AI already does well)'}</td></tr>
+            <tr><td>{isKo ? '낮음' : 'Low'}</td><td>{isKo ? '기능성' : 'Functionality'}</td><td>{isKo ? '버튼 찾기, 직관성 등 (AI가 이미 잘함)' : 'Button findability, intuitiveness (AI already does well)'}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>{isKo ? '반복 개선 루프 (5~15회)' : 'Iterative Improvement Loop (5-15 rounds)'}</h3>
+      <p>{isKo ? 'Anthropic 실험에서 Generator가 생성 → Evaluator가 Playwright로 실제 페이지를 열어 스크린샷·클릭·스크롤 확인 → 구체적 피드백 → Generator가 개선하는 루프를 5~15회 반복했습니다. 10회차에서 AI가 완전히 새로운 발상으로 전환하는 "창의적 도약"이 관찰되었습니다.' : 'In Anthropic\'s experiments, the loop of Generator creating → Evaluator opening actual pages via Playwright for screenshots/clicks/scrolls → specific feedback → Generator improving was repeated 5-15 times. At round 10, a "creative leap" was observed where AI switched to an entirely new approach.'}</p>
+      <TipBox type="tip">{isKo ? '네덜란드 미술관 프로젝트: 9회까지는 깔끔한 다크 테마로 다듬어졌으나, 10회차에서 AI가 CSS로 3D 공간감 있는 "방 탐험형" 미술관을 구현했습니다. 반복되는 "부족하다"는 신호가 창의적 도약을 유도한 것입니다.' : 'Dutch museum project: 9 rounds refined a clean dark theme, but at round 10, the AI implemented a "room exploration" museum with CSS 3D spatial effects. Repeated "not enough" signals triggered a creative leap.'}</TipBox>
     </div>
   );
 }

@@ -168,8 +168,27 @@ function WhySection({ isKo }: { isKo: boolean }): ReactElement {
         <p>{isKo ? 'AI 에이전트 오케스트레이션이 필요한 이유와 Harness가 제공하는 차별화된 가치를 알아봅니다.' : 'Understand why AI agent orchestration matters and the unique value Harness provides.'}</p>
       </div>
 
-      <h2>{isKo ? 'AI 에이전트의 한계' : 'Limitations of Single AI Agents'}</h2>
-      <p>{isKo ? '단일 AI 에이전트는 강력하지만 한계가 있습니다. 복잡한 작업을 수행할 때 컨텍스트 창의 한계에 부딪히고, 다양한 전문 지식이 필요한 작업에서 품질이 저하될 수 있습니다. 또한 검토 없이 생성된 결과물은 오류를 포함할 가능성이 높습니다.' : 'Single AI agents are powerful but have limitations. When performing complex tasks, they hit context window limits and quality may degrade on tasks requiring diverse expertise. Outputs generated without review are more likely to contain errors.'}</p>
+      <h2>{isKo ? 'AI 단독 작업의 두 가지 핵심 문제' : 'Two Core Problems of Solo AI Work'}</h2>
+      <p>{isKo ? 'Anthropic이 직접 공개한 연구에 따르면, 동일한 AI 모델도 어떤 시스템 구조 내에서 작동하느냐에 따라 결과물의 품질이 완전히 달라집니다. AI 한 마리에게 큰 일을 시키면 다음 두 가지 근본적 문제가 발생합니다.' : 'According to Anthropic\'s research, the same AI model produces completely different quality results depending on what system structure it operates within. Assigning a big task to a single AI triggers two fundamental problems.'}</p>
+
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">😰</div>
+          <h4>{isKo ? '컨텍스트 불안 (Context Anxiety)' : 'Context Anxiety'}</h4>
+          <p>{isKo ? 'AI가 처리할 정보가 길어지면 초반부 내용을 잊어버리고 후반부를 대충 마무리합니다. 장문 리포트를 작성하는 피곤한 신입사원처럼, AI도 "마지막이겠지"하며 품질을 떨어뜨립니다.' : 'When the information AI must process grows long, it forgets early content and rushes through the end. Like a tired intern writing a lengthy report, the AI drops quality thinking "this must be the last part."'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🪞</div>
+          <h4>{isKo ? '자기 평가의 함정' : 'Self-Evaluation Trap'}</h4>
+          <p>{isKo ? '"당신의 작업을 평가해보세요"라고 하면, AI는 자신의 결과물에 항상 후한 점수를 줍니다. 학생이 자신의 시험지를 채점하는 것처럼 객관성이 부족합니다. 생성(Generator)과 평가(Evaluator)를 분리해야 합니다.' : 'When asked to evaluate its own work, AI always gives itself generous scores. Like a student grading their own exam, objectivity is lacking. Generator and Evaluator must be separated.'}</p>
+        </div>
+      </div>
+
+      <TipBox type="danger">
+        {isKo
+          ? 'Solo Agent로 20분/$9에 완성한 앱은 겉으로는 그럴듯하나 핵심 기능이 미작동합니다. 반면 3-Agent Harness로 6시간/$200에 만든 앱은 16개 기능이 모두 정상 작동합니다. 비용은 20배지만, Solo는 실질적으로 쓸 수 없는 결과물입니다. — Anthropic Engineering Blog'
+          : 'A Solo Agent app completed in 20min/$9 looks polished but core features don\'t work. A 3-Agent Harness app taking 6hrs/$200 has all 16 features working. Cost is 20x but Solo produces unusable results. — Anthropic Engineering Blog'}
+      </TipBox>
 
       <h3>{isKo ? 'Harness가 제공하는 가치' : 'Value Harness Provides'}</h3>
       <div className="info-grid">

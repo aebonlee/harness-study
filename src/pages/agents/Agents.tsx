@@ -407,6 +407,74 @@ function RolesSection({ isKo }: { isKo: boolean }): ReactElement {
       <TipBox type="tip">
         {isKo ? '역할 이름은 직관적으로 지정하세요. "agent-1"보다 "code-reviewer" 또는 "documentation-writer"가 훨씬 명확합니다. 좋은 이름은 오케스트레이터가 올바른 에이전트를 선택하는 데 도움을 줍니다.' : 'Name roles intuitively. "code-reviewer" or "documentation-writer" is much clearer than "agent-1". Good names help the orchestrator select the right agent.'}
       </TipBox>
+
+      <h3>{isKo ? 'Anthropic의 Planner / Generator / Evaluator 아키텍처' : 'Anthropic\'s Planner / Generator / Evaluator Architecture'}</h3>
+      <p>{isKo ? 'Anthropic이 실전에서 검증한 가장 효과적인 에이전트 아키텍처는 3인 체제(Three-Agent Harness)입니다. 단독 에이전트가 "생성 + 평가"를 동시에 하면 자기 평가의 함정(Self-evaluation Trap)에 빠집니다 — 자신이 만든 결과물을 객관적으로 평가하지 못하는 현상입니다. 역할을 분리하면 이 문제가 해결됩니다.' : 'The most effective agent architecture validated by Anthropic in practice is the Three-Agent Harness. When a single agent handles both "generation + evaluation," it falls into the Self-evaluation Trap — unable to objectively assess its own output. Separating roles solves this problem.'}</p>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">📐</div>
+          <h4>{isKo ? 'Planner (계획자)' : 'Planner'}</h4>
+          <p>{isKo ? '작업을 분석하고 실행 계획을 수립합니다. 전체 구조를 설계하고, Generator에게 명확한 지시를 전달합니다. "무엇을 만들 것인가"를 결정하는 역할입니다.' : 'Analyzes tasks and establishes execution plans. Designs the overall structure and delivers clear instructions to the Generator. Decides "what to build."'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚙️</div>
+          <h4>{isKo ? 'Generator (생성자)' : 'Generator'}</h4>
+          <p>{isKo ? 'Planner의 계획에 따라 실제 산출물을 생성합니다. 코드 작성, 문서 생성, 콘텐츠 제작 등 실행에 집중합니다. 평가는 하지 않습니다.' : 'Creates actual deliverables according to the Planner\'s plan. Focuses on execution — writing code, generating docs, creating content. Does NOT evaluate.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔎</div>
+          <h4>{isKo ? 'Evaluator (평가자)' : 'Evaluator'}</h4>
+          <p>{isKo ? '독립적으로 Generator의 산출물을 채점 기준표(Rubric)에 따라 평가합니다. 생성 과정에 관여하지 않았기 때문에 객관적 판단이 가능합니다.' : 'Independently evaluates the Generator\'s output using a scoring Rubric. Can judge objectively because it was NOT involved in the creation process.'}</p>
+        </div>
+      </div>
+
+      {/* 3-Agent Architecture Diagram */}
+      <div style={{ margin: '2rem 0', textAlign: 'center' }}>
+        <svg viewBox="0 0 460 220" style={{ width: '100%', maxWidth: '460px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+          {/* Planner */}
+          <rect x="10" y="20" width="120" height="44" rx="8" fill="rgba(59,130,246,0.3)" stroke="rgba(59,130,246,0.8)" strokeWidth="2"/>
+          <text x="70" y="47" textAnchor="middle" fontSize="12" fill="var(--color-text-primary)" fontWeight="700">{isKo ? '📐 Planner' : '📐 Planner'}</text>
+          {/* Arrow 1 */}
+          <line x1="130" y1="42" x2="165" y2="42" stroke="var(--color-text-primary)" strokeWidth="1.5" markerEnd="url(#arrowhead-agents)"/>
+          <text x="148" y="36" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">{isKo ? '계획' : 'Plan'}</text>
+          {/* Generator */}
+          <rect x="170" y="20" width="120" height="44" rx="8" fill="rgba(16,185,129,0.3)" stroke="rgba(16,185,129,0.8)" strokeWidth="2"/>
+          <text x="230" y="47" textAnchor="middle" fontSize="12" fill="var(--color-text-primary)" fontWeight="700">{isKo ? '⚙️ Generator' : '⚙️ Generator'}</text>
+          {/* Arrow 2 */}
+          <line x1="290" y1="42" x2="325" y2="42" stroke="var(--color-text-primary)" strokeWidth="1.5" markerEnd="url(#arrowhead-agents)"/>
+          <text x="308" y="36" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">{isKo ? '산출물' : 'Output'}</text>
+          {/* Evaluator */}
+          <rect x="330" y="20" width="120" height="44" rx="8" fill="rgba(239,68,68,0.3)" stroke="rgba(239,68,68,0.8)" strokeWidth="2"/>
+          <text x="390" y="47" textAnchor="middle" fontSize="12" fill="var(--color-text-primary)" fontWeight="700">{isKo ? '🔎 Evaluator' : '🔎 Evaluator'}</text>
+          {/* Feedback loop */}
+          <path d="M 390 64 L 390 100 L 230 100 L 230 64" fill="none" stroke="rgba(239,68,68,0.7)" strokeWidth="1.5" strokeDasharray="5,3" markerEnd="url(#arrowhead-agents)"/>
+          <text x="310" y="95" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">{isKo ? '피드백 (불합격 시)' : 'Feedback (if failed)'}</text>
+          {/* Rubric */}
+          <rect x="340" y="115" width="100" height="28" rx="4" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1.5"/>
+          <text x="390" y="133" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">📋 Rubric</text>
+          <line x1="390" y1="64" x2="390" y2="115" stroke="var(--color-border)" strokeWidth="1" strokeDasharray="3,3"/>
+          {/* Arrow marker definition */}
+          <defs>
+            <marker id="arrowhead-agents" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="var(--color-text-primary)"/>
+            </marker>
+          </defs>
+          {/* Caption */}
+          <text x="230" y="175" textAnchor="middle" fontSize="11" fill="var(--color-text-primary)">
+            {isKo ? 'Evaluator가 불합격 판정 시 Generator에게 피드백 → 반복 개선' : 'When Evaluator rejects, feedback loops back to Generator → iterative improvement'}
+          </text>
+          <text x="230" y="195" textAnchor="middle" fontSize="10" fill="var(--color-text-muted)">
+            {isKo ? '(Anthropic 실전: 평균 5~15회 반복으로 최적 품질 달성)' : '(Anthropic practice: avg 5-15 iterations for optimal quality)'}
+          </text>
+        </svg>
+      </div>
+
+      <TipBox type="danger">
+        {isKo
+          ? '핵심 원칙: Generator와 Evaluator는 반드시 분리하세요. 같은 에이전트가 생성과 평가를 모두 담당하면 "자기 평가의 함정"에 빠져 품질이 하락합니다. Anthropic은 이를 실전에서 확인했습니다 — Solo Agent($9/20분)보다 3-Agent Harness($200/6시간)가 더 비싸지만, 결과물 품질은 비교할 수 없을 만큼 높습니다.'
+          : 'Key principle: Generator and Evaluator MUST be separate. When the same agent handles both generation and evaluation, it falls into the "Self-evaluation Trap" degrading quality. Anthropic confirmed this in practice — the 3-Agent Harness ($200/6hrs) costs more than a Solo Agent ($9/20min), but output quality is incomparably higher.'}
+      </TipBox>
+
       <h3>{isKo ? '역할 정의 템플릿' : 'Role Definition Template'}</h3>
       <p>{isKo ? '새 에이전트를 설계할 때 아래 템플릿을 출발점으로 사용하세요. 입출력 형식과 성공 기준을 명확히 정의할수록 에이전트 품질이 높아집니다.' : 'Use the template below as a starting point when designing a new agent. The clearer the input/output format and success criteria, the higher the agent quality.'}</p>
       <div className="code-block">

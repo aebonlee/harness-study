@@ -482,6 +482,83 @@ function StrategySection({ isKo }: { isKo: boolean }): ReactElement {
         </div>
       </div>
       <TipBox type="warning">{isKo ? '한 번에 모든 것을 바꾸려 하지 마세요. 점진적 도입이 성공률이 높습니다. 첫 번째 프로젝트에서 완벽한 Harness 활용을 목표로 삼지 말고, 배우고 개선하는 과정으로 여기세요.' : 'Don\'t try to change everything at once. Gradual adoption has a higher success rate. Don\'t aim for perfect Harness usage on the first project; treat it as a learning and improvement process.'}</TipBox>
+
+      <h2>{isKo ? 'Solo Agent vs 3-Agent Harness 비교' : 'Solo Agent vs 3-Agent Harness Comparison'}</h2>
+      <p>{isKo ? 'Anthropic의 풀스택 앱 개발 실험 결과입니다. 동일한 요구사항을 Solo(단일 AI)와 3-Agent(Planner→Generator→Evaluator)로 각각 처리했습니다.' : 'Results from Anthropic\'s full-stack app development experiment. The same requirements were processed by Solo (single AI) and 3-Agent (Planner→Generator→Evaluator).'}</p>
+      <div className="comparison-table-wrapper">
+        <table className="comparison-table">
+          <thead><tr><th>{isKo ? '항목' : 'Item'}</th><th>Solo Agent</th><th>3-Agent Harness</th></tr></thead>
+          <tbody>
+            <tr><td>{isKo ? '소요 시간' : 'Time'}</td><td>20{isKo ? '분' : 'min'}</td><td>6{isKo ? '시간' : 'hrs'}</td></tr>
+            <tr><td>{isKo ? '비용' : 'Cost'}</td><td>$9</td><td>$200</td></tr>
+            <tr><td>{isKo ? '외형' : 'Appearance'}</td><td>{isKo ? '그럴듯함' : 'Looks polished'}</td><td>{isKo ? '프로덕션급' : 'Production-grade'}</td></tr>
+            <tr><td>{isKo ? '핵심 기능' : 'Core Features'}</td><td>{isKo ? '미작동' : 'Non-functional'}</td><td>{isKo ? '16개 모두 정상' : 'All 16 working'}</td></tr>
+            <tr><td>{isKo ? '실제 사용 가능?' : 'Actually usable?'}</td><td><strong>❌</strong></td><td><strong>✅</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <TipBox type="danger">{isKo ? '비용이 20배 차이나지만, Solo는 실질적으로 쓸 수 없는 결과물입니다. "싸고 빠르게 만들었지만 작동하지 않는 앱"은 비용이 0원인 것과 같습니다. — Anthropic Engineering Blog' : 'Cost differs 20x, but Solo produces unusable results. "A cheap, fast app that doesn\'t work" costs the same as nothing. — Anthropic Engineering Blog'}</TipBox>
+
+      <h2>{isKo ? 'Sprint Contract (완료 기준 사전 합의)' : 'Sprint Contract (Pre-agreed Completion Criteria)'}</h2>
+      <p>{isKo ? '코딩을 시작하기 전에 Generator와 Evaluator가 "이번 스프린트의 목표"와 "합격 기준"을 먼저 정의합니다. 건설 현장의 시공사-감리사 관계와 동일한 원리입니다.' : 'Before coding begins, the Generator and Evaluator first define "this sprint\'s goals" and "acceptance criteria." The same principle as the contractor-inspector relationship in construction.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">sprint-contract.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "sprint": 3,
+  "goal": "사용자 인증 시스템 구현",
+  "acceptance_criteria": [
+    "이메일/비밀번호 로그인 작동",
+    "JWT 토큰 발급 및 검증",
+    "비밀번호 해싱 (bcrypt)",
+    "로그아웃 시 토큰 무효화"
+  ],
+  "evaluator_checks": [
+    "Playwright로 로그인 플로우 E2E 테스트",
+    "잘못된 비밀번호로 로그인 시도 → 거부 확인",
+    "토큰 만료 후 API 호출 → 401 확인"
+  ],
+  "max_iterations": 3,
+  "agreed_by": ["generator-agent", "evaluator-agent"]
+}`}</code></pre>
+        </div>
+      </div>
+
+      <h2>{isKo ? 'Anthropic의 3대 핵심 교훈' : 'Anthropic\'s 3 Core Lessons'}</h2>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">👁️</div>
+          <h4>{isKo ? '모델을 직접 관찰하라' : 'Observe the Model Directly'}</h4>
+          <p>{isKo ? '추측하지 말고 AI의 실제 작동 과정을 읽고 분석하세요. 원하는 결과가 나올 때까지 반복 튜닝하는 것이 핵심입니다.' : 'Don\'t guess — read and analyze the AI\'s actual process. The key is iterative tuning until desired results emerge.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">✂️</div>
+          <h4>{isKo ? '복잡한 작업은 분해·전문화하라' : 'Decompose & Specialize Complex Tasks'}</h4>
+          <p>{isKo ? '하나의 AI에게 모든 역할을 부여하지 마세요. 기획/개발/검수처럼 역할별 전문 에이전트를 두면 성능이 크게 향상됩니다.' : 'Don\'t assign all roles to one AI. Performance greatly improves with specialized agents for planning/development/QA.'}</p>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔄</div>
+          <h4>{isKo ? '새 모델 출시 시 하네스를 재점검하라' : 'Re-examine Harness on New Model Release'}</h4>
+          <p>{isKo ? '하네스의 모든 구성요소는 "모델이 혼자 못 하는 것"에 대한 가정입니다. 불필요해진 것은 빼고, 새로 가능해진 것을 위한 요소를 추가하세요.' : 'Every harness component assumes "what the model can\'t do alone." Remove what\'s no longer needed and add components for newly possible capabilities.'}</p>
+        </div>
+      </div>
+
+      <h3>{isKo ? '모델 업그레이드 시 하네스 진화 사례' : 'Harness Evolution on Model Upgrade'}</h3>
+      <p>{isKo ? 'Opus 4.5 → 4.6 업그레이드 시 Anthropic은 기존 하네스에서 3가지를 제거할 수 있었습니다.' : 'When upgrading from Opus 4.5 → 4.6, Anthropic was able to remove 3 things from the existing harness.'}</p>
+      <div className="comparison-table-wrapper">
+        <table className="comparison-table">
+          <thead><tr><th>{isKo ? '제거된 구성요소' : 'Removed Component'}</th><th>{isKo ? '이유' : 'Reason'}</th></tr></thead>
+          <tbody>
+            <tr><td>{isKo ? '스프린트 분할' : 'Sprint splitting'}</td><td>{isKo ? '4.6은 2시간 이상 연속 작업 가능' : '4.6 can work continuously for 2+ hours'}</td></tr>
+            <tr><td>Context Reset</td><td>{isKo ? '컨텍스트 불안이 크게 감소' : 'Context Anxiety greatly reduced'}</td></tr>
+            <tr><td>{isKo ? '중간 QA' : 'Intermediate QA'}</td><td>{isKo ? '매 스프린트 검수 → 최종 QA만으로 충분' : 'Per-sprint review → final QA only is sufficient'}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <TipBox type="important">{isKo ? '"흥미로운 하네스 조합의 공간은 모델이 발전해도 줄어들지 않는다. 이동할 뿐이다." — AI 기술은 프롬프트 엔지니어링에서 하네스 엔지니어링으로 진화하고 있습니다.' : '"The space of interesting harness compositions doesn\'t shrink as models improve — it just moves." — AI technology is evolving from prompt engineering to harness engineering.'}</TipBox>
     </div>
   );
 }
