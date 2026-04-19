@@ -131,6 +131,31 @@ function StrategySection({ isKo }: { isKo: boolean }): ReactElement {
           <p>{isKo ? '필요한 정보만 필요한 시점에 컨텍스트에 로드합니다. 프로그레시브 디스클로저가 이 전략을 구현합니다.' : 'Load only necessary information into context at the right time. Progressive disclosure implements this strategy.'}</p>
         </li>
       </ol>
+      <h3>{isKo ? '체크포인트 시스템 구현 예시' : 'Checkpoint System Implementation Example'}</h3>
+      <p>{isKo ? '아래는 오케스트레이터가 매 10개 작업마다 자동으로 저장하는 체크포인트 파일 구조입니다.' : 'Below is the checkpoint file structure the orchestrator automatically saves every 10 tasks.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">tmp/checkpoint.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "checkpoint_id": "cp-003",
+  "timestamp": "2026-04-19T14:22:00Z",
+  "tasks_completed": 30,
+  "tasks_remaining": 12,
+  "context_usage_pct": 68,
+  "summary": "인증 모듈 완료, 현재 대시보드 컴포넌트 작업 중",
+  "completed_outputs": [
+    "src/api/auth.ts",
+    "src/api/users.ts",
+    "src/components/Login.tsx"
+  ],
+  "next_task": "src/components/Dashboard.tsx 구현",
+  "blockers": []
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '긴 작업에서는 중간 점검 시스템을 구축하세요. 예를 들어 매 10개 작업마다 오케스트레이터가 진행 상황을 파일에 저장하고 컨텍스트를 정리합니다.' : 'Build a checkpoint system for long tasks. For example, every 10 tasks the orchestrator saves progress to a file and cleans up context.'}</TipBox>
     </div>
   );
@@ -190,6 +215,37 @@ function OptimizeSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '이진 검색 디버깅' : 'Binary Search Debugging'}</strong> — {isKo ? '오류 진단 시 전체 코드 대신 문제 섹션만 점진적으로 좁혀가며 로드합니다.' : 'When debugging errors, progressively narrow down and load only the problematic section instead of the entire code.'}</li>
         <li><strong>{isKo ? '결과 우선 로드' : 'Result-first Loading'}</strong> — {isKo ? '원본 데이터 전체 대신 처리된 결과만 컨텍스트에 유지합니다.' : 'Keep only processed results in context instead of all original data.'}</li>
       </ul>
+      <h3>{isKo ? '최적화 전/후 비교 — 에이전트 출력 구조' : 'Before/After Comparison — Agent Output Structure'}</h3>
+      <p>{isKo ? '동일한 정보를 전달하는 두 가지 출력 방식을 비교합니다. 구조화된 형식이 컨텍스트를 절반 이하로 줄입니다.' : 'Compare two output methods conveying the same information. Structured format cuts context to less than half.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '❌ 최적화 전 — 비구조화 출력 (~200 토큰)' : '❌ Before — Unstructured output (~200 tokens)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`리뷰를 완료했습니다. 파일을 검토한 결과 src/api/auth.ts 파일의
+34번째 줄에서 JWT 토큰의 만료 시간이 설정되지 않은 보안 취약점을
+발견했습니다. 이것은 높은 심각도의 문제로 즉시 수정이 필요합니다.
+수정 방법은 expiresIn 옵션에 '1h'를 추가하는 것입니다. 또한
+src/hooks/useUsers.ts의 12번째 줄에서 N+1 쿼리가 발생할 수 있는
+중간 심각도의 성능 문제도 발견되었습니다...`}</code></pre>
+        </div>
+      </div>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">{isKo ? '✅ 최적화 후 — 구조화 JSON 출력 (~80 토큰)' : '✅ After — Structured JSON output (~80 tokens)'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "score": 76,
+  "issues": [
+    {"severity":"high","file":"src/api/auth.ts","line":34,"fix":"expiresIn:'1h'"},
+    {"severity":"medium","file":"src/hooks/useUsers.ts","line":12,"fix":"select 최적화"}
+  ]
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '컨텍스트 사용량을 모니터링하세요. Claude Code에서 현재 컨텍스트 사용 비율을 확인하고, 80% 이상 시 압축이나 체인지오버를 수행합니다.' : 'Monitor context usage. Check the current context usage ratio in Claude Code and perform compression or changeover when above 80%.'}</TipBox>
     </div>
   );

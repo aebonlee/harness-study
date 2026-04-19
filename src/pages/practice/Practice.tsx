@@ -162,6 +162,42 @@ function ContentSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '편집 에이전트' : 'Editing Agent'}</strong> — {isKo ? '문체 통일, 가독성 개선, 오류 교정' : 'Style unification, readability improvement, error correction'}</li>
         <li><strong>{isKo ? 'SEO 에이전트' : 'SEO Agent'}</strong> — {isKo ? '키워드 최적화, 메타 태그 작성, 내부 링크 구성' : 'Keyword optimization, meta tag writing, internal link structure'}</li>
       </ul>
+      <h2>{isKo ? 'CLAUDE.md — 콘텐츠 제작 오케스트레이터' : 'CLAUDE.md — Content Creation Orchestrator'}</h2>
+      <p>{isKo ? '아래는 5개 에이전트로 구성된 콘텐츠 제작팀의 오케스트레이터 파일입니다. 팬아웃 패턴으로 섹션별 병렬 작성을 수행합니다.' : 'Below is the orchestrator file for a 5-agent content creation team. Performs parallel section writing with a fan-out pattern.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (콘텐츠 제작 오케스트레이터)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 콘텐츠 제작 오케스트레이터
+
+## Role
+5개 에이전트로 구성된 콘텐츠 제작팀을 조율합니다.
+리서치 → 아웃라인 → 병렬 작성 → 편집 → SEO 파이프라인을 관리합니다.
+
+## Team Members
+- research-agent  : 주제 조사, 키워드 발굴, 경쟁 분석 (Sonnet)
+- outline-agent   : 콘텐츠 구조 설계, 목차 작성 (Sonnet)
+- writing-agent-1 : 도입/본문 섹션 1~3 작성 (Sonnet)
+- writing-agent-2 : 본문 섹션 4~6/결론 작성 (Sonnet)
+- seo-agent       : 키워드 최적화, 메타 태그 작성 (Haiku)
+
+## Workflow
+1. research-agent에게 주제 조사 위임 → research-report.md 출력
+2. outline-agent에게 목차 설계 위임 → outline.md 출력
+3. writing-agent-1, writing-agent-2 동시 실행 (팬아웃)
+   - writing-agent-1: 섹션 1~3 작성
+   - writing-agent-2: 섹션 4~6 + 결론 작성
+4. 두 에이전트 결과 취합 (팬인) → draft.md 통합
+5. seo-agent에게 최적화 위임 → final.md 출력
+
+## Rules
+- 각 에이전트에게 이전 단계 결과 파일을 반드시 전달
+- 작성 에이전트 결과 취합 시 문체/용어 일관성 유지
+- SEO 점수 80 미만이면 seo-agent에게 재작업 요청`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? 'harness-for-everyone 프로젝트 자체가 Harness로 제작되었습니다. 8개의 에이전트가 개념 설계팀과 시각 제작팀으로 나뉘어 KO/EN/JP 3개 언어 자료를 동시에 제작했습니다.' : 'The harness-for-everyone project itself was created with Harness. 8 agents divided into a conceptual design team and visual production team simultaneously created materials in 3 languages: KO/EN/JP.'}</TipBox>
     </div>
   );
@@ -182,6 +218,50 @@ function ReviewSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '아키텍처 리뷰어' : 'Architecture Reviewer'}</strong> — {isKo ? 'SOLID 원칙, 디자인 패턴 준수, 결합도/응집도 검토' : 'SOLID principles, design pattern compliance, coupling/cohesion review'}</li>
         <li><strong>{isKo ? '테스트 리뷰어' : 'Test Reviewer'}</strong> — {isKo ? '테스트 커버리지, 엣지 케이스, 테스트 품질 검토' : 'Test coverage, edge cases, test quality review'}</li>
       </ul>
+      <h3>{isKo ? '표준화된 리뷰 결과 JSON 예시' : 'Standardized Review Result JSON Example'}</h3>
+      <p>{isKo ? '4개 리뷰어 에이전트가 동일한 JSON 형식으로 결과를 반환하면, 오케스트레이터가 결과를 취합하여 종합 리뷰 보고서를 생성합니다.' : 'When 4 reviewer agents return results in the same JSON format, the orchestrator aggregates them into a comprehensive review report.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">tmp/review-result.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "pr_id": "PR-142",
+  "total_score": 76,
+  "reviews": [
+    {
+      "reviewer": "security-reviewer",
+      "score": 85,
+      "issues": [
+        {
+          "severity": "high",
+          "file": "src/api/auth.ts",
+          "line": 34,
+          "message": "JWT 토큰 만료 시간 미설정",
+          "suggestion": "expiresIn: '1h' 옵션 추가"
+        }
+      ]
+    },
+    {
+      "reviewer": "performance-reviewer",
+      "score": 70,
+      "issues": [
+        {
+          "severity": "medium",
+          "file": "src/hooks/useUsers.ts",
+          "line": 12,
+          "message": "N+1 쿼리 발생 가능성",
+          "suggestion": "useQuery의 select 옵션으로 필요한 필드만 선택"
+        }
+      ]
+    }
+  ],
+  "pass": true,
+  "summary": "보안 이슈 1개 즉시 수정 필요, 성능 개선 권장"
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '리뷰 결과를 표준화된 형식(JSON)으로 출력하도록 스킬을 설계하면, 리뷰 통계를 쉽게 집계하고 코드베이스의 취약 영역을 식별할 수 있습니다.' : 'Design skills to output review results in standardized format (JSON) to easily aggregate review statistics and identify weak areas in the codebase.'}</TipBox>
     </div>
   );
@@ -258,6 +338,41 @@ function MeasureSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '비용 지표' : 'Cost Metrics'}</strong> — {isKo ? 'API 호출 비용, 모델별 비용 배분, ROI' : 'API call cost, cost distribution by model, ROI'}</li>
         <li><strong>{isKo ? '학습 지표' : 'Learning Metrics'}</strong> — {isKo ? '스킬 재사용률, 팀 만족도, 온보딩 시간' : 'Skill reuse rate, team satisfaction, onboarding time'}</li>
       </ul>
+      <h3>{isKo ? 'KPI 추적 파일 예시' : 'KPI Tracking File Example'}</h3>
+      <p>{isKo ? '오케스트레이터가 매 스프린트 종료 후 자동으로 업데이트하는 KPI 추적 파일입니다.' : 'A KPI tracking file the orchestrator automatically updates after each sprint.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">tmp/kpi-report.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "period": "2026-04 Sprint 3",
+  "productivity": {
+    "tasks_completed": 47,
+    "avg_time_per_task_min": 8.3,
+    "parallel_ratio": 0.72,
+    "automation_rate": 0.85
+  },
+  "quality": {
+    "review_pass_rate": 0.91,
+    "bug_rate_per_100_lines": 0.4,
+    "avg_review_score": 82
+  },
+  "cost": {
+    "total_api_cost_usd": 12.40,
+    "cost_per_task_usd": 0.26,
+    "model_distribution": {
+      "opus": 0.15,
+      "sonnet": 0.65,
+      "haiku": 0.20
+    }
+  },
+  "top_skills_used": ["code-review", "test-writer", "doc-generator"],
+  "improvement_notes": "리뷰어 재작업률 9% → 다음 스프린트 트리거 정밀화 필요"
+}`}</code></pre>
+        </div>
+      </div>
       <h3>{isKo ? '월간 리뷰 체크리스트' : 'Monthly Review Checklist'}</h3>
       <ul>
         <li>{isKo ? '가장 자주 사용된 스킬 TOP 3 확인' : 'Check TOP 3 most frequently used skills'}</li>
