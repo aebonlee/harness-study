@@ -128,7 +128,7 @@ function DesignSection({ isKo }: { isKo: boolean }): ReactElement {
           {/* Orchestrator */}
           <rect x="165" y="10" width="150" height="50" rx="10" fill="var(--color-primary)" opacity="0.35" stroke="var(--color-primary)" strokeWidth="2" />
           <text x="240" y="32" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--color-primary)">🎯 Orchestrator</text>
-          <text x="240" y="48" textAnchor="middle" fontSize="10" fill="var(--color-text)">claude-opus-4-6</text>
+          <text x="240" y="48" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">claude-opus-4-6</text>
           {/* Lines from orchestrator */}
           <line x1="190" y1="60" x2="70" y2="100" stroke="var(--color-primary)" strokeWidth="2" markerEnd="url(#arrow-team)" />
           <line x1="240" y1="60" x2="240" y2="100" stroke="var(--color-primary)" strokeWidth="2" markerEnd="url(#arrow-team)" />
@@ -136,15 +136,15 @@ function DesignSection({ isKo }: { isKo: boolean }): ReactElement {
           {/* Architect */}
           <rect x="10" y="105" width="120" height="45" rx="8" fill="#8b5cf6" opacity="0.3" stroke="#8b5cf6" strokeWidth="2" />
           <text x="70" y="125" textAnchor="middle" fontSize="10" fontWeight="600" fill="#8b5cf6">🏗️ Architect</text>
-          <text x="70" y="140" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '시스템 설계' : 'System Design'}</text>
+          <text x="70" y="140" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '시스템 설계' : 'System Design'}</text>
           {/* Frontend */}
           <rect x="180" y="105" width="120" height="45" rx="8" fill="#10b981" opacity="0.3" stroke="#10b981" strokeWidth="2" />
           <text x="240" y="125" textAnchor="middle" fontSize="10" fontWeight="600" fill="#10b981">💻 Frontend</text>
-          <text x="240" y="140" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? 'UI 구현' : 'UI Implement'}</text>
+          <text x="240" y="140" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? 'UI 구현' : 'UI Implement'}</text>
           {/* Backend */}
           <rect x="350" y="105" width="120" height="45" rx="8" fill="#f59e0b" opacity="0.3" stroke="#f59e0b" strokeWidth="2" />
           <text x="410" y="125" textAnchor="middle" fontSize="10" fontWeight="600" fill="#f59e0b">⚙️ Backend</text>
-          <text x="410" y="140" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? 'API 구현' : 'API Implement'}</text>
+          <text x="410" y="140" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? 'API 구현' : 'API Implement'}</text>
           {/* Lines to reviewer */}
           <line x1="70" y1="150" x2="170" y2="195" stroke="#ef4444" strokeWidth="2" markerEnd="url(#arrow-team)" />
           <line x1="240" y1="150" x2="240" y2="195" stroke="#ef4444" strokeWidth="2" markerEnd="url(#arrow-team)" />
@@ -152,9 +152,9 @@ function DesignSection({ isKo }: { isKo: boolean }): ReactElement {
           {/* Reviewer */}
           <rect x="165" y="200" width="150" height="45" rx="8" fill="#ef4444" opacity="0.3" stroke="#ef4444" strokeWidth="2" />
           <text x="240" y="220" textAnchor="middle" fontSize="10" fontWeight="600" fill="#ef4444">🔍 Reviewer</text>
-          <text x="240" y="235" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '품질 검증 → review.json' : 'Quality Check → review.json'}</text>
+          <text x="240" y="235" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '품질 검증 → review.json' : 'Quality Check → review.json'}</text>
           {/* Labels */}
-          <text x="240" y="270" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '※ 오케스트레이터가 전체 워크플로우를 조율합니다' : '※ Orchestrator coordinates the entire workflow'}</text>
+          <text x="240" y="270" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '※ 오케스트레이터가 전체 워크플로우를 조율합니다' : '※ Orchestrator coordinates the entire workflow'}</text>
         </svg>
       </div>
 

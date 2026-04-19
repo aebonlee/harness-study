@@ -160,35 +160,35 @@ function PipelineSection({ isKo }: { isKo: boolean }): ReactElement {
           {/* Stage 1 */}
           <rect x="10" y="10" width="120" height="55" rx="8" fill="var(--color-primary)" opacity="0.3" stroke="var(--color-primary)" strokeWidth="2" />
           <text x="70" y="32" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--color-primary)">🔬 Research</text>
-          <text x="70" y="52" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '조사 에이전트' : 'Research Agent'}</text>
+          <text x="70" y="52" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '조사 에이전트' : 'Research Agent'}</text>
           {/* Arrow 1→2 */}
           <line x1="130" y1="37" x2="190" y2="37" stroke="var(--color-primary)" strokeWidth="2" markerEnd="url(#arrow-pat)" />
-          <text x="160" y="28" textAnchor="middle" fontSize="10" fill="var(--color-text)" fontFamily="monospace">research.md</text>
+          <text x="160" y="28" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)" fontFamily="monospace">research.md</text>
           {/* Stage 2 */}
           <rect x="195" y="10" width="120" height="55" rx="8" fill="var(--color-primary)" opacity="0.3" stroke="var(--color-primary)" strokeWidth="2" />
           <text x="255" y="32" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--color-primary)">✍️ Write</text>
-          <text x="255" y="52" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '작성 에이전트' : 'Writing Agent'}</text>
+          <text x="255" y="52" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '작성 에이전트' : 'Writing Agent'}</text>
           {/* Arrow 2→3 */}
           <line x1="315" y1="37" x2="385" y2="37" stroke="var(--color-primary)" strokeWidth="2" markerEnd="url(#arrow-pat)" />
-          <text x="350" y="28" textAnchor="middle" fontSize="10" fill="var(--color-text)" fontFamily="monospace">draft.md</text>
+          <text x="350" y="28" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)" fontFamily="monospace">draft.md</text>
           {/* Stage 3 */}
           <rect x="390" y="10" width="120" height="55" rx="8" fill="var(--color-primary)" opacity="0.3" stroke="var(--color-primary)" strokeWidth="2" />
           <text x="450" y="32" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--color-primary)">🔍 Review</text>
-          <text x="450" y="52" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '검토 에이전트' : 'Review Agent'}</text>
+          <text x="450" y="52" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '검토 에이전트' : 'Review Agent'}</text>
           {/* Arrow down from 3 */}
           <line x1="450" y1="65" x2="450" y2="110" stroke="var(--color-primary)" strokeWidth="2" markerEnd="url(#arrow-pat)" />
-          <text x="470" y="92" textAnchor="start" fontSize="10" fill="var(--color-text)" fontFamily="monospace">review.json</text>
+          <text x="470" y="92" textAnchor="start" fontSize="10" fill="var(--color-text-primary)" fontFamily="monospace">review.json</text>
           {/* Stage 4 */}
           <rect x="390" y="115" width="120" height="55" rx="8" fill="#10b981" opacity="0.35" stroke="#10b981" strokeWidth="2" />
           <text x="450" y="137" textAnchor="middle" fontSize="11" fontWeight="700" fill="#10b981">📝 Edit</text>
-          <text x="450" y="157" textAnchor="middle" fontSize="10" fill="var(--color-text)">{isKo ? '편집 에이전트' : 'Editing Agent'}</text>
+          <text x="450" y="157" textAnchor="middle" fontSize="10" fill="var(--color-text-primary)">{isKo ? '편집 에이전트' : 'Editing Agent'}</text>
           {/* Arrow to Output */}
           <line x1="450" y1="170" x2="450" y2="215" stroke="#10b981" strokeWidth="2" markerEnd="url(#arrow-pat)" />
           {/* Output */}
           <rect x="390" y="220" width="120" height="40" rx="20" fill="#10b981" opacity="0.3" stroke="#10b981" strokeWidth="2" />
           <text x="450" y="245" textAnchor="middle" fontSize="11" fontWeight="700" fill="#10b981">{isKo ? '최종 산출물' : 'Final Output'}</text>
           {/* Side label */}
-          <text x="20" y="285" fontSize="10" fill="var(--color-text)">{isKo ? '※ 각 단계의 출력이 다음 단계의 입력이 됩니다' : '※ Each stage output becomes the next stage input'}</text>
+          <text x="20" y="285" fontSize="10" fill="var(--color-text-primary)">{isKo ? '※ 각 단계의 출력이 다음 단계의 입력이 됩니다' : '※ Each stage output becomes the next stage input'}</text>
         </svg>
       </div>
 

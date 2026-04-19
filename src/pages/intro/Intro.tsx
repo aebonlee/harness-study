@@ -319,7 +319,7 @@ function EcosystemSection({ isKo }: { isKo: boolean }): ReactElement {
           {/* L4 */}
           <rect x="50" y="10" width="400" height="50" rx="8" fill="rgba(139,92,246,0.25)" stroke="rgba(139,92,246,0.8)" strokeWidth="1.5"/>
           <text x="250" y="30" textAnchor="middle" fontSize="12" fill="#8b5cf6" fontWeight="700">L4</text>
-          <text x="250" y="46" textAnchor="middle" fontSize="13" fill="var(--color-text)" fontWeight="700">Archon — {isKo ? '런타임 설정 관리' : 'Runtime Config'}</text>
+          <text x="250" y="46" textAnchor="middle" fontSize="13" fill="var(--color-text-primary)" fontWeight="700">Archon — {isKo ? '런타임 설정 관리' : 'Runtime Config'}</text>
           {/* L3 */}
           <rect x="50" y="70" width="400" height="50" rx="8" fill="rgba(59,130,246,0.3)" stroke="rgba(59,130,246,0.8)" strokeWidth="2"/>
           <text x="250" y="90" textAnchor="middle" fontSize="12" fill="var(--color-primary)" fontWeight="700">L3</text>
@@ -327,22 +327,22 @@ function EcosystemSection({ isKo }: { isKo: boolean }): ReactElement {
           {/* L2 */}
           <rect x="50" y="130" width="400" height="50" rx="8" fill="rgba(16,185,129,0.25)" stroke="rgba(16,185,129,0.8)" strokeWidth="1.5"/>
           <text x="250" y="150" textAnchor="middle" fontSize="12" fill="#10b981" fontWeight="700">L2</text>
-          <text x="250" y="166" textAnchor="middle" fontSize="13" fill="var(--color-text)" fontWeight="700">{isKo ? '복합 스킬 — 여러 L1 조합' : 'Composite Skills — Multi-L1'}</text>
+          <text x="250" y="166" textAnchor="middle" fontSize="13" fill="var(--color-text-primary)" fontWeight="700">{isKo ? '복합 스킬 — 여러 L1 조합' : 'Composite Skills — Multi-L1'}</text>
           {/* L1 */}
           <rect x="50" y="190" width="400" height="50" rx="8" fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.8)" strokeWidth="1.5"/>
           <text x="250" y="210" textAnchor="middle" fontSize="12" fill="#f59e0b" fontWeight="700">L1</text>
-          <text x="250" y="226" textAnchor="middle" fontSize="13" fill="var(--color-text)" fontWeight="700">{isKo ? '기본 스킬 — 단일 작업 지침' : 'Basic Skills — Single Task'}</text>
+          <text x="250" y="226" textAnchor="middle" fontSize="13" fill="var(--color-text-primary)" fontWeight="700">{isKo ? '기본 스킬 — 단일 작업 지침' : 'Basic Skills — Single Task'}</text>
           {/* Arrows */}
-          <line x1="250" y1="60" x2="250" y2="70" stroke="var(--color-text)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
-          <line x1="250" y1="120" x2="250" y2="130" stroke="var(--color-text)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
-          <line x1="250" y1="180" x2="250" y2="190" stroke="var(--color-text)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
+          <line x1="250" y1="60" x2="250" y2="70" stroke="var(--color-text-primary)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
+          <line x1="250" y1="120" x2="250" y2="130" stroke="var(--color-text-primary)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
+          <line x1="250" y1="180" x2="250" y2="190" stroke="var(--color-text-primary)" strokeWidth="1.5" markerEnd="url(#arrowDown)"/>
           <defs>
             <marker id="arrowDown" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto">
-              <path d="M0,0 L8,3 L0,6 Z" fill="var(--color-text)"/>
+              <path d="M0,0 L8,3 L0,6 Z" fill="var(--color-text-primary)"/>
             </marker>
           </defs>
           {/* Caption */}
-          <text x="250" y="268" textAnchor="middle" fontSize="11" fill="var(--color-text)" fontStyle="italic">
+          <text x="250" y="268" textAnchor="middle" fontSize="11" fill="var(--color-text-primary)" fontStyle="italic">
             {isKo ? 'Harness 에코시스템 레이어 아키텍처' : 'Harness Ecosystem Layer Architecture'}
           </text>
         </svg>
