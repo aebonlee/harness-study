@@ -725,7 +725,14 @@ function StepView({
           {isKo ? step.taskKo : step.taskEn}
         </p>
         {step.code && (
-          <pre>{step.code}</pre>
+          <div className="code-block">
+            <div className="code-block-header">
+              <span className="code-block-lang">bash</span>
+            </div>
+            <div className="code-block-body">
+              <pre><code>{step.code}</code></pre>
+            </div>
+          </div>
         )}
       </div>
 

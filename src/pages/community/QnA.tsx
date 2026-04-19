@@ -3,6 +3,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../utils/supabase';
 import SEOHead from '../../components/SEOHead';
+import TipBox from '../../components/TipBox';
 import type { ReactElement } from 'react';
 
 /*
@@ -55,6 +56,7 @@ export default function QnA(): ReactElement {
   const [posts,           setPosts]           = useState<QnaPost[]>([]);
   const [loading,         setLoading]         = useState(true);
   const [showForm,        setShowForm]        = useState(false);
+  const [searchQuery,     setSearchQuery]     = useState('');
   const [expandedId,      setExpandedId]      = useState<number | null>(null);
   const [title,           setTitle]           = useState('');
   const [content,         setContent]         = useState('');
@@ -140,10 +142,45 @@ export default function QnA(): ReactElement {
           </p>
         </div>
 
+        {/* TipBox */}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <TipBox type="tip">
+            {isKo
+              ? '학습 중 궁금한 점을 질문하세요. 관리자가 직접 답변해드립니다. 검색으로 기존 답변을 먼저 확인하세요.'
+              : 'Ask any question while learning. The admin will answer directly. Use search to check existing answers first.'}
+          </TipBox>
+        </div>
+
+        {/* Search */}
+        <div className="community-search" style={{ marginBottom: '1rem' }}>
+          <div className="community-search-box">
+            <i className="fa-solid fa-magnifying-glass" style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }} />
+            <input
+              type="text"
+              className="community-input"
+              placeholder={isKo ? '질문 검색...' : 'Search questions...'}
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              style={{ border: 'none', flex: 1, padding: '0.5rem', background: 'transparent', fontSize: '0.875rem', color: 'var(--color-text)' }}
+            />
+            {searchQuery && (
+              <button
+                className="btn btn-ghost btn-sm"
+                onClick={() => setSearchQuery('')}
+                style={{ padding: '0.25rem 0.5rem', minWidth: 'auto' }}
+              >
+                <i className="fa-solid fa-xmark" />
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* Write Button */}
         <div className="community-toolbar">
           <span className="community-count">
-            {isKo ? `전체 ${posts.length}개` : `${posts.length} posts`}
+            {isKo
+              ? `${searchQuery ? '검색 결과' : '전체'} ${posts.filter(p => !searchQuery || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.content.toLowerCase().includes(searchQuery.toLowerCase())).length}개`
+              : `${searchQuery ? 'Results' : 'Total'}: ${posts.filter(p => !searchQuery || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.content.toLowerCase().includes(searchQuery.toLowerCase())).length} posts`}
           </span>
           {isLoggedIn ? (
             <button
@@ -212,7 +249,7 @@ export default function QnA(): ReactElement {
           </div>
         ) : (
           <div className="post-list">
-            {posts.map(post => (
+            {posts.filter(p => !searchQuery || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.content.toLowerCase().includes(searchQuery.toLowerCase())).map(post => (
               <div key={post.id} className={`post-card ${expandedId === post.id ? 'expanded' : ''}`}>
                 <div className="post-card-header" onClick={() => setExpandedId(expandedId === post.id ? null : post.id)}>
                   <div className="post-card-main">

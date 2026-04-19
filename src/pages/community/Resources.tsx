@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
+import TipBox from '../../components/TipBox';
 import type { ReactElement } from 'react';
 
 interface Resource {
@@ -183,6 +184,43 @@ export default function Resources(): ReactElement {
               </span>
             </button>
           ))}
+        </div>
+
+        {/* Category Overview */}
+        <div className="info-grid" style={{ marginBottom: '2rem' }}>
+          <div className="info-card">
+            <div className="info-card-icon">📖</div>
+            <div className="info-card-title">{isKo ? '공식 문서 6개' : '6 Official Docs'}</div>
+            <div className="info-card-desc">{isKo ? 'Anthropic 공식 가이드, API 레퍼런스, Hooks, MCP 통합까지 전체 공식 문서' : 'Complete official docs including Anthropic guides, API reference, Hooks, and MCP integration'}</div>
+          </div>
+          <div className="info-card">
+            <div className="info-card-icon">🎓</div>
+            <div className="info-card-title">{isKo ? '튜토리얼 3개' : '3 Tutorials'}</div>
+            <div className="info-card-desc">{isKo ? '설치부터 커스텀 커맨드, 멀티 에이전트까지 단계별 시작 가이드' : 'Step-by-step starter guides from installation to custom commands and multi-agent'}</div>
+          </div>
+          <div className="info-card">
+            <div className="info-card-icon">🐙</div>
+            <div className="info-card-title">{isKo ? 'GitHub 4개' : '4 GitHub Repos'}</div>
+            <div className="info-card-desc">{isKo ? '공식 저장소, Awesome 목록, Cookbook 레시피 등 오픈소스 리소스' : 'Official repos, Awesome lists, Cookbook recipes, and other open-source resources'}</div>
+          </div>
+          <div className="info-card">
+            <div className="info-card-icon">🌐</div>
+            <div className="info-card-title">{isKo ? '커뮤니티 6개' : '6 Community'}</div>
+            <div className="info-card-desc">{isKo ? 'Discord, Reddit, YouTube, Twitter 등 개발자 커뮤니티와 영상 자료' : 'Developer communities and video resources: Discord, Reddit, YouTube, Twitter'}</div>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+          <TipBox type="tip">
+            {isKo
+              ? '공식 문서를 먼저 읽고, GitHub 저장소에서 실제 예시를 확인한 후, 커뮤니티에서 질문하세요.'
+              : 'Read official docs first, check GitHub repos for real examples, then ask in communities.'}
+          </TipBox>
+          <TipBox type="important">
+            {isKo
+              ? '모든 리소스는 외부 사이트로 연결됩니다. 새 탭에서 열려 현재 학습을 방해하지 않습니다.'
+              : 'All resources link to external sites. They open in new tabs so your current learning is not interrupted.'}
+          </TipBox>
         </div>
 
         {/* Resource Grid */}

@@ -119,6 +119,45 @@ function DesignSection({ isKo }: { isKo: boolean }): ReactElement {
           <div className="info-card-desc">{isKo ? '향후 에이전트 추가나 역할 변경이 용이한 구조로 설계합니다.' : 'Design a structure that facilitates future agent addition or role changes.'}</div>
         </div>
       </div>
+      {/* SVG Team Structure Diagram */}
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+        <svg viewBox="0 0 480 280" style={{ maxWidth: 480, width: '100%' }} role="img" aria-label={isKo ? '에이전트 팀 구조 다이어그램' : 'Agent Team Structure Diagram'}>
+          <defs>
+            <marker id="arrow-team" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-auto"><polygon points="0 0,10 3.5,0 7" fill="var(--color-primary)" /></marker>
+          </defs>
+          {/* Orchestrator */}
+          <rect x="165" y="10" width="150" height="50" rx="10" fill="var(--color-primary)" opacity="0.2" stroke="var(--color-primary)" strokeWidth="2" />
+          <text x="240" y="32" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--color-primary)">🎯 Orchestrator</text>
+          <text x="240" y="48" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">claude-opus-4-6</text>
+          {/* Lines from orchestrator */}
+          <line x1="190" y1="60" x2="70" y2="100" stroke="var(--color-primary)" strokeWidth="1.5" markerEnd="url(#arrow-team)" />
+          <line x1="240" y1="60" x2="240" y2="100" stroke="var(--color-primary)" strokeWidth="1.5" markerEnd="url(#arrow-team)" />
+          <line x1="290" y1="60" x2="410" y2="100" stroke="var(--color-primary)" strokeWidth="1.5" markerEnd="url(#arrow-team)" />
+          {/* Architect */}
+          <rect x="10" y="105" width="120" height="45" rx="8" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" strokeWidth="1.5" />
+          <text x="70" y="125" textAnchor="middle" fontSize="10" fontWeight="600" fill="#8b5cf6">🏗️ Architect</text>
+          <text x="70" y="140" textAnchor="middle" fontSize="8" fill="var(--color-text-muted)">{isKo ? '시스템 설계' : 'System Design'}</text>
+          {/* Frontend */}
+          <rect x="180" y="105" width="120" height="45" rx="8" fill="#10b981" opacity="0.15" stroke="#10b981" strokeWidth="1.5" />
+          <text x="240" y="125" textAnchor="middle" fontSize="10" fontWeight="600" fill="#10b981">💻 Frontend</text>
+          <text x="240" y="140" textAnchor="middle" fontSize="8" fill="var(--color-text-muted)">{isKo ? 'UI 구현' : 'UI Implement'}</text>
+          {/* Backend */}
+          <rect x="350" y="105" width="120" height="45" rx="8" fill="#f59e0b" opacity="0.15" stroke="#f59e0b" strokeWidth="1.5" />
+          <text x="410" y="125" textAnchor="middle" fontSize="10" fontWeight="600" fill="#f59e0b">⚙️ Backend</text>
+          <text x="410" y="140" textAnchor="middle" fontSize="8" fill="var(--color-text-muted)">{isKo ? 'API 구현' : 'API Implement'}</text>
+          {/* Lines to reviewer */}
+          <line x1="70" y1="150" x2="170" y2="195" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#arrow-team)" />
+          <line x1="240" y1="150" x2="240" y2="195" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#arrow-team)" />
+          <line x1="410" y1="150" x2="310" y2="195" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#arrow-team)" />
+          {/* Reviewer */}
+          <rect x="165" y="200" width="150" height="45" rx="8" fill="#ef4444" opacity="0.15" stroke="#ef4444" strokeWidth="1.5" />
+          <text x="240" y="220" textAnchor="middle" fontSize="10" fontWeight="600" fill="#ef4444">🔍 Reviewer</text>
+          <text x="240" y="235" textAnchor="middle" fontSize="8" fill="var(--color-text-muted)">{isKo ? '품질 검증 → review.json' : 'Quality Check → review.json'}</text>
+          {/* Labels */}
+          <text x="240" y="270" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">{isKo ? '※ 오케스트레이터가 전체 워크플로우를 조율합니다' : '※ Orchestrator coordinates the entire workflow'}</text>
+        </svg>
+      </div>
+
       <h3>{isKo ? '팀 구성 YAML 설정 파일 예시' : 'Team Composition YAML Config Example'}</h3>
       <p>{isKo ? '아래는 5원칙을 모두 반영한 풀스택 개발팀 YAML 설정입니다. 각 에이전트의 역할, 모델, 도구, 성공 기준이 명확하게 정의됩니다.' : 'Below is a full-stack dev team YAML config reflecting all 5 principles. Each agent\'s role, model, tools, and success criteria are clearly defined.'}</p>
       <div className="code-block">
@@ -285,6 +324,7 @@ on_fail:
         </div>
       </div>
       <TipBox type="warning">{isKo ? '오류 발생 시 에이전트가 무한 재시도하지 않도록 재시도 횟수 제한을 설정하세요. 3회 실패 후 오케스트레이터에게 오류를 보고하고 대안을 요청하는 것이 좋습니다.' : 'Set retry count limits to prevent agents from infinitely retrying on error. It\'s good practice to report the error to the orchestrator and request alternatives after 3 failures.'}</TipBox>
+      <TipBox type="danger">{isKo ? '에이전트에게 rm -rf, git push --force, DROP TABLE 같은 파괴적 명령 권한을 주지 마세요. 오류 복구 과정에서 이런 명령이 실행되면 데이터 손실이 발생할 수 있습니다.' : 'Never give agents destructive command permissions like rm -rf, git push --force, or DROP TABLE. These commands during error recovery can cause data loss.'}</TipBox>
     </div>
   );
 }

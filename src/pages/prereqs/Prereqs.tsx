@@ -136,13 +136,33 @@ function ClaudeCodeSection({ isKo }: { isKo: boolean }): ReactElement {
         : 'Claude Code is an AI coding assistant developed by Anthropic — a CLI tool that runs directly in your terminal. Beyond simple code completion, it\'s an agent capable of understanding entire projects and performing complex tasks autonomously.'}</p>
 
       <h3>{isKo ? '핵심 특징' : 'Key Features'}</h3>
-      <ul>
-        <li><strong>{isKo ? '파일 시스템 접근' : 'File System Access'}</strong> — {isKo ? '프로젝트 파일을 직접 읽고, 수정하고, 생성합니다.' : 'Directly reads, modifies, and creates project files.'}</li>
-        <li><strong>{isKo ? '터미널 명령 실행' : 'Terminal Command Execution'}</strong> — {isKo ? 'bash 명령, 빌드 스크립트, 테스트를 직접 실행합니다.' : 'Executes bash commands, build scripts, and tests directly.'}</li>
-        <li><strong>{isKo ? '웹 검색' : 'Web Search'}</strong> — {isKo ? '최신 정보를 검색하여 응답에 반영합니다.' : 'Searches for up-to-date information and incorporates it into responses.'}</li>
-        <li><strong>{isKo ? '스킬(CLAUDE.md) 시스템' : 'Skills (CLAUDE.md) System'}</strong> — {isKo ? 'CLAUDE.md 파일로 작업 방식과 컨텍스트를 정의합니다.' : 'Defines working methods and context through CLAUDE.md files.'}</li>
-        <li><strong>{isKo ? 'MCP 서버 연동' : 'MCP Server Integration'}</strong> — {isKo ? 'Model Context Protocol로 외부 도구와 데이터를 연결합니다.' : 'Connects external tools and data via Model Context Protocol.'}</li>
-      </ul>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">📂</div>
+          <div className="info-card-title">{isKo ? '파일 시스템 접근' : 'File System Access'}</div>
+          <div className="info-card-desc">{isKo ? '프로젝트 파일을 직접 읽고, 수정하고, 생성합니다.' : 'Directly reads, modifies, and creates project files.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">⚡</div>
+          <div className="info-card-title">{isKo ? '터미널 명령 실행' : 'Terminal Execution'}</div>
+          <div className="info-card-desc">{isKo ? 'bash 명령, 빌드 스크립트, 테스트를 직접 실행합니다.' : 'Executes bash commands, build scripts, and tests directly.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔍</div>
+          <div className="info-card-title">{isKo ? '웹 검색' : 'Web Search'}</div>
+          <div className="info-card-desc">{isKo ? '최신 정보를 검색하여 응답에 반영합니다.' : 'Searches for up-to-date information and incorporates it into responses.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📝</div>
+          <div className="info-card-title">{isKo ? '스킬(CLAUDE.md)' : 'Skills (CLAUDE.md)'}</div>
+          <div className="info-card-desc">{isKo ? 'CLAUDE.md 파일로 작업 방식과 컨텍스트를 정의합니다.' : 'Defines working methods and context through CLAUDE.md files.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🔌</div>
+          <div className="info-card-title">{isKo ? 'MCP 서버 연동' : 'MCP Integration'}</div>
+          <div className="info-card-desc">{isKo ? 'Model Context Protocol로 외부 도구와 데이터를 연결합니다.' : 'Connects external tools and data via Model Context Protocol.'}</div>
+        </div>
+      </div>
 
       <TipBox type="important">
         {isKo
@@ -186,28 +206,33 @@ function PromptSection({ isKo }: { isKo: boolean }): ReactElement {
         : 'Harness skill files and agent instructions are all composed of prompts. Well-written prompts make agents behave as intended; poor prompts lead to unpredictable results.'}</p>
 
       <h3>{isKo ? '핵심 원칙 5가지' : '5 Core Principles'}</h3>
-      <ol>
-        <li>
-          <strong>{isKo ? '명확한 역할 정의 (Role)' : 'Clear Role Definition'}</strong>
-          <p>{isKo ? '"당신은 시니어 TypeScript 개발자입니다"처럼 에이전트의 역할을 명확하게 정의합니다. 역할이 구체적일수록 응답의 품질이 높아집니다.' : 'Define the agent\'s role clearly, e.g., "You are a senior TypeScript developer." The more specific the role, the higher the response quality.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '구체적인 지시 (Instruction)' : 'Specific Instructions'}</strong>
-          <p>{isKo ? '무엇을 해야 하는지, 어떤 형식으로 출력해야 하는지 명시합니다. 모호한 표현은 피하고 구체적인 동작을 서술합니다.' : 'Specify what to do and in what format to output. Avoid vague expressions and describe specific actions.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '출력 형식 지정 (Format)' : 'Output Format Specification'}</strong>
-          <p>{isKo ? 'JSON, Markdown, 코드 블록 등 원하는 출력 형식을 명시합니다. 에이전트 간 데이터를 주고받을 때 특히 중요합니다.' : 'Specify the desired output format: JSON, Markdown, code blocks, etc. Especially important when passing data between agents.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '예시 제공 (Example)' : 'Provide Examples'}</strong>
-          <p>{isKo ? 'Few-shot 예시를 제공하면 에이전트가 원하는 패턴을 정확히 이해합니다. 입력/출력 쌍을 2~3개 제시합니다.' : 'Providing few-shot examples helps the agent understand the desired pattern precisely. Provide 2-3 input/output pairs.'}</p>
-        </li>
-        <li>
-          <strong>{isKo ? '제약 조건 명시 (Constraint)' : 'State Constraints'}</strong>
-          <p>{isKo ? '하지 말아야 할 것, 지켜야 할 규칙을 명시합니다. 특히 Harness 에이전트가 범위를 벗어나지 않도록 경계를 설정합니다.' : 'Specify what not to do and rules to follow. Especially important for setting boundaries so Harness agents stay within scope.'}</p>
-        </li>
-      </ol>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="info-card-icon">🎭</div>
+          <div className="info-card-title">{isKo ? '역할 정의 (Role)' : 'Role Definition'}</div>
+          <div className="info-card-desc">{isKo ? '"시니어 TypeScript 개발자"처럼 에이전트의 역할을 명확하게 정의합니다. 역할이 구체적일수록 응답 품질이 높아집니다.' : 'Define agent roles clearly, e.g., "Senior TypeScript Developer." More specific roles yield higher quality responses.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📋</div>
+          <div className="info-card-title">{isKo ? '구체적 지시 (Instruction)' : 'Specific Instructions'}</div>
+          <div className="info-card-desc">{isKo ? '무엇을 해야 하는지, 어떤 형식으로 출력해야 하는지 명시합니다. 모호한 표현은 피합니다.' : 'Specify what to do and output format. Avoid vague expressions and describe specific actions.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">📄</div>
+          <div className="info-card-title">{isKo ? '출력 형식 (Format)' : 'Output Format'}</div>
+          <div className="info-card-desc">{isKo ? 'JSON, Markdown, 코드 블록 등 원하는 형식을 명시합니다. 에이전트 간 데이터 교환 시 특히 중요합니다.' : 'Specify JSON, Markdown, code blocks, etc. Especially important when passing data between agents.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">💡</div>
+          <div className="info-card-title">{isKo ? '예시 제공 (Example)' : 'Provide Examples'}</div>
+          <div className="info-card-desc">{isKo ? 'Few-shot 예시를 제공하면 에이전트가 원하는 패턴을 정확히 이해합니다. 입력/출력 쌍을 2~3개 제시합니다.' : 'Few-shot examples help the agent understand the desired pattern. Provide 2-3 input/output pairs.'}</div>
+        </div>
+        <div className="info-card">
+          <div className="info-card-icon">🚫</div>
+          <div className="info-card-title">{isKo ? '제약 조건 (Constraint)' : 'State Constraints'}</div>
+          <div className="info-card-desc">{isKo ? '하지 말아야 할 것, 지켜야 할 규칙을 명시합니다. Harness 에이전트의 범위를 설정합니다.' : 'Specify what not to do and rules. Set boundaries so agents stay within scope.'}</div>
+        </div>
+      </div>
 
       <TipBox type="tip">
         {isKo

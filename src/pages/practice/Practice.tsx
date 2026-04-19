@@ -319,6 +319,7 @@ function ReviewSection({ isKo }: { isKo: boolean }): ReactElement {
         </div>
       </div>
       <TipBox type="tip">{isKo ? '리뷰 결과를 표준화된 형식(JSON)으로 출력하도록 스킬을 설계하면, 리뷰 통계를 쉽게 집계하고 코드베이스의 취약 영역을 식별할 수 있습니다.' : 'Design skills to output review results in standardized format (JSON) to easily aggregate review statistics and identify weak areas in the codebase.'}</TipBox>
+      <TipBox type="danger">{isKo ? '자동 코드 리뷰 결과만 믿고 수동 검토를 생략하지 마세요. AI 리뷰어는 비즈니스 로직 오류, 요구사항 불일치 등 맥락적 문제를 놓칠 수 있습니다.' : 'Do not skip manual review based solely on automated results. AI reviewers can miss contextual issues like business logic errors and requirement mismatches.'}</TipBox>
     </div>
   );
 }

@@ -146,6 +146,40 @@ function ContextSection({ isKo }: { isKo: boolean }): ReactElement {
   3. context_usage > 80%면 checkpoint 저장 후 체인지오버`}</code></pre>
         </div>
       </div>
+      {/* SVG Context Window Diagram */}
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+        <svg viewBox="0 0 480 260" style={{ maxWidth: 480, width: '100%' }} role="img" aria-label={isKo ? '컨텍스트 창 구성 다이어그램' : 'Context Window Composition Diagram'}>
+          {/* Container */}
+          <rect x="10" y="10" width="460" height="220" rx="12" fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeDasharray="4 2" />
+          <text x="240" y="32" textAnchor="middle" fontSize="12" fontWeight="700" fill="var(--color-text)">{isKo ? '컨텍스트 창 (200K 토큰)' : 'Context Window (200K tokens)'}</text>
+          {/* System Prompt bar */}
+          <rect x="30" y="50" width="88" height="30" rx="6" fill="var(--color-primary)" opacity="0.3" stroke="var(--color-primary)" strokeWidth="1" />
+          <text x="74" y="69" textAnchor="middle" fontSize="9" fontWeight="600" fill="var(--color-primary)">{isKo ? '시스템 프롬프트' : 'System'}</text>
+          <text x="74" y="95" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">10%</text>
+          {/* Conversation bar */}
+          <rect x="128" y="50" width="88" height="30" rx="6" fill="#8b5cf6" opacity="0.25" stroke="#8b5cf6" strokeWidth="1" />
+          <text x="172" y="69" textAnchor="middle" fontSize="9" fontWeight="600" fill="#8b5cf6">{isKo ? '대화 이력' : 'History'}</text>
+          <text x="172" y="95" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">20%</text>
+          {/* Tool Results bar (largest) */}
+          <rect x="226" y="45" width="130" height="40" rx="6" fill="#ef4444" opacity="0.2" stroke="#ef4444" strokeWidth="2" />
+          <text x="291" y="62" textAnchor="middle" fontSize="10" fontWeight="700" fill="#ef4444">{isKo ? '🔧 도구 결과' : '🔧 Tool Results'}</text>
+          <text x="291" y="77" textAnchor="middle" fontSize="9" fill="#ef4444">40% ← {isKo ? '가장 큼' : 'Largest'}</text>
+          <text x="291" y="102" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">Read, Search...</text>
+          {/* Skill Files bar */}
+          <rect x="366" y="50" width="88" height="30" rx="6" fill="#10b981" opacity="0.25" stroke="#10b981" strokeWidth="1" />
+          <text x="410" y="69" textAnchor="middle" fontSize="9" fontWeight="600" fill="#10b981">{isKo ? '스킬 파일' : 'Skills'}</text>
+          <text x="410" y="95" textAnchor="middle" fontSize="9" fill="var(--color-text-muted)">10%</text>
+          {/* Free space */}
+          <rect x="30" y="120" width="424" height="25" rx="6" fill="var(--color-bg-secondary)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="242" y="137" textAnchor="middle" fontSize="10" fill="var(--color-text-muted)">{isKo ? '여유 공간 20% — 이 공간이 부족하면 망각 시작' : 'Free space 20% — Forgetting starts when this runs out'}</text>
+          {/* Optimization arrows */}
+          <text x="30" y="175" fontSize="10" fontWeight="600" fill="var(--color-primary)">{isKo ? '최적화 전략:' : 'Optimization:'}</text>
+          <text x="30" y="195" fontSize="9" fill="var(--color-text-muted)">{isKo ? '① 프로그레시브 디스클로저 → 스킬 파일 최소화' : '① Progressive disclosure → minimize skill files'}</text>
+          <text x="30" y="212" fontSize="9" fill="var(--color-text-muted)">{isKo ? '② 중간 요약 → 대화 이력 압축' : '② Intermediate summary → compress history'}</text>
+          <text x="30" y="229" fontSize="9" fill="var(--color-text-muted)">{isKo ? '③ 선택적 읽기 → 도구 결과 최소화' : '③ Selective reading → minimize tool results'}</text>
+        </svg>
+      </div>
+
       <TipBox type="important">{isKo ? '컨텍스트 창이 가득 차면 에이전트는 초기 내용을 "망각"하기 시작합니다. 이는 작업 품질 저하로 이어집니다. Harness의 스킬 시스템은 이 문제를 해결하기 위해 설계되었습니다.' : 'When the context window fills up, the agent starts "forgetting" early content, leading to quality degradation. Harness\'s skill system is designed to solve this problem.'}</TipBox>
     </div>
   );

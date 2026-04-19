@@ -243,6 +243,7 @@ echo "✅ 하네스 구조 생성 완료"`}</pre>
           </table>
         </div>
       </section>
+      <TipBox type="danger">{isKo ? '.claude/ 디렉토리를 Git에 커밋할 때 API 키, 비밀번호, 환경 변수 등 민감 정보가 포함되지 않았는지 반드시 확인하세요. .gitignore에 .env와 credentials 파일을 추가하세요.' : 'When committing .claude/ to Git, always verify no API keys, passwords, or env vars are included. Add .env and credentials files to .gitignore.'}</TipBox>
     </article>
   );
 }

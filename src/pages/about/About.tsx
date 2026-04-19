@@ -1,6 +1,7 @@
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import SEOHead from '../../components/SEOHead';
+import TipBox from '../../components/TipBox';
 import type { ReactElement } from 'react';
 
 const LEARNING_PATH = [
@@ -144,14 +145,12 @@ export default function About(): ReactElement {
               {isKo ? '학습 효율을 높이는 다양한 기능을 제공합니다.' : 'A range of features to maximize your learning efficiency.'}
             </p>
           </div>
-          <div className="features-grid">
+          <div className="info-grid">
             {FEATURES.map((f, i) => (
-              <div key={i} className="feature-card">
-                <div className="feature-icon">
-                  <i className={`fa-solid ${f.icon}`} />
-                </div>
-                <h3 className="feature-title">{isKo ? f.ko : f.en}</h3>
-                <p className="feature-desc">{isKo ? f.descKo : f.descEn}</p>
+              <div key={i} className="info-card">
+                <div className="info-card-icon"><i className={`fa-solid ${f.icon}`} /></div>
+                <div className="info-card-title">{isKo ? f.ko : f.en}</div>
+                <div className="info-card-desc">{isKo ? f.descKo : f.descEn}</div>
               </div>
             ))}
           </div>
@@ -271,6 +270,29 @@ Orchestrator coordinating a multi-agent team.
 }</code></pre>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tips */}
+      <section className="section" style={{ padding: '3rem 0' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+            <TipBox type="tip">
+              {isKo
+                ? '처음이라면 기초 개념 → 에이전트 → 패턴 순서로 학습하세요. 각 가이드는 이전 단계의 지식을 기반으로 구성되어 있습니다.'
+                : 'If you\'re new, follow: Basics → Agents → Patterns. Each guide builds upon knowledge from the previous step.'}
+            </TipBox>
+            <TipBox type="important">
+              {isKo
+                ? '모든 가이드와 튜토리얼은 한국어/영어 동시 지원됩니다. 상단의 언어 토글로 전환하세요.'
+                : 'All guides and tutorials support both Korean and English. Use the language toggle at the top to switch.'}
+            </TipBox>
+            <TipBox type="warning">
+              {isKo
+                ? 'Harness 실습을 위해 Claude Code(npm install -g @anthropic-ai/claude-code)가 사전 설치되어 있어야 합니다.'
+                : 'Claude Code must be pre-installed (npm install -g @anthropic-ai/claude-code) for Harness practice.'}
+            </TipBox>
           </div>
         </div>
       </section>

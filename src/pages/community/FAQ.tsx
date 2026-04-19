@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
+import TipBox from '../../components/TipBox';
 import type { ReactElement } from 'react';
 
 interface FaqItem {
@@ -395,6 +396,43 @@ export default function FAQ(): ReactElement {
               </span>
             </button>
           ))}
+        </div>
+
+        {/* Category Summary */}
+        <div className="info-grid" style={{ marginBottom: '2rem' }}>
+          <div className="info-card">
+            <div className="info-card-icon">🚀</div>
+            <div className="info-card-title">{isKo ? '기초 질문' : 'Basics'}</div>
+            <div className="info-card-desc">{isKo ? 'Harness의 개념, CLAUDE.md와 commands/ 차이, 오케스트레이터 역할 등 핵심 개념 질문' : 'Core concept questions about Harness, CLAUDE.md vs commands/, orchestrator roles'}</div>
+          </div>
+          <div className="info-card">
+            <div className="info-card-icon">📝</div>
+            <div className="info-card-title">{isKo ? '스킬 설계' : 'Skill Design'}</div>
+            <div className="info-card-desc">{isKo ? '스킬 파일 작성 방법, 트리거 설정, 조건 분기, 프로젝트 간 공유 등 실전 질문' : 'Practical questions about writing skill files, triggers, branching, and cross-project sharing'}</div>
+          </div>
+          <div className="info-card">
+            <div className="info-card-icon">👥</div>
+            <div className="info-card-title">{isKo ? '팀 & 패턴' : 'Team & Patterns'}</div>
+            <div className="info-card-desc">{isKo ? '멀티 에이전트 팀 구성, 패턴 선택 기준, 팬아웃 결과 취합 등 아키텍처 질문' : 'Architecture questions about multi-agent teams, pattern selection, and fan-out result aggregation'}</div>
+          </div>
+          <div className="info-card">
+            <div className="info-card-icon">💡</div>
+            <div className="info-card-title">{isKo ? '기타 & 운영' : 'Other & Ops'}</div>
+            <div className="info-card-desc">{isKo ? '팀 공유 방법, 구축 소요 시간, API 비용 절감, 반복 실수 해결 등 운영 질문' : 'Operational questions about team sharing, build time, API cost reduction, and fixing repeated mistakes'}</div>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+          <TipBox type="tip">
+            {isKo
+              ? '카테고리 필터를 사용하면 관심 분야의 질문만 빠르게 찾을 수 있습니다.'
+              : 'Use category filters to quickly find questions in your area of interest.'}
+          </TipBox>
+          <TipBox type="important">
+            {isKo
+              ? '코드 예제가 포함된 답변은 실제 프로젝트에 바로 적용할 수 있도록 작성되었습니다.'
+              : 'Answers with code examples are written to be directly applicable to real projects.'}
+          </TipBox>
         </div>
 
         {/* Accordion */}
