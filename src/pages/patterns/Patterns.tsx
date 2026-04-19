@@ -320,6 +320,38 @@ function ExpertSection({ isKo }: { isKo: boolean }): ReactElement {
         <li>{isKo ? '고객 문의를 담당 부서에 라우팅하는 지원 시스템' : 'Support system routing customer queries to responsible departments'}</li>
         <li>{isKo ? '문서 유형에 따른 전문 처리 (법률/기술/마케팅 문서)' : 'Specialized processing by document type (legal/technical/marketing)'}</li>
       </ul>
+      <h3>{isKo ? '전문가 풀 라우팅 예시' : 'Expert Pool Routing Example'}</h3>
+      <p>{isKo ? '코드 리뷰 요청이 들어오면 오케스트레이터가 파일 확장자를 보고 적합한 전문가에게 자동 라우팅합니다.' : 'When a code review request comes in, the orchestrator reads the file extension and auto-routes to the appropriate specialist.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (전문가 풀 오케스트레이터)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 코드 리뷰 전문가 풀 오케스트레이터
+
+## Role
+파일 유형을 분석하여 적합한 전문가 에이전트에게 코드 리뷰를 위임합니다.
+
+## Expert Pool
+- ts-expert    : TypeScript/React 전문가 (*.ts, *.tsx)
+- python-expert: Python/Django 전문가 (*.py)
+- sql-expert   : SQL/DB 스키마 전문가 (*.sql, migrations/)
+- infra-expert : Docker/CI/CD 전문가 (Dockerfile, *.yml)
+- security-expert: 보안 취약점 전문가 (모든 파일)
+
+## Routing Logic
+1. 변경된 파일 목록을 확인한다
+2. 파일 확장자 및 경로를 기반으로 전문가를 선택한다:
+   - *.ts / *.tsx  → ts-expert
+   - *.py          → python-expert
+   - *.sql         → sql-expert
+   - Dockerfile    → infra-expert
+3. 선택된 전문가에게 Task 도구로 리뷰를 위임한다
+4. 모든 리뷰어 결과를 취합하여 종합 점수를 산출한다
+5. security-expert는 항상 실행한다 (모든 변경사항 대상)`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '전문가 풀의 각 에이전트는 자신의 전문 영역을 명확히 정의한 프로필을 가져야 합니다. 오케스트레이터가 이 프로필을 기반으로 최적의 에이전트를 선택합니다.' : 'Each agent in the expert pool should have a clearly defined profile of their specialty. The orchestrator selects the optimal agent based on this profile.'}</TipBox>
     </div>
   );
@@ -340,6 +372,44 @@ function ProducerSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '구체성' : 'Specificity'}</strong> — {isKo ? '추상적인 "좋음/나쁨" 대신 구체적인 기준 제시' : 'Specific criteria instead of abstract "good/bad"'}</li>
         <li><strong>{isKo ? '실행 가능성' : 'Actionability'}</strong> — {isKo ? '피드백이 구체적인 개선 행동으로 이어질 수 있어야 함' : 'Feedback should lead to concrete improvement actions'}</li>
       </ul>
+      <h3>{isKo ? '생산자-검토자 재시도 사이클 예시' : 'Producer-Reviewer Retry Cycle Example'}</h3>
+      <p>{isKo ? '검토자가 점수를 낮게 주면 생산자에게 재작업을 요청하는 사이클 구조입니다. 최대 3회 반복 후 최종 결과를 반환합니다.' : 'A cycle where the reviewer requests rework from the producer for low scores. Returns final result after max 3 iterations.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (생산자-검토자 오케스트레이터)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 생산자-검토자 오케스트레이터
+
+## Role
+생산자 에이전트와 검토자 에이전트를 조율하여
+고품질 산출물이 나올 때까지 반복 사이클을 관리합니다.
+
+## Agents
+- producer-agent : 코드/문서 초안 생성 (Sonnet)
+- reviewer-agent : 품질·정확도 검토 후 score 반환 (Sonnet)
+
+## Cycle (최대 3회 반복)
+
+### Round 1
+1. producer-agent에게 초안 작성 요청 → tmp/draft.md 저장
+2. reviewer-agent에게 검토 요청 → { score, feedback } 반환
+3. score ≥ 80이면 → 완료, output/final.md로 이동
+4. score < 80이면 → feedback을 producer-agent에게 전달, Round 2
+
+### Round 2
+1. producer-agent에게 feedback 기반 개선 요청
+2. reviewer-agent 재검토
+3. score ≥ 70이면 → 완료 (기준 완화)
+4. score < 70이면 → Round 3
+
+### Round 3 (최종)
+1. 마지막 개선 시도
+2. 점수와 관계없이 현재 결과를 최종 산출물로 사용
+3. output/final.md 저장 + 리뷰 이력 output/review-log.json에 기록`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">{isKo ? '생산자-검토자 패턴은 Harness A/B 테스트에서 가장 큰 품질 개선을 보인 패턴입니다. 특히 코드 품질과 문서 완성도 측면에서 탁월한 효과를 발휘합니다.' : 'The Producer-Reviewer pattern showed the largest quality improvement in Harness A/B tests, especially in code quality and documentation completeness.'}</TipBox>
     </div>
   );
@@ -360,6 +430,49 @@ function SupervisorSection({ isKo }: { isKo: boolean }): ReactElement {
         <li>{isKo ? '오류 복구가 중요한 미션 크리티컬 워크플로우' : 'Mission-critical workflows where error recovery is important'}</li>
         <li>{isKo ? '동적으로 우선순위가 변경되는 작업 환경' : 'Task environments where priorities change dynamically'}</li>
       </ul>
+      <h3>{isKo ? '감독자 모니터링 상태 파일 예시' : 'Supervisor Monitoring State File Example'}</h3>
+      <p>{isKo ? '감독자 에이전트가 작업자들의 상태를 주기적으로 기록하는 파일입니다. 이상 감지 시 자동 개입 트리거로 활용합니다.' : 'A file where the supervisor agent periodically records worker status. Used as an auto-intervention trigger on anomaly detection.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">json</span>
+          <span className="code-block-filename">tmp/supervisor-state.json</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`{
+  "supervisor": "build-supervisor",
+  "last_check": "2026-04-19T15:10:00Z",
+  "workers": [
+    {
+      "id": "frontend-agent",
+      "status": "running",
+      "task": "Dashboard 컴포넌트 구현",
+      "progress_pct": 60,
+      "elapsed_min": 12,
+      "timeout_min": 30,
+      "errors": 0
+    },
+    {
+      "id": "backend-agent",
+      "status": "stuck",
+      "task": "Auth API 구현",
+      "progress_pct": 40,
+      "elapsed_min": 28,
+      "timeout_min": 30,
+      "errors": 2,
+      "last_error": "TypeScript strict mode 타입 오류"
+    }
+  ],
+  "interventions": [
+    {
+      "time": "2026-04-19T15:08:00Z",
+      "target": "backend-agent",
+      "action": "TypeScript 오류 힌트 제공",
+      "result": "진행 재개"
+    }
+  ]
+}`}</code></pre>
+        </div>
+      </div>
       <TipBox type="warning">{isKo ? '감독자 패턴은 시스템 복잡도를 높입니다. 단순한 작업에는 오버엔지니어링이 될 수 있으므로, 정말 감독이 필요한 복잡한 시나리오에서만 사용하세요.' : 'The supervisor pattern increases system complexity. It can be over-engineering for simple tasks, so only use it for complex scenarios that truly need supervision.'}</TipBox>
     </div>
   );
@@ -380,6 +493,38 @@ function HierarchicalSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '명확한 위임 경계' : 'Clear Delegation Boundaries'}</strong> — {isKo ? '각 계층이 무엇을 담당하는지 명확히 정의합니다.' : 'Clearly define what each layer is responsible for.'}</li>
         <li><strong>{isKo ? '결과 집계 전략' : 'Result Aggregation Strategy'}</strong> — {isKo ? '하위 계층의 결과를 어떻게 상위 계층으로 집계할지 사전 정의합니다.' : 'Pre-define how to aggregate lower-layer results to upper layers.'}</li>
       </ul>
+      <h3>{isKo ? '계층적 위임 구조 예시 — 대규모 웹앱 개발' : 'Hierarchical Delegation Structure — Large-scale Web App'}</h3>
+      <p>{isKo ? '최상위 오케스트레이터가 두 중간 관리자에게 위임하고, 각 관리자가 다시 작업자들에게 위임하는 2계층 구조입니다.' : 'A 2-level structure where the top orchestrator delegates to two managers, each of whom delegates to workers.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">text</span>
+          <span className="code-block-filename">{isKo ? '2계층 위임 구조도' : '2-Level Delegation Diagram'}</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`                  ┌────────────────────┐
+                  │  최상위 오케스트레이터  │  (Opus)
+                  │  Top Orchestrator   │  전체 목표 관리
+                  └────────┬───────────┘
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+              ▼                         ▼
+  ┌───────────────────┐     ┌───────────────────┐
+  │  프론트엔드 관리자  │     │  백엔드 관리자      │  (Sonnet)
+  │  Frontend Manager │     │  Backend Manager  │
+  └──┬────────────────┘     └──┬────────────────┘
+     │                         │
+  ┌──┴──────┐           ┌──────┴─────┐
+  │         │           │            │
+  ▼         ▼           ▼            ▼
+┌──────┐ ┌──────┐  ┌──────┐    ┌──────┐
+│UI    │ │State │  │API   │    │DB    │  (Haiku)
+│Agent │ │Agent │  │Agent │    │Agent │
+└──────┘ └──────┘  └──────┘    └──────┘
+
+※ 각 관리자는 자신의 팀에 팬아웃 패턴을 적용하여 병렬 처리`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">{isKo ? '계층적 위임 패턴은 팬아웃 패턴과 결합하면 매우 강력합니다. 중간 관리자 계층에서 팬아웃을 사용하여 병렬 처리를 극대화할 수 있습니다.' : 'Hierarchical delegation combined with the fan-out pattern is very powerful. Using fan-out at the middle manager layer maximizes parallel processing.'}</TipBox>
     </div>
   );

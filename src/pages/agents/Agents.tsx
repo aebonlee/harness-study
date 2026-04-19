@@ -160,6 +160,34 @@ function OrchestratorSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '실행 순서 관리(Execution Order)' : 'Execution Order Management'}</strong> — {isKo ? '의존성을 고려한 최적의 실행 순서를 결정합니다.' : 'Determines the optimal execution order considering dependencies.'}</li>
         <li><strong>{isKo ? '결과 통합(Result Integration)' : 'Result Integration'}</strong> — {isKo ? '각 에이전트의 결과를 수집하고 통합하여 최종 산출물을 생성합니다.' : "Collects and integrates each agent's results to produce the final output."}</li>
       </ol>
+      <h3>{isKo ? '오케스트레이터 CLAUDE.md 최소 예시' : 'Minimal Orchestrator CLAUDE.md Example'}</h3>
+      <p>{isKo ? '아래는 가장 간단한 형태의 오케스트레이터 파일입니다. Role과 Workflow 두 섹션만으로 에이전트 팀을 조율하는 최소 구조입니다.' : 'Below is the simplest form of an orchestrator file. A minimal structure coordinating an agent team with just two sections: Role and Workflow.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (최소 오케스트레이터)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# 오케스트레이터
+
+## Role
+research-agent와 writing-agent를 조율하여
+요청된 주제의 블로그 포스트를 완성합니다.
+
+## Workflow
+1. research-agent에게 주제 조사를 위임한다
+   - 입력: $ARGUMENTS (주제)
+   - 결과: tmp/research.md에 저장
+2. writing-agent에게 초안 작성을 위임한다
+   - 입력: tmp/research.md
+   - 결과: output/post.md에 저장
+3. 완성된 포스트 경로를 사용자에게 보고한다
+
+## Tools
+- Task  (서브에이전트 실행)
+- Read  (결과 파일 확인)`}</code></pre>
+        </div>
+      </div>
       <TipBox type="tip">
         {isKo ? '오케스트레이터는 "독재자"가 아닌 "조율자"입니다. 각 에이전트의 전문성을 존중하고, 불필요하게 개입하지 않습니다. 이 원칙이 팀의 효율성을 높입니다.' : 'The orchestrator is a "coordinator," not a "dictator." It respects each agent\'s expertise and avoids unnecessary intervention. This principle enhances team efficiency.'}
       </TipBox>
@@ -184,6 +212,78 @@ function SubagentsSection({ isKo }: { isKo: boolean }): ReactElement {
         <li><strong>{isKo ? '테스트 에이전트(Test Agent)' : 'Test Agent'}</strong> — {isKo ? '코드 테스트 작성 및 실행을 담당합니다.' : 'Handles test writing and execution.'}</li>
         <li><strong>{isKo ? '배포 에이전트(Deploy Agent)' : 'Deploy Agent'}</strong> — {isKo ? 'CI/CD 파이프라인 관리와 배포를 담당합니다.' : 'Manages CI/CD pipelines and deployments.'}</li>
       </ul>
+      <h3>{isKo ? '서브에이전트 스킬 파일 및 호출 예시' : 'Subagent Skill File & Invocation Example'}</h3>
+      <p>{isKo ? '아래는 research-agent 스킬 파일과 오케스트레이터가 이를 호출하는 CLAUDE.md 패턴입니다. Task 도구에 prompt와 allowed_tools를 명시하여 서브에이전트의 동작 범위를 제한합니다.' : 'Below is the research-agent skill file and the CLAUDE.md pattern for the orchestrator to invoke it. Specify prompt and allowed_tools in the Task tool to limit the subagent\'s scope.'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/commands/research-agent.md</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`# research-agent
+
+## Role
+주어진 주제를 웹 검색으로 조사하고
+핵심 내용을 구조화된 마크다운으로 정리합니다.
+
+## Tools
+- WebSearch  (최신 정보 검색)
+- WebFetch   (페이지 본문 추출)
+- Write      (결과 파일 저장)
+
+## Process
+1. $ARGUMENTS에서 조사 주제 파악
+2. 웹 검색으로 최신 자료 3-5건 수집
+3. 각 출처에서 핵심 내용 추출
+4. tmp/research.md에 저장:
+   - 요약 (3문단)
+   - 핵심 통계/수치
+   - 참고 링크
+
+## Output
+- 파일: tmp/research.md
+- 완료 메시지: "research complete: tmp/research.md"`}</code></pre>
+        </div>
+      </div>
+      <p>{isKo ? '오케스트레이터 CLAUDE.md에서 위 서브에이전트를 Task 도구로 호출하는 방법입니다:' : 'How to invoke the above subagent with the Task tool in orchestrator CLAUDE.md:'}</p>
+      <div className="code-block">
+        <div className="code-block-header">
+          <span className="code-block-lang">markdown</span>
+          <span className="code-block-filename">.claude/CLAUDE.md (오케스트레이터 — Task 호출 패턴)</span>
+        </div>
+        <div className="code-block-body">
+          <pre><code>{`## Workflow
+
+### Step 1 — research-agent 호출
+Task 도구를 사용하여 서브에이전트를 실행합니다:
+
+prompt: |
+  .claude/commands/research-agent.md 스킬을 실행하세요.
+  조사 주제: $ARGUMENTS
+
+allowed_tools:
+  - WebSearch
+  - WebFetch
+  - Write
+
+subagent_type: general-purpose
+
+# 결과 확인: tmp/research.md 파일 읽기
+
+### Step 2 — writing-agent 호출
+prompt: |
+  .claude/commands/writing-agent.md 스킬을 실행하세요.
+  참고 자료: tmp/research.md (Read 도구로 먼저 읽을 것)
+
+allowed_tools:
+  - Read
+  - Write
+
+subagent_type: general-purpose
+
+# 결과 확인: output/post.md 파일 읽기`}</code></pre>
+        </div>
+      </div>
       <TipBox type="important">
         {isKo ? '서브에이전트는 독립적으로 실행되므로 자신만의 컨텍스트 창을 가집니다. 이는 전체 팀이 매우 큰 작업도 처리할 수 있게 해주는 핵심 기능입니다.' : 'Subagents run independently with their own context windows. This is a key feature allowing the entire team to handle very large tasks.'}
       </TipBox>
