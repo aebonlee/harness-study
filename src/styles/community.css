@@ -328,7 +328,33 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: 1.5;
+  margin-bottom: 0.25rem;
+}
+
+.resource-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   flex: 1;
+}
+
+.resource-bullets li {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.resource-bullets li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 .resource-link {

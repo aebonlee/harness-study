@@ -75,6 +75,85 @@ export default function Home(): ReactElement {
         </div>
       </section>
 
+      {/* Code Preview */}
+      <section className="section" style={{ padding: '5rem 0', background: 'var(--color-bg-secondary)' }}>
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">{isKo ? '코드로 바로 확인하세요' : 'See It in Code'}</h2>
+            <p className="section-subtitle">
+              {isKo
+                ? '개념 설명이 아닌 실제 동작하는 코드 예제로 바로 배웁니다.'
+                : 'Learn directly from working code examples, not abstract descriptions.'}
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+            <div>
+              <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {isKo ? '① 스킬 파일 구조' : '① Skill File Structure'}
+              </h3>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-block-lang">markdown</span>
+                  <span style={{ fontSize: '0.7rem', color: '#64748B', fontFamily: 'var(--font-mono)' }}>.claude/commands/review.md</span>
+                </div>
+                <div className="code-block-body">
+                  <pre><code>{`## 트리거
+/review 또는 "코드 리뷰해줘"
+
+## 단계
+1. Read로 변경 파일 전체 확인
+2. TypeScript 오류 및 보안 이슈 분석
+3. Critical > Major > Minor 순 리포트`}</code></pre>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {isKo ? '② 팬아웃 패턴' : '② Fan-out Pattern'}
+              </h3>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-block-lang">yaml</span>
+                  <span style={{ fontSize: '0.7rem', color: '#64748B', fontFamily: 'var(--font-mono)' }}>CLAUDE.md 오케스트레이터</span>
+                </div>
+                <div className="code-block-body">
+                  <pre><code>{`# 동시 실행 (병렬)
+Task 1: research → 섹션 A 조사
+Task 2: writing  → 섹션 B 작성
+Task 3: seo      → 메타 최적화
+
+# 결과 취합 (순차)
+모든 Task 완료 → 통합 → 검토`}</code></pre>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {isKo ? '③ 팀 에이전트 설정' : '③ Team Agent Config'}
+              </h3>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-block-lang">yaml</span>
+                  <span style={{ fontSize: '0.7rem', color: '#64748B', fontFamily: 'var(--font-mono)' }}>.claude/team-config.yaml</span>
+                </div>
+                <div className="code-block-body">
+                  <pre><code>{`agents:
+  - name: architect
+    model: claude-opus-4
+    role: 시스템 설계
+  - name: frontend
+    model: claude-sonnet-4
+    role: UI 구현
+  - name: reviewer
+    model: claude-haiku-4
+    role: 코드 검토`}</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Learning Paths */}
       <section className="paths-section">
         <div className="container">
@@ -105,16 +184,20 @@ export default function Home(): ReactElement {
         <div className="container">
           <div className="stats-grid">
             <div className="stat-item">
-              <div className="stat-number">7+</div>
+              <div className="stat-number">8</div>
               <div className="stat-label">{t('stats.guides')}</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">42+</div>
+              <div className="stat-number">48+</div>
               <div className="stat-label">{t('stats.topics')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-number">6</div>
               <div className="stat-label">{t('stats.patterns')}</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">50+</div>
+              <div className="stat-label">{isKo ? '코드 예제' : 'Code Examples'}</div>
             </div>
           </div>
         </div>

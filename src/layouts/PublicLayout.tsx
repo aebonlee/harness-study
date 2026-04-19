@@ -3,6 +3,18 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import type { ReactElement } from 'react';
+import hljs from 'highlight.js/lib/core';
+import yamlLang from 'highlight.js/lib/languages/yaml';
+import jsonLang from 'highlight.js/lib/languages/json';
+import bashLang from 'highlight.js/lib/languages/bash';
+import markdownLang from 'highlight.js/lib/languages/markdown';
+import 'highlight.js/styles/github-dark.min.css';
+
+hljs.registerLanguage('yaml', yamlLang);
+hljs.registerLanguage('json', jsonLang);
+hljs.registerLanguage('bash', bashLang);
+hljs.registerLanguage('shell', bashLang);
+hljs.registerLanguage('markdown', markdownLang);
 
 const Home      = lazy(() => import('../pages/Home'));
 const Login     = lazy(() => import('../pages/Login'));
@@ -63,8 +75,30 @@ function useCopyButtons(): void {
   }, [location.pathname]);
 }
 
+function useHighlight(): void {
+  const location = useLocation();
+  useEffect(() => {
+    const highlight = () => {
+      document.querySelectorAll('.code-block').forEach(block => {
+        const langEl = block.querySelector('.code-block-lang');
+        const codeEl = block.querySelector('.code-block-body pre code') as HTMLElement | null;
+        if (!codeEl || codeEl.dataset.highlighted) return;
+        const lang = langEl?.textContent?.trim().toLowerCase() ?? '';
+        const SUPPORTED = ['yaml', 'json', 'bash', 'shell', 'markdown'];
+        if (SUPPORTED.includes(lang)) {
+          codeEl.className = `language-${lang}`;
+          hljs.highlightElement(codeEl);
+        }
+      });
+    };
+    const timer = setTimeout(highlight, 250);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+}
+
 export default function PublicLayout(): ReactElement {
   useCopyButtons();
+  useHighlight();
   return (
     <div className="site-wrapper">
       <Navbar />

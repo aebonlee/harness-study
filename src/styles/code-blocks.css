@@ -301,3 +301,10 @@ pre.simple {
   line-height: 1.6;
   opacity: 0.9;
 }
+
+/* ---- Highlight.js Integration ---- */
+.code-block-body pre code.hljs {
+  background: transparent;
+  color: #E2E8F0;
+  padding: 0;
+}
