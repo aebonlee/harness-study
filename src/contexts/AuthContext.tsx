@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../utils/supabase';
+import PaymentNudgePopup from '../components/PaymentNudgePopup';
 
 interface AuthContextValue {
   user: User | null;
@@ -99,6 +100,9 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
       signOut,
     }}>
       {children}
+      {!!user && (
+        <PaymentNudgePopup user={user} siteSlug="harness-study" />
+      )}
     </AuthContext.Provider>
   );
 }
