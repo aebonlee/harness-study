@@ -1,7 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../utils/supabase';
+import { useIdleTimeout } from '../hooks/useIdleTimeout';
+import ProfileCompleteModal from '../components/ProfileCompleteModal';
 import PaymentNudgePopup from '../components/PaymentNudgePopup';
 
 interface AuthContextValue {
@@ -87,11 +89,35 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
     await supabase.auth.signOut();
   };
 
+  const [_userProfile, _setUserProfile] = useState<any>(null);
+  const _loadUserProfile = useCallback(async (uid: string) => {
+    try {
+      const { data } = await supabase.from('user_profiles').select('name,phone').eq('id', uid).maybeSingle();
+      _setUserProfile(data);
+    } catch { _setUserProfile(null); }
+  }, []);
+
+  useEffect(() => {
+    if (user) _loadUserProfile(user.id);
+  }, [user, _loadUserProfile]);
+
+  const refreshProfile = useCallback(async () => {
+    if (user) await _loadUserProfile(user.id);
+  }, [user, _loadUserProfile]);
+
+  const isLoggedIn = !!user;
+  const needsProfileCompletion = isLoggedIn && !!_userProfile && !_userProfile.name;
+
+  useIdleTimeout({
+    enabled: isLoggedIn,
+    onTimeout: () => { supabase.auth.signOut(); },
+  });
+
   return (
     <AuthContext.Provider value={{
       user,
       session,
-      isLoggedIn: !!user,
+      isLoggedIn,
       isLoading,
       authError,
       clearAuthError,
@@ -100,7 +126,10 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
       signOut,
     }}>
       {children}
-      {!!user && (
+      {needsProfileCompletion && user && (
+        <ProfileCompleteModal user={user} onComplete={refreshProfile} />
+      )}
+      {isLoggedIn && user && !needsProfileCompletion && (
         <PaymentNudgePopup user={user} siteSlug="harness-study" />
       )}
     </AuthContext.Provider>
